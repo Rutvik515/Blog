@@ -23,4 +23,5 @@ import Mainlayout from './MainLayout.vue';
 .text{
     text-decoration: none;
 }
+
 </style>
