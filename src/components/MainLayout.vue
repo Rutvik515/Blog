@@ -8,13 +8,13 @@
         </slot>
         <slot name="detail">
             <div v-if="$slots.detail">
-            <h1>defaudeataikllt hero</h1>
+            <h1> default hero</h1>
         </div>
         </slot>
 
         <slot name="footer">
             <div v-if="$slots.footer">
-            <h1>defaudeataikllt footer</h1>
+            <h1> default footer</h1>
         </div>
         </slot>
 

@@ -43,59 +43,72 @@
                         </a>
                         <h5 class="text-uppercase text-light">octal infotech</h5>
                     </div>
-                    <a class="navbar-brand" href="#">
-                        <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill">
-                    </a>
+                    <div>
+                        <button class="navbar-brand border-0 bg-none" @click="profile" href="#">
+                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                        </button>
+                        <div>
+                        <div v-if="isOpen" class="dropdown  w-100 h-100">
+                            <div>
+                                <div class="dropdown">
+                                    <img src="https://ca.slack-edge.com/T04HNPJ1PV3-U04L50M135K-e9c7087e3b5a-512" alt="" class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal">Profile</a></li>
+                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModalpassword">Change Password</a></li>
+                                        <li>
+                                            <router-link to="/login" @click.prevent="logOut">Logout</router-link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </nav>
             </div>
-            <div class="container-fluid h-101 ">
-                <nav class="navbar">
-                    <ul class="navbar-nav hover-bg">
-                        <div >
-                        <router-link to="/layout/home" class="nav-item text-decoration-none text-start">
-                            <li class="nav-link " href="#">  <i class="fa-solid fa-house" style="color: none;"></i>&nbsp;&nbsp;Home </li>
-                        </router-link>
-                    </div>
-                    <hr>
-                    <div>
-                        <router-link to="/layout/categories" class="nav-item text-decoration-none float-lg-start">
-                            <li class="nav-link " href="#"><i class="fa-solid fa-graduation-cap "></i>&nbsp;&nbsp;Categories </li>
-                        </router-link>
-                    </div>
-                    <hr>
-                    <div>
-                        <router-link to="/layout/tag" class="nav-item text-decoration-none float-lg-start">
-                            <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Tag </li>
-                        </router-link>
-                    </div>
-                    <hr>
-                    <div>
-                        <router-link to="/layout/users" class="nav-item text-decoration-none float-lg-start">
-                            <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Users </li>
-                        </router-link>
-                    </div>
-                    <hr>
-                    <div>
-                        <router-link to="/layout/blog" class="nav-item text-decoration-none float-lg-start">
-                            <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Blog </li>
-                        </router-link>
-                    </div>
-                    </ul>
-                </nav>
+            <div class="container-fluid  d-flex p-0">
+                <div>
+                    <nav class="navbar p-0">
+                        <ul class="navbar-nav hover-bg h-101">
+                            <div>
+                                <router-link to="/layout/home" class="nav-item text-decoration-none text-start">
+                                    <li class="nav-link" href="#"> <i class="fa-solid fa-house" style="color: none;"></i>&nbsp;&nbsp;Home </li>
+                                </router-link>
+                            </div>
+                            <hr>
+                            <div>
+                                <router-link to="/layout/categories" class="nav-item text-decoration-none float-lg-start">
+                                    <li class="nav-link " href="#"><i class="fa-solid fa-graduation-cap "></i>&nbsp;&nbsp;Categories </li>
+                                </router-link>
+                            </div>
+                            <hr>
+                            <div>
+                                <router-link to="/layout/tag" class="nav-item text-decoration-none float-lg-start">
+                                    <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Tag </li>
+                                </router-link>
+                            </div>
+                            <hr>
+                            <div>
+                                <router-link to="/layout/users" class="nav-item text-decoration-none float-lg-start">
+                                    <li class="nav-link " href="#"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Users </li>
+                                </router-link>
+                            </div>
+                            <hr>
+                            <div>
+                                <router-link to="/layout/blog" class="nav-item text-decoration-none float-lg-start">
+                                    <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Blog </li>
+                                </router-link>
+                            </div>
+                        </ul>
+                    </nav>
+                </div>
+                <router-view></router-view>
+            </div>
+            <div>
+                <footerComponent></footerComponent>
             </div>
         </template>
-        <template #detail>
-          <div>
-            
-          </div>
-        </template>
-      
     </mainLayout>
-
-    <div>
-        <router-view></router-view>
-    </div>
-    <footerComponent></footerComponent>
 </div>
 </template>
 
@@ -107,7 +120,18 @@ export default {
     components: {
         mainLayout,
         footerComponent
-    }
+    },
+    data() {
+        return {
+            isOpen: false,
+        }
+    },
+    methods: {
+        profile() {
+            this.isOpen = !this.isOpen
+
+        }
+    },
 }
 </script>
 
@@ -116,18 +140,18 @@ export default {
     height: auto;
     width: 200px;
     background-color: #ced7dc;
-    padding: 0;
+    padding: 10px 10px;
     margin: 0;
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
 
 }
 
-hr{
-    width: 200px;
+.bg-none {
+    background: none;
 }
 
-.hover-bg :hover{
+.hover-bg :hover {
     background-color: #98c9e2;
 }
 </style>

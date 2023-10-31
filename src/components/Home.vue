@@ -29,6 +29,7 @@
         </div>
 
     </template>
+    
 </Mainlayout>
 </template>
 
@@ -71,10 +72,10 @@ export default {
     text-decoration: none;
 }
 
-.mt-6 {
+/* .mt-6 {
 
     margin-top: 13rem;
-}
+} */
 
 .border-none {
 
