@@ -131,7 +131,6 @@ section span {
 section .signin {
     position: absolute;
     width: 400px;
-    background: #222;
     z-index: 1000;
     display: flex;
     justify-content: center;
