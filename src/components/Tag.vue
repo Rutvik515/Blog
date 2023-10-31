@@ -2,7 +2,7 @@
     <Mainlayout>
         <template #detail>
             <div class="text">
-                this is Project page
+                this is Pag page
             </div>
         </template>
     </Mainlayout>

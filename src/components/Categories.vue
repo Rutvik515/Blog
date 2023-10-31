@@ -2,7 +2,7 @@
     <Mainlayout>
         <template #detail>
             <div class="text">
-                this is About page
+                this is Categories page
             </div>
         </template>
     </Mainlayout>

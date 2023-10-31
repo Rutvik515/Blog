@@ -1,0 +1,24 @@
+<template>
+    <div>
+        <section>
+        <h1 class="error">404</h1>
+     <h5 style="font-weight: 700 bold;">Ooops!!! The page you are looking for is not found</h5>
+    </section>
+    </div>
+</template>
+
+<script>
+    export default {
+      name:"notFound"  
+    }
+</script>
+
+<style  scoped>
+
+section .error {
+    font-size: 150px;
+    color: #008b62;
+    text-shadow: 1px 1px 1px #00593e, 2px 2px 1px #00593e, 3px 3px 1px #00593e, 4px 4px 1px #00593e, 5px 5px 1px #00593e, 6px 6px 1px #00593e, 7px 7px 1px #00593e, 8px 8px 1px #00593e, 25px 25px 8px rgba(0,0,0,.2);
+}
+
+</style>
