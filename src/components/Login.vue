@@ -80,7 +80,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 100%;
     background: #000;
 }
 
@@ -93,8 +93,8 @@ body {
 } */
 section {
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -161,7 +161,7 @@ section .signin .content {
 
 section .signin .content h2 {
     font-size: 2em;
-    color: #0f0;
+    color: rgb(218, 237, 218);
     text-transform: uppercase;
 }
 
@@ -220,13 +220,13 @@ section .signin .content .form .inputBox i {
 }
 
 .signin .content .form .links a:nth-child(2) {
-    color: #0f0;
+    color: rgb(215, 222, 215);
     font-weight: 600;
 }
 
 .signin .content .form .inputBox input[type="submit"] {
     padding: 10px;
-    background: #0f0;
+    background: rgb(185, 216, 185);
     color: #000;
     font-weight: 600;
     font-size: 1.35em;
