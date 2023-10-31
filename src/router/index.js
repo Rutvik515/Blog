@@ -4,10 +4,11 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     name: "Login",
     component:() => import("../components/Login.vue"),
   },
+  
   {
     path: "/layout",
     name: "layout",  
@@ -19,28 +20,39 @@ const routes = [
         component:() => import("../components/Home.vue"),
       },
       {
-        path: "/layout/about",
+        path: "/layout/categories",
         name: "About",  
-        component:() => import("../components/About.vue"),
+        component:() => import("../components/Categories.vue"),
       },
       {
-        path: "/layout/project",
-        name: "Project",   
-        component:() => import("../components/Project.vue"),
+        path: "/layout/tag",
+        name: "Tag",   
+        component:() => import("../components/Tag.vue"),
       },
       {
-        path: "/layout/service",
-        name: "Service",   
-        component:() => import("../components/Service.vue"),
+        path: "/layout/users",
+        name: "Users",   
+        component:() => import("../components/Users.vue"),
       },
       {
-        path: "/layout/contact",
-        name: "Contact",  
-        component:() => import("../components/Contact.vue"),
+        path: "/layout/blog",
+        name: "Blog",  
+        component:() => import("../components/Blog.vue"),
       },
+      // {
+      //   path: "/layout/footer",
+      //   name: "Footer",  
+      //   component:() => import("../components/Footer.vue"),
+      // },
     ]
   
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "not-found",
+    component: () => import("../components/Fallback.vue"),
+  }
+ 
 
 ];
 

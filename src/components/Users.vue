@@ -2,7 +2,7 @@
     <Mainlayout>
         <template #detail>
             <div class="text">
-                this is Service page
+                this is Users page
             </div>
         </template>
     </Mainlayout>

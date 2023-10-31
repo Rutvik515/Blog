@@ -1,8 +1,8 @@
 <template>
     <div>
     
-        <slot name="heroSection" >
-            <div v-if="$slots.heroSection">
+        <slot name="header" >
+            <div v-if="$slots.header">
             <h1>default header</h1>
         </div>
         </slot>

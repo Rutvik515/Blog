@@ -28,17 +28,20 @@
   
   <script>
   import axios from "axios";
-  
+import { useToast } from "vue-toastification";
+const toast = useToast();
   export default {
     name: 'loginComponent',
     data() {
       return {
         email: '',
-        password: ''
+        password: '',
+        
       }
     },
     methods: {
       loginPage() {
+
         let data = {
           email: this.email,
           password: this.password
@@ -48,9 +51,15 @@
             console.log(res.data.data);
             localStorage.setItem('user', JSON.stringify(res.data.data))
             localStorage.setItem('token', res.data.data.token)
+            toast.success(res.data.message, {
+        timeout: 2000
+      });
             this.$router.push("/layout")
           }).catch(error => {
             console.error(error);
+            toast.error(error.response.data.message, {
+           timeout: 2000
+           });
           });
       },
     
@@ -131,7 +140,6 @@ section span {
 section .signin {
     position: absolute;
     width: 400px;
-    background: #222;
     z-index: 1000;
     display: flex;
     justify-content: center;

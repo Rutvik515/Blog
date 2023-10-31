@@ -4,18 +4,22 @@
     <!-- <layoutComponent /> -->
   </div>
   <router-view></router-view>
+<div>
+  <!-- <footerComponent></footerComponent> -->
 
+</div>
 </template>
 
 <script>
 // import loginComponent from './components/Login.vue'
-
+// import footerComponent from './components/Footer.vue'
 // import layoutComponent from './components/layout.vue'
 export default {
   name: 'App',
   components: {
     // loginComponent,
     // layoutComponent
+    // footerComponent
   }
 }
 </script>
