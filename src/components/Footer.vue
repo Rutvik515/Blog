@@ -2,7 +2,7 @@
     <div>
       <mainLayout>
    <template #footer>
-    <div>
+    <div class="fixed-bottom">
         <footer>
         <p>Copyright &copy; 2023 <img src="https://i.ibb.co/QDy827D/ak-logo.png" alt="logo"> All Rights Reserved.</p>
     </footer>

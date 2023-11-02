@@ -6,6 +6,7 @@ const routes = [
   {
     path: "/login",
     name: "Login",
+    // redirect:'/login',
     component:() => import("../components/Login.vue"),
   },
   
@@ -15,9 +16,9 @@ const routes = [
     component:() => import("../components/Layout.vue"),
     children:[
       {
-        path: "/layout/home",
-        name: "Home",  
-        component:() => import("../components/Home.vue"),
+        path: "/layout/dashboard",
+        name: "Dashboard",  
+        component:() => import("../components/Dashboard.vue"),
       },
       {
         path: "/layout/categories",

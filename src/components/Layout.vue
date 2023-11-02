@@ -43,60 +43,57 @@
                         </a>
                         <h5 class="text-uppercase text-light">octal infotech</h5>
                     </div>
-                    <div>
-                        <button class="navbar-brand border-0 bg-none" @click="profile" href="#">
-                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                    <div class="dropdown">
+                        <!-- <img src="" class="btn btn-secondary" role="button"   data-bs-toggle="dropdown" > -->
+
+                        <button data-bs-toggle="dropdown" class="navbar-brand border-0 bg-none" href="#">
+
+                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill dropdown-toggle" aria-expanded="false" id="dropdownMenuButton1">
                         </button>
-                        <div>
-                        <div v-if="isOpen" class="dropdown  w-100 h-100">
-                            <div>
-                                <div class="dropdown">
-                                    <img src="https://ca.slack-edge.com/T04HNPJ1PV3-U04L50M135K-e9c7087e3b5a-512" alt="" class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal">Profile</a></li>
-                                        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModalpassword">Change Password</a></li>
-                                        <li>
-                                            <router-link to="/login" @click.prevent="logOut">Logout</router-link>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="">
+                            <ul class="dropdown-menu  me-6 mt-2   " aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item text-center " href="#"><img class="w-25  h-25 rounded-5 align-items-lg-center " src="http://octalinfotech.com/img/octal-logo.png" alt=""></a></li>
+                                <li><a class="dropdown-item mt-2 text-center " href="#">OCTAL INFOTECH</a></li>
+                                <hr>
+                                <li class=""><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-3"></i>Profile</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-lock me-3"></i>Chnage Password</a></li>
+                                <li for="logout"><a class="dropdown-item" @click="logout" id="logout" href="#"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Logout</a></li>
+                            </ul>
                         </div>
                     </div>
                 </nav>
             </div>
-            <div class="container-fluid  d-flex p-0">
+            <div class="container-fluid   d-flex p-0">
                 <div>
                     <nav class="navbar p-0">
-                        <ul class="navbar-nav hover-bg h-101">
+                        <ul class="navbar-nav  hover-bg h-101">
                             <div>
-                                <router-link to="/layout/home" class="nav-item text-decoration-none text-start">
-                                    <li class="nav-link" href="#"> <i class="fa-solid fa-house" style="color: none;"></i>&nbsp;&nbsp;Home </li>
+                                <router-link to="/layout/dashboard" class="nav-item  text-decoration-none text-start">
+                                    <li class="nav-link" href="#"><i class="fa-solid fa-house ms-3 " style="color: none;"></i><label for="" class="ms-3"></label>Dashboard </li>
                                 </router-link>
                             </div>
                             <hr>
                             <div>
-                                <router-link to="/layout/categories" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid fa-graduation-cap "></i>&nbsp;&nbsp;Categories </li>
+                                <router-link to="/layout/categories" class="nav-item  text-decoration-none float-lg-start">
+                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-graduation-cap "></i><label for="" class="ms-3"></label>Categories </li>
                                 </router-link>
                             </div>
                             <hr>
                             <div>
                                 <router-link to="/layout/tag" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Tag </li>
+                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-rocket"></i><label for="" class="ms-3"></label>Tag </li>
                                 </router-link>
                             </div>
                             <hr>
                             <div>
                                 <router-link to="/layout/users" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid fa-users"></i>&nbsp;&nbsp;Users </li>
+                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-users"></i><label for="" class="ms-3"></label>Users </li>
                                 </router-link>
                             </div>
                             <hr>
                             <div>
                                 <router-link to="/layout/blog" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;Blog </li>
+                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-rocket"></i><label for="" class="ms-3"></label>Blog </li>
                                 </router-link>
                             </div>
                         </ul>
@@ -105,7 +102,7 @@
                 <router-view></router-view>
             </div>
             <div>
-                <footerComponent></footerComponent>
+                <!-- <footerComponent></footerComponent> -->
             </div>
         </template>
     </mainLayout>
@@ -113,13 +110,13 @@
 </template>
 
 <script>
-import footerComponent from './Footer.vue'
+// import footerComponent from './Footer.vue'
 import mainLayout from './MainLayout.vue';
 export default {
     name: 'layoutComponent',
     components: {
         mainLayout,
-        footerComponent
+        // footerComponent
     },
     data() {
         return {
@@ -130,6 +127,12 @@ export default {
         profile() {
             this.isOpen = !this.isOpen
 
+        },
+
+        logout() {
+            this.$router.push("/login")
+            // localStorage.clear();
+            localStorage.removeItem("user", "token")
         }
     },
 }
@@ -137,13 +140,18 @@ export default {
 
 <style scoped>
 .h-101 {
-    height: auto;
-    width: 200px;
+    height: 93.8vh;
+    width: 260px;
     background-color: #ced7dc;
     padding: 10px 10px;
     margin: 0;
     font-family: 'Times New Roman', Times, serif;
     font-size: 20px;
+
+}
+
+.me-6 {
+    margin-left: -150px;
 
 }
 
