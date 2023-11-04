@@ -1,6 +1,6 @@
 <template>
 
-        <div class="bg-body-secondary container-fluid  h-10 w-10 ">
+        <div class="bg-body-secondary container-fluid  hg-10 wh-10 ">
             <div class="d-flex">
                 <img class="m-3 mt-4" src="https://ims-api.octalinfotech.com/images/avatar.png" style="height: 64px;" alt="">
                 <h1 class="mt-6 font-size">Good Morning, Rutvik Kher</h1>
@@ -64,7 +64,7 @@ export default {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
 }
-.h-10{
+.hg-10{
     height: 100px;
 }
 

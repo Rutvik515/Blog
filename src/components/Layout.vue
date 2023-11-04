@@ -1,38 +1,9 @@
 <template>
-<div>
-    <!-- <div class="header">
-        <nav class="navbar navbar-expand-lg bg-dark fixed-top">
-            <div class=" container ">
-                <h1 class="text-light">Mr.Rutvik</h1>
-                <a href="" class=" navbar-brand "><img src="https://www.iconpacks.net/icons/2/free-website-icon-5793-thumb.png" alt="" style="height: 100px; width: 100px;"></a>
-                <button type="button" class="navbar-toggler bg-white" data-bs-toggle="collapse" data-bs-target="#navbaraid">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse text-uppercase gap-5  justify-content-end" id="navbaraid">
-                    <ul class="navbar-nav text-start">
-                        <router-link to="/layout/home" class="nav-link text-white">
-                            <li class="nav-item">home</li>
-                        </router-link>
-                        <router-link to="/layout/categories" class="nav-link text-white">
-                            <li class="nav-item">about</li>
-                        </router-link>
-                        <router-link to="/layout/tag" class="nav-link text-white">
-                            <li class="nav-item">Project</li>
-                        </router-link>
-                        <router-link to="/layout/users" class="nav-link text-white">
-                            <li class="nav-item">service</li>
-                        </router-link>
-                        <router-link to="/layout/contact" class="nav-link text-white">
-                            <li class="nav-item">contact</li>
-                        </router-link>
-                    </ul>
-                    <div>
-                        <a class="px-btn d-none d-lg-inline-flex text-white" href="#">Lets'Talk</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div> -->
+    <div>
+        <div class="w-100 h-26 bg-danger fixed-top">hdjkhdh</div>
+
+
+
     <mainLayout>
         <template #header>
             <div>

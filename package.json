@@ -13,8 +13,8 @@
     "core-js": "^3.8.3",
     "properties": "^1.2.1",
     "sweetalert2": "^7.33.1",
-    "tailwindcss": "^3.3.5",
     "vue": "^3.2.13",
+    "vue-loading-overlay": "^6.0.3",
     "vue-router": "^4.0.13",
     "vue-toastification": "^2.0.0-rc.5"
   },

@@ -1,64 +1,33 @@
 <template>
 <div class="">
-    <div class="width height   mt-5 ms-3 rounded-5 ">
+    <div class="container-fluid width height mt-5 ms-3 rounded-5 bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" placeholder="search something....">
         </div>
         <div class="">
-            <button class="float-lg-end mt-0 border-1 bg-dark text-white ">New Categories</button>
+            <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1" @click="createCategory = category">New Categories</button>
         </div>
-
-        <div class="mt-6">
-            <table class="table">
+        <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+        <div class="mt-6 table-responsive-sm">
+            <table class="table" style="border: 1px solid; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th scope="col">id</th>
-                        <th scope="col">Categories Name</th>
-                        <th scope="col">Avtar</th>
-                        <th scope="col">Action</th>
+                        <th>id</th>
+                        <th>Categories Name</th>
+                        <th>Avtar</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(category , index) in categories" :key="index">
+                    <tr v-for="(category , index) in categories" :key="index" class="border-6">
                         <td>{{ index+1 }}</td>
                         <td>{{ category.name }}</td>
-                        <td><img :src="category.image" alt=""></td>
+                        <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <button  type="button" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button" @click="category.id"></i>
+                            <button type="button" @click="currentCategory = category" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                             </button>
-
-                            <!-- Modal -->
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                        <div class="text-start">
-                                            <label for="">Category image <span class="text-danger">*</span></label>
-                                            <div>
-                                            <input  placeholder="Drag and drop files here, or Click to select files" v-model="category.image">
-                                        </div>
-                                        </div>
-                                        <div class="mt-2 text-start">
-                                            <label for="">Name<span class="text-danger">*</span></label>
-                                            <div><input type="text" placeholder="" v-model="category.name"></div>
-                                          
-                                        </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                          
-                                       <button @click="updateItem(category.updateItem)" type="button" class="btn btn-primary">Save changes</button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
                             <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                                 </i></button>
@@ -68,36 +37,155 @@
                 </tbody>
             </table>
         </div>
+        
+
+        <!-- edit modal -->
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="text-start">
+
+                            <label for="">Category image <span class="text-danger">*</span></label>
+                            <div class=" border-2 p-1 text-center rounded-2 w-full">
+                                <i class="fa fa-upload fa-2x" aria-hidden="true"  role="button"></i>
+                                <input type="file" class="" @change="uploadImage"  >
+
+                            </div>
+                        </div>
+                        <div class="mt-2 text-start">
+                            <label for="">Name<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentCategory.name"></div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <button @click="updateItem(currentCategory.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Modal-->
+        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Categories</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mt-2 text-start">
+                            <label for="">Name<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name"  v-model="createCategory"></div>
+
+                        </div>
+                    </div>
+                    <div class="text-start p-0">
+
+                        <label for="" class="container">Category image <span class="text-danger">*</span></label>
+                        <div class="container border-2 p-0 text-center rounded-2 w-full" style="width: 466px;height: 44px;">
+                            <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
+                            <input type="file" class="" @click="uploadImage1" style="display: visible;">
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                        <button type="button" @click="createItem(createCategory)" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>
 </template>
 
-
 <script>
 import axios from 'axios';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
+import {
+    useToast
+} from "vue-toastification";
+const toast = useToast();
 
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 export default {
     name: 'AboutComponent',
+    components: {
+        Loading
+    },
     data() {
         return {
             categories: {},
             search: {},
-            loader: false,
-            updateCategory:[{
-                name:'',
-                image:'',
+            isLoading: false,
+            fullPage: true,
+            createCategory:'',
+            currentCategory: '',
+            updateCategory: [{
+                name: '',
+                image: '',
             }]
 
         }
     },
     mounted() {
+        this.isLoading = true;
         this.getCategories();
-
     },
 
     methods: {
+        createItem() {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+            let formData = new FormData()
+
+            formData.append('image', this.createCategory)
+            formData.append('name', this.createCategory)
+
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/categories/store`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((res) => {
+                toast.success(res.data.message, {
+                    timeout: 2000
+                });
+                this.categories = res.data.data.data
+                this.getCategories();
+
+            }).catch((err) => {
+                console.log(err);
+                toast.error(err.response.data.message, {
+                    timeout: 2000
+                });
+            })
+
+        },
+        uploadImage(e) {
+            this.currentCategory.image = e.target.files[0];
+        },
+        
+        uploadImage1(e) {
+            this.createCategory.name= e.target.files[0];
+        },
+
         getCategories() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -109,6 +197,8 @@ export default {
                 }
             }).then((res) => {
                 this.categories = res.data.data.data
+
+                this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
             })
@@ -159,28 +249,33 @@ export default {
         },
 
         updateItem(id) {
-            
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
-            let datas = {
-                name:this.category.name
-            }
-            axios.post(`https://blog-api-dev.octalinfotech.com/api/categories/${id}/update`,datas, {
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
+            let formData = new FormData()
 
-                    }).then((res) => {
-                        console.log(res);
-                        console.log(datas);
-                        this.categories = res.data.data.data
-                        this.getCategories();
+            formData.append('image', this.currentCategory.image)
+            formData.append('name', this.currentCategory.name)
 
-                    }).catch((err) => {
-                        console.log(err);
-                    })
-            
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/categories/${id}/update`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((res) => {
+                toast.success(res.data.message, {
+                    timeout: 2000
+                });
+                this.categories = res.data.data.data
+                this.getCategories();
+
+            }).catch((err) => {
+                console.log(err);
+                toast.error(err.response.data.message, {
+                    timeout: 2000
+                });
+            })
+
         },
     },
     // watch: {
@@ -198,9 +293,8 @@ export default {
 
 <style scoped>
 .width {
-    width: 1630px;
-    box-shadow: 10px;
-    background-color: rgb(208, 221, 232);
+    width: 1435px;
+    box-shadow: 10px 10px 30px 10px;
 
 }
 
@@ -221,6 +315,8 @@ img {
 
 .mt-6 {
     margin-top: 50px;
+    background-color: rgb(208, 221, 232);
+
 }
 
 input:focus-visible {
@@ -239,5 +335,19 @@ input:focus-visible {
 
     background: none;
     border: none;
+}
+
+td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 10px;
 }
 </style>
