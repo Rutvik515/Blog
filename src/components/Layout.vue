@@ -2,8 +2,6 @@
     <div>
         <div class="w-100 h-26 bg-danger fixed-top">hdjkhdh</div>
 
-
-
     <mainLayout>
         <template #header>
             <div>
