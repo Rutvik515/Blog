@@ -1,14 +1,15 @@
 <template>
-<div class="">
-    <div class="container-fluid width height mt-5 ms-3 rounded-5 bg-dark-500">
+<div class="width height mt-5  ms-3 rounded-5 ">
+    <div class="container-fluid    bg-dark-500">
         <div class=" d-flex">
-            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" placeholder="search something....">
+            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
         <div class="">
-            <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1" @click="createCategory = category">New Categories</button>
+            <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Categories</button>
         </div>
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
+            
             <table class="table" style="border: 1px solid; border-collapse: collapse;">
                 <thead>
                     <tr>
@@ -19,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(category , index) in categories" :key="index" class="border-6">
+                    <tr v-for="(category , index) in filterCategories" :key="index" class="border-6">
                         <td>{{ index+1 }}</td>
                         <td>{{ category.name }}</td>
                         <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
@@ -37,7 +38,6 @@
                 </tbody>
             </table>
         </div>
-        
 
         <!-- edit modal -->
 
@@ -53,8 +53,8 @@
 
                             <label for="">Category image <span class="text-danger">*</span></label>
                             <div class=" border-2 p-1 text-center rounded-2 w-full">
-                                <i class="fa fa-upload fa-2x" aria-hidden="true"  role="button"></i>
-                                <input type="file" class="" @change="uploadImage"  >
+                                <i class="fa fa-upload fa-2x" aria-hidden="true" role="button"></i>
+                                <input type="file" class="" @change="uploadImage">
 
                             </div>
                         </div>
@@ -86,23 +86,23 @@
 
                         <div class="mt-2 text-start">
                             <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name"  v-model="createCategory"></div>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createCategory.name"></div>
 
                         </div>
                     </div>
                     <div class="text-start p-0">
 
-                        <label for="" class="container">Category image <span class="text-danger">*</span></label>
+                        <label  class="container">Category image <span class="text-danger">*</span></label>
                         <div class="container border-2 p-0 text-center rounded-2 w-full" style="width: 466px;height: 44px;">
                             <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                            <input type="file" class="" @click="uploadImage1" style="display: visible;">
+                            <input  type="file" class="" @input="uploadImage1">
 
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 
-                        <button type="button" @click="createItem(createCategory)" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                        <button type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
 
                     </div>
                 </div>
@@ -130,11 +130,14 @@ export default {
     },
     data() {
         return {
-            categories: {},
-            search: {},
+            categories: [],
+            search: '',
             isLoading: false,
             fullPage: true,
-            createCategory:'',
+            createCategory: {
+                image: '',
+                name: '',
+            },
             currentCategory: '',
             updateCategory: [{
                 name: '',
@@ -148,6 +151,17 @@ export default {
         this.getCategories();
     },
 
+    computed : {
+          filterCategories()
+          {
+            return this.categories.filter((item) => {
+                return Object.values(item).some((val) => {
+                    return String(val).toLowerCase().includes(this.search.toLowerCase());
+                });
+            });
+          }
+    },
+
     methods: {
         createItem() {
             let data = localStorage.getItem('user');
@@ -155,8 +169,8 @@ export default {
             let token = data.token;
             let formData = new FormData()
 
-            formData.append('image', this.createCategory)
-            formData.append('name', this.createCategory)
+            formData.append('image', this.createCategory.image)
+            formData.append('name', this.createCategory.name);
 
             axios.post(`https://blog-api-dev.octalinfotech.com/api/categories/store`, formData, {
                 headers: {
@@ -181,9 +195,9 @@ export default {
         uploadImage(e) {
             this.currentCategory.image = e.target.files[0];
         },
-        
-        uploadImage1(e) {
-            this.createCategory.name= e.target.files[0];
+
+        uploadImage1(event) {
+            this.createCategory.image = event.target.files[0];
         },
 
         getCategories() {
@@ -280,11 +294,11 @@ export default {
     },
     // watch: {
     //     search(value) {
-    //         this.categories = this.res.filter((item) => {
-    //             return Object.keys(item).some((key) => {
-    //                 return (item[key]).toLowerCase().includes(value.toLowerCase());
-    //             })
-    //         })
+    //         this.categories = this.categories.filter((item) => {
+    //             return Object.values(item).some((val) => {
+    //                 return String(val).toLowerCase().includes(value.toLowerCase());
+    //             });
+    //         });
     //     }
     // }
 
@@ -293,7 +307,7 @@ export default {
 
 <style scoped>
 .width {
-    width: 1435px;
+    width: 80%;
     box-shadow: 10px 10px 30px 10px;
 
 }
@@ -304,7 +318,7 @@ img {
 }
 
 .height {
-    height: 746px;
+    height: auto;
 }
 
 .border {
