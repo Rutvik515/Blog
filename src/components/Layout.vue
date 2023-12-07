@@ -11,6 +11,9 @@
                   </a>
                   <h5 class="text-uppercase text-light ms-2">octal infotech</h5>
                 </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
                 <div class="dropdown">
                   <button data-bs-toggle="dropdown" class="navbar-brand border-0 bg-none">
                     <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill dropdown-toggle" aria-expanded="false" id="dropdownMenuButton1">
@@ -30,6 +33,7 @@
                   </div>
                 </div>
               </div>
+              
             </nav>
           </div>
           <div class="container-fluid d-flex p-0">

@@ -10,7 +10,12 @@
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
 
-            <table class="table" style="border: 1px solid; border-collapse: collapse;">
+            <template v-if="filterCategories.length === 0">
+          <p>No categories found.</p>
+        </template>
+        <div v-else>
+          <table class="table" style="border: 1px solid; border-collapse: collapse;">
+
                 <thead>
                     <tr>
                         <th>id</th>
@@ -37,6 +42,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div >
         </div>
 
         <!-- edit modal -->
@@ -110,7 +116,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-between ">
-        <PageEvent @Change="pageChange" />
+        <PageEvent @onChnage="pageChange" />
         <div v-if="last_page > 1">
 
             <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
@@ -195,7 +201,7 @@ export default {
     methods: {
         pageChange(value){
             this.perPage = parseInt(value)
-            this.setCategories(1)
+            this.setCategories()
         },
         
 //       pageChange(value)  {
@@ -258,12 +264,13 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&perPage=${this.perPage}`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&per_page=${this.perPage}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
                 this.categories = res.data.data.data;
+                console.log(this.categories);
                 this.last_page = res.data.data.last_page;
                 this.total = res.data.data.total;
 
