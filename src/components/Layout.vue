@@ -1,134 +1,140 @@
 <template>
     <div>
-        <div class="w-100 h-26 bg-danger fixed-top">hdjkhdh</div>
-
-    <mainLayout>
+      <mainLayout>
         <template #header>
-            <div>
-                <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-                    <div class="container-fluid d-flex justify-content-lg-start">
-                        <a class="navbar-brand" href="#">
-                            <img src="http://octalinfotech.com/img/octal-logo.png" alt="Logo" style="width:40px;" class="rounded-pill">
-                        </a>
-                        <h5 class="text-uppercase text-light">octal infotech</h5>
-                    </div>
-                    <div class="dropdown">
-                        <!-- <img src="" class="btn btn-secondary" role="button"   data-bs-toggle="dropdown" > -->
-
-                        <button data-bs-toggle="dropdown" class="navbar-brand border-0 bg-none" href="#">
-
-                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill dropdown-toggle" aria-expanded="false" id="dropdownMenuButton1">
-                        </button>
-                        <div class="">
-                            <ul class="dropdown-menu  me-6 mt-2   " aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item text-center " href="#"><img class="w-25  h-25 rounded-5 align-items-lg-center " src="http://octalinfotech.com/img/octal-logo.png" alt=""></a></li>
-                                <li><a class="dropdown-item mt-2 text-center " href="#">OCTAL INFOTECH</a></li>
-                                <hr>
-                                <li class=""><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-3"></i>Profile</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-lock me-3"></i>Chnage Password</a></li>
-                                <li for="logout"><a class="dropdown-item" @click="logout" id="logout" href="#"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Logout</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            <div class="container-fluid   d-flex p-0">
-                <div>
-                    <nav class="navbar p-0">
-                        <ul class="navbar-nav  hover-bg h-101">
-                            <div>
-                                <router-link to="/layout/dashboard" class="nav-item  text-decoration-none text-start">
-                                    <li class="nav-link" href="#"><i class="fa-solid fa-house ms-3 " style="color: none;"></i><label for="" class="ms-3"></label>Dashboard </li>
-                                </router-link>
-                            </div>
-                            <hr>
-                            <div>
-                                <router-link to="/layout/categories" class="nav-item  text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-graduation-cap "></i><label for="" class="ms-3"></label>Categories </li>
-                                </router-link>
-                            </div>
-                            <hr>
-                            <div>
-                                <router-link to="/layout/tag" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-rocket"></i><label for="" class="ms-3"></label>Tag </li>
-                                </router-link>
-                            </div>
-                            <hr>
-                            <div>
-                                <router-link to="/layout/users" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-users"></i><label for="" class="ms-3"></label>Users </li>
-                                </router-link>
-                            </div>
-                            <hr>
-                            <div>
-                                <router-link to="/layout/blog" class="nav-item text-decoration-none float-lg-start">
-                                    <li class="nav-link " href="#"><i class="fa-solid ms-3  fa-rocket"></i><label for="" class="ms-3"></label>Blog </li>
-                                </router-link>
-                            </div>
-                        </ul>
-                    </nav>
+          <div>
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+              <div class="container-fluid d-flex justify-content-between">
+                <div class="d-flex align-items-center">
+                  <a class="navbar-brand" href="#">
+                    <img src="http://octalinfotech.com/img/octal-logo.png" alt="Logo" style="width:40px;" class="rounded-pill">
+                  </a>
+                  <h5 class="text-uppercase text-light ms-2">octal infotech</h5>
                 </div>
-                <router-view></router-view>
-            </div>
-            <div>
-                <!-- <footerComponent></footerComponent> -->
-            </div>
-        </template>
-    </mainLayout>
-</div>
-</template>
+                <div class="dropdown">
+                  <button data-bs-toggle="dropdown" class="navbar-brand border-0 bg-none">
+                    <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" alt="Logo" style="width:40px;" class="rounded-pill dropdown-toggle" aria-expanded="false" id="dropdownMenuButton1">
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="dropdownMenuButton1">
+                    <div class=" align-items-lg-center d-flex justify-content-center ">
+                      <img class="w-25 h-25 rounded-5" src="http://octalinfotech.com/img/octal-logo.png" alt="">
+                    </div>
 
-<script>
-// import footerComponent from './Footer.vue'
-import mainLayout from './MainLayout.vue';
-export default {
+                      <div class="text-center">
+                      <p class="mt-2">OCTAL INFOTECH</p>
+                    </div>
+                    <hr class="my-2">
+                    <a class="dropdown-item" href="#"><i class="fa-solid fa-user me-3"></i>Profile</a>
+                    <a class="dropdown-item" href="#"><i class="fa-solid fa-lock me-3"></i>Change Password</a>
+                    <a class="dropdown-item" @click="logout" href="#"><i class="fa-solid fa-arrow-right-from-bracket me-3"></i>Logout</a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <div class="container-fluid d-flex p-0">
+            <div>
+              <nav class="navbar p-0 ">
+                <ul class="navbar-nav h-100 flex-column w-100">
+                  <router-link to="/layout/dashboard" class="nav-item text-decoration-none">
+                    <li class="nav-link"><i class="fa-solid fa-house ms-3"></i><span class="ms-2">Dashboard</span></li>
+                  </router-link>
+                  <hr class="my-1">
+                  <router-link to="/layout/categories" class="nav-item text-decoration-none">
+                    <li class="nav-link"><i class="fa-solid ms-3 fa-graduation-cap"></i><span class="ms-2">Categories</span></li>
+                  </router-link>
+                  <hr class="my-1">
+                  <router-link to="/layout/tag" class="nav-item text-decoration-none">
+                    <li class="nav-link"><i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Tag</span></li>
+                  </router-link>
+                  <hr class="my-1">
+                  <router-link to="/layout/users" class="nav-item text-decoration-none">
+                    <li class="nav-link"><i class="fa-solid ms-3 fa-users"></i><span class="ms-2">Users</span></li>
+                  </router-link>
+                  <hr class="my-1">
+                  <router-link to="/layout/blog" class="nav-item text-decoration-none">
+                    <li class="nav-link"><i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Blog</span></li>
+                  </router-link>
+                </ul>
+              </nav>
+            </div>
+            <router-view></router-view>
+          </div>
+        </template>
+      </mainLayout>
+    </div>
+  </template>
+  
+  <script>
+  import mainLayout from './MainLayout.vue';
+  export default {
     name: 'layoutComponent',
     components: {
-        mainLayout,
-        // footerComponent
+      mainLayout,
     },
     data() {
-        return {
-            isOpen: false,
-        }
+      return {
+        isOpen: false,
+      }
     },
     methods: {
-        profile() {
-            this.isOpen = !this.isOpen
-
-        },
-
-        logout() {
-            this.$router.push("/login")
-            // localStorage.clear();
-            localStorage.removeItem("user", "token")
-        }
+      logout() {
+        this.$router.push("/login");
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+      }
     },
-}
-</script>
+  }
+  </script>
+  
+  <style scoped>
 
-<style scoped>
-.h-101 {
-    height: 93.8vh;
-    width: 260px;
-    background-color: #ced7dc;
-    padding: 10px 10px;
-    margin: 0;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 20px;
-
-}
-
-.me-6 {
-    margin-left: -150px;
-
-}
-
-.bg-none {
-    background: none;
-}
-
-.hover-bg :hover {
+  .w-100{
+    width: 180px !important;
+    margin-top: 10px;
+  }
+  .h-100 {
+    height: 100%;
+  }
+  
+  .bg-dark {
+    background-color: #343a40 !important;
+  }
+  
+  .navbar-brand img {
+    max-width: 40px;
+  }
+  
+  .text-light {
+    color: #fff !important;
+  }
+  
+  .dropdown-menu {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-menu img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .navbar-nav {
+    width: 100%;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    color: #000 !important;
+  }
+  
+  .nav-link i {
+    color: #000;
+  }
+  
+  .nav-link:hover {
     background-color: #98c9e2;
-}
-</style>
+    color: #fff !important;
+  }
+  </style>
+  

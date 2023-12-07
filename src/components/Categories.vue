@@ -1,6 +1,6 @@
 <template>
 <div class="width height mt-5  ms-3 rounded-5 ">
-    <div class="container-fluid    bg-dark-500">
+    <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
@@ -9,7 +9,7 @@
         </div>
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
-            
+
             <table class="table" style="border: 1px solid; border-collapse: collapse;">
                 <thead>
                     <tr>
@@ -92,10 +92,10 @@
                     </div>
                     <div class="text-start p-0">
 
-                        <label  class="container">Category image <span class="text-danger">*</span></label>
-                        <div class="container border-2 p-0 text-center rounded-2 w-full" style="width: 466px;height: 44px;">
+                        <label class="container">Category image <span class="text-danger">*</span></label>
+                        <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                            <input  type="file" class="" @input="uploadImage1">
+                            <input for="fileupload" type="file" class="" style="cursor: pointer;" @input="uploadImage1">
 
                         </div>
                     </div>
@@ -109,7 +109,14 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-between ">
+        <PageEvent @Change="pageChange" />
+        <div v-if="last_page > 1">
 
+            <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+        </div>
+    </div>
+    
 </div>
 </template>
 
@@ -119,14 +126,18 @@ import swal from 'sweetalert2';
 import {
     useToast
 } from "vue-toastification";
-const toast = useToast();
 
+import Pagination from 'v-pagination-3';
+const toast = useToast();
+import PageEvent from '@/components/PageEvent.vue'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 export default {
     name: 'AboutComponent',
     components: {
-        Loading
+        Loading,
+        Pagination,
+        PageEvent
     },
     data() {
         return {
@@ -142,27 +153,68 @@ export default {
             updateCategory: [{
                 name: '',
                 image: '',
-            }]
+            }],
+            page: 1,
+            total: 0,
+            last_page: null,
+            perPage: 10,
+            records: [],
 
         }
     },
-    mounted() {
-        this.isLoading = true;
-        this.getCategories();
-    },
 
-    computed : {
-          filterCategories()
-          {
+    // computed : {
+    //       filterCategories()
+    //       {
+    //         return this.categories.filter((item) => {
+    //             return Object.values(item).some((val) => {
+    //                 return String(val).toLowerCase().includes(this.search.toLowerCase());
+    //             });
+    //         });
+    //       }
+    // },
+
+    computed: {
+        filterCategories() {
+            if (!this.categories || !Array.isArray(this.categories)) {
+                return [];
+            }
+
             return this.categories.filter((item) => {
                 return Object.values(item).some((val) => {
                     return String(val).toLowerCase().includes(this.search.toLowerCase());
                 });
             });
-          }
+        }
+    },
+    mounted() {
+        this.isLoading = true;
+        this.getCategories(this.page,this.perPage);
     },
 
     methods: {
+        pageChange(value){
+            this.perPage = parseInt(value)
+            this.setCategories(1)
+        },
+        
+//       pageChange(value)  {
+//         this.perPage = parseInt(value);
+//         this.getCategories(1);
+//         console.log('sdzxc');
+
+// },
+        setCategories() {
+            this.page = 1;
+            this.getCategories(this.page,this.perPage);
+        },
+
+        resetFormData() {
+            this.createCategory = {
+                image: null,
+                name: '',
+            };
+        },
         createItem() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -182,7 +234,8 @@ export default {
                     timeout: 2000
                 });
                 this.categories = res.data.data.data
-                this.getCategories();
+                this.resetFormData();
+                this.getCategories(this.page,this.perPage);
 
             }).catch((err) => {
                 console.log(err);
@@ -200,17 +253,19 @@ export default {
             this.createCategory.image = event.target.files[0];
         },
 
-        getCategories() {
+        getCategories(page) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get("https://blog-api-dev.octalinfotech.com/api/categories", {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&perPage=${this.perPage}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
-                this.categories = res.data.data.data
+                this.categories = res.data.data.data;
+                this.last_page = res.data.data.last_page;
+                this.total = res.data.data.total;
 
                 this.isLoading = false;
             }).catch((err) => {
@@ -218,6 +273,10 @@ export default {
             })
 
         },
+        myCallback: function (page) {
+            this.getCategories(page)
+        },
+
         removeItem(id) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -261,6 +320,31 @@ export default {
             })
 
         },
+        // allCategories() {
+        //     let data = localStorage.getItem('user');
+        //     data = JSON.parse(data);
+        //     let token = data.token;
+
+        //     axios.get("https://blog-api-dev.octalinfotech.com/api/categories/all", {
+        //         headers: {
+        //             Authorization: `Bearer ${token}`
+        //         }
+        //     }).then((res) => {
+        //         toast.success(res.data.message, {
+        //             timeout: 2000
+        //         });
+        //         this.categories = res.data.data.data
+        //         this.getCategories();
+        //     }).catch((err) => {
+        //         console.log(err);
+        //         toast.error(err.response.data.message, {
+        //             timeout: 2000
+        //         });
+        //         console.log(err);
+
+        //     })
+
+        // },
 
         updateItem(id) {
             let data = localStorage.getItem('user');
