@@ -132,9 +132,9 @@ import swal from 'sweetalert2';
 import {
     useToast
 } from "vue-toastification";
+const toast = useToast();
 
 import Pagination from 'v-pagination-3';
-const toast = useToast();
 import PageEvent from '@/components/PageEvent.vue'
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
@@ -203,13 +203,7 @@ export default {
             this.perPage = parseInt(value)
             this.setCategories()
         },
-        
-//       pageChange(value)  {
-//         this.perPage = parseInt(value);
-//         this.getCategories(1);
-//         console.log('sdzxc');
 
-// },
         setCategories() {
             this.page = 1;
             this.getCategories(this.page,this.perPage);
