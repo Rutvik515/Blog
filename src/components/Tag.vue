@@ -187,7 +187,7 @@ export default {
             this.createTag.name = '';
         },
         createItem() {
-            let data = localStorage.getItem('user');
+        let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
@@ -201,7 +201,7 @@ export default {
 
             }).then((res) => {
                 toast.success(res.data.message, {
-                    timeout: 2000
+                timeout: 2000
                 });
                 this.tages = res.data.data.data
                 this.resetFormData();

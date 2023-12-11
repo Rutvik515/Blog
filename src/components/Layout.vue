@@ -38,7 +38,7 @@
           </div>
           <div>
           <div class="container-fluid d-flex p-0" >
-            <div>
+            <div class="bg-color">
               <nav class="navbar p-0 ">
                 <ul class="navbar-nav h-100 flex-column w-100">
                   <router-link to="/layout/dashboard" class="nav-item text-decoration-none">
@@ -69,6 +69,7 @@
         </template>
       </mainLayout>
     </div>
+    
   </template>
   
   <script>
@@ -102,6 +103,10 @@
   .h-100 {
     height: 100%;
   }
+
+  .bg-color{
+    background-color: #e4e8eafc;
+  }
   
   .bg-dark {
     background-color: #343a40 !important;
@@ -115,6 +120,12 @@
     color: #fff !important;
   }
   
+  ul,li{
+    padding: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    margin-left:2px ;
+  }
   .dropdown-menu {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }

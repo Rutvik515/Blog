@@ -1,5 +1,5 @@
 <template>
-  <div class="width height mt-5  ms-5 rounded-5 m-0">
+<div class="width height mt-5  ms-5 rounded-5 m-0">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
@@ -21,15 +21,16 @@
                             <th>id</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Avtar</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(users , index) in filterUsers" :key="index" class="border-6">
+                        <tr v-for="(user , index) in filterUsers" :key="index" class="border-6">
                             <td>{{ index+1 }}</td>
-                            <td>{{ users.name }}</td>
-                            <td>{{ users.email }}</td>
-
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td><img class="img-fluid d-inline justify-content-center" :src="user.image" alt=""></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -83,22 +84,40 @@
         <!-- Create Modal-->
         <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content">
+                <div class="modal-content" style="width: auto;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Categories</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body d-flex gap-4">
 
                         <div class="mt-2 text-start">
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createUser.name"></div>
 
+                            <label for="">Name<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
+
+                            <div class="mt-2 text-start">
+                                <label for="">Password<span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password" v-model="createUser.password"></div>
+
+                            </div>
+                        </div>
+                        <div class="mt-2 text-start">
+
+                            <label for="">Email<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
+
+                            <div class="mt-2 text-start">
+                                <label for="">Password Confirmation
+                                    <span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password"></div>
+
+                            </div>
                         </div>
                     </div>
                     <div class="text-start p-0">
 
-                        <label class="container">Category image <span class="text-danger">*</span></label>
+                        <label class="container">User image <span class="text-danger">*</span></label>
                         <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
 
@@ -127,26 +146,35 @@
 
 <script>
 import axios from 'axios';
+
+import {
+    useToast
+} from "vue-toastification";
+const toast = useToast();
+
 // import Mainlayout from './MainLayout.vue';
-    export default {
-       name: 'ServiceComponent' ,
-       components: {
+export default {
+    name: 'ServiceComponent',
+    components: {
         // Mainlayout
-       },
-       data() {
+    },
+    data() {
         return {
-            users:[],
-            search:'',
+            users: [],
+            search: '',
             createUser: {
                 name: '',
+                email:'',
+                password:'',
+                image:'',
             },
             currentUser: '',
             updateUser: [{
                 name: '',
             }],
         }
-       },
-       computed: {
+    },
+    computed: {
         filterUsers() {
             if (!this.users || !Array.isArray(this.users)) {
                 return [];
@@ -159,33 +187,77 @@ import axios from 'axios';
             });
         }
     },
-       mounted(){
+    mounted() {
         this.getUser()
-       },
-       methods: {
-          getUser(){
+    },
+    methods: {
+        getUser() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
-            let  token = data.token;
+            let token = data.token;
 
-            axios.get('https://blog-api-dev.octalinfotech.com/api/users?page=',{
-             headers:{
-                Authorization:`Bearer ${token}`
-             }   
-            }).then((res)=>{
-                this.users =res.data.data.data
+            axios.get('https://blog-api-dev.octalinfotech.com/api/users?page=', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                this.users = res.data.data.data
                 console.log(res);
             })
-          }
-       },
-    }
+        },
+        createItem() {
+        let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            let formData = new FormData()
+            formData.append('name', this.createUser.name);
+            formData.append('email', this.createUser.email);
+            formData.append('password', this.createUser.password);
+            formData.append('image', this.createUser.image);
+
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/users/store`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((res) => {
+                toast.success(res.data.message, {
+                timeout: 2000
+                });
+                this.users = res.data.data.data
+                this.resetFormData();
+                this.getUser();
+
+            }).catch((err) => {
+                console.log(err);
+                toast.error(err.response.data.message, {
+                    timeout: 2000
+                });
+            })
+
+        },
+        uploadImage1(e) {
+            this.createUser.image = e.target.files[0];
+        },
+        resetFormData() {
+            this.createCategory = {
+                image: null,
+                name: '',
+                email:'',
+                password:'',
+            };
+            this.$refs.fileupload.value = "";
+        },
+    },
+}
 </script>
 
 <style scoped>
-
-.text{
+.text {
     text-decoration: none;
 }
+
 .width {
     width: 85%;
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;

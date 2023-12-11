@@ -28,7 +28,7 @@
                         <tr v-for="(category , index) in filterCategories" :key="index" class="border-6">
                             <td>{{ index+1 }}</td>
                             <td>{{ category.name }}</td>
-                            <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
+                            <td><img class="img-fluid d-inline justify-content-center" :src="category.image" alt=""></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
