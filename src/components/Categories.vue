@@ -11,38 +11,38 @@
         <div class="mt-6 table-responsive-sm">
 
             <template v-if="filterCategories.length === 0">
-          <p>No categories found.</p>
-        </template>
-        <div v-else>
-          <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                <p>No categories found.</p>
+            </template>
+            <div v-else>
+                <table class="table" style="border: 1px solid; border-collapse: collapse;">
 
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>Categories Name</th>
-                        <th>Avtar</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(category , index) in filterCategories" :key="index" class="border-6">
-                        <td>{{ index+1 }}</td>
-                        <td>{{ category.name }}</td>
-                        <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
-                        <td>
-                            <!-- Button trigger modal -->
-                            <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                            </button>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>Categories Name</th>
+                            <th>Avtar</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(category , index) in filterCategories" :key="index" class="border-6">
+                            <td>{{ index+1 }}</td>
+                            <td>{{ category.name }}</td>
+                            <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
+                            <td>
+                                <!-- Button trigger modal -->
+                                <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                                </button>
 
-                            <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
-                                </i></button>
-                        </td>
+                                <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                                    </i></button>
+                            </td>
 
-                    </tr>
-                </tbody>
-            </table>
-            </div >
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- edit modal -->
@@ -55,13 +55,12 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <div class="text-start">
-
-                            <label for="">Category image <span class="text-danger">*</span></label>
-                            <div class=" border-2 p-1 text-center rounded-2 w-full">
+                            <label for="categoryImage">Category image <span class="text-danger">*</span></label>
+                            <div class="border-2 p-1 text-center rounded-2 w-full file-input-container">
                                 <i class="fa fa-upload fa-2x" aria-hidden="true" role="button"></i>
-                                <input type="file" class="" @change="uploadImage">
-
+                                <input type="file" id="categoryImage" class="file-input" @change="uploadImage">
                             </div>
                         </div>
                         <div class="mt-2 text-start">
@@ -96,12 +95,13 @@
 
                         </div>
                     </div>
+                    
                     <div class="text-start p-0">
 
                         <label class="container">Category image <span class="text-danger">*</span></label>
                         <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                            <input ref="fileupload" type="file"  style="cursor: pointer;" @input="uploadImage1">
+                            <input ref="fileupload" type="file" style="cursor: pointer;" @input="uploadImage1">
 
                         </div>
                     </div>
@@ -122,7 +122,7 @@
             <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
         </div>
     </div>
-    
+
 </div>
 </template>
 
@@ -195,21 +195,21 @@ export default {
     },
     mounted() {
         this.isLoading = true;
-        this.getCategories(this.page,this.perPage);
+        this.getCategories(this.page, this.perPage);
     },
 
     methods: {
-        openEdit(category){
-             this.currentCategory = JSON.parse(JSON.stringify(category));
+        openEdit(category) {
+            this.currentCategory = JSON.parse(JSON.stringify(category));
         },
-        pageChange(value){
+        pageChange(value) {
             this.perPage = parseInt(value)
             this.setCategories()
         },
 
         setCategories() {
             this.page = 1;
-            this.getCategories(this.page,this.perPage);
+            this.getCategories(this.page, this.perPage);
         },
 
         resetFormData() {
@@ -217,7 +217,7 @@ export default {
                 image: null,
                 name: '',
             };
-            this.$refs.fileupload.value ="";
+            this.$refs.fileupload.value = "";
         },
         createItem() {
             let data = localStorage.getItem('user');
@@ -239,7 +239,7 @@ export default {
                 });
                 this.categories = res.data.data.data
                 this.resetFormData();
-                this.getCategories(this.page,this.perPage);
+                this.getCategories(this.page, this.perPage);
 
             }).catch((err) => {
                 console.log(err);
@@ -325,31 +325,6 @@ export default {
             })
 
         },
-        // allCategories() {
-        //     let data = localStorage.getItem('user');
-        //     data = JSON.parse(data);
-        //     let token = data.token;
-
-        //     axios.get("https://blog-api-dev.octalinfotech.com/api/categories/all", {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`
-        //         }
-        //     }).then((res) => {
-        //         toast.success(res.data.message, {
-        //             timeout: 2000
-        //         });
-        //         this.categories = res.data.data.data
-        //         this.getCategories();
-        //     }).catch((err) => {
-        //         console.log(err);
-        //         toast.error(err.response.data.message, {
-        //             timeout: 2000
-        //         });
-        //         console.log(err);
-
-        //     })
-
-        // },
 
         updateItem(id) {
             let data = localStorage.getItem('user');
@@ -396,10 +371,8 @@ export default {
 
 <style scoped>
 .width {
-    width: 80%;
+    width: 100%;
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
-    
-    
 
 }
 
@@ -454,5 +427,36 @@ th {
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
+}
+
+.file-input-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.file-input+i {
+    position: relative;
+    z-index: 1;
+}
+
+/* Add some styling to visually indicate the file input area */
+.file-input-container {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.file-input-container:hover {
+    background-color: #ddd;
 }
 </style>

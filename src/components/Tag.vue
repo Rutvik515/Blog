@@ -323,8 +323,9 @@ export default {
 }
 
 .width {
-    width: 80%;
-    box-shadow: 10px 10px 30px 10px;
+    width: 100%;
+    box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
+
 
 }
 
