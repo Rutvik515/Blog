@@ -1,11 +1,11 @@
 <template>
-<div class="width height mt-5  ms-3 rounded-5 ">
+<div class="width height mt-5  ms-3 rounded-5 m-0">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
         <div class="">
-            <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Categories</button>
+            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Categories</button>
         </div>
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
@@ -31,7 +31,7 @@
                         <td><img class="img-fluid d-inline justify-content-center " :src="category.image" alt=""></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <button type="button" @click="currentCategory = category" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                             </button>
 
@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
 
                         <button @click="updateItem(currentCategory.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
 
@@ -101,12 +101,12 @@
                         <label class="container">Category image <span class="text-danger">*</span></label>
                         <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <i class="fa fa-upload fa-2x" aria-hidden="true"></i>
-                            <input for="fileupload" type="file" class="" style="cursor: pointer;" @input="uploadImage1">
+                            <input ref="fileupload" type="file"  style="cursor: pointer;" @input="uploadImage1">
 
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
 
                         <button type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
 
@@ -199,6 +199,9 @@ export default {
     },
 
     methods: {
+        openEdit(category){
+             this.currentCategory = JSON.parse(JSON.stringify(category));
+        },
         pageChange(value){
             this.perPage = parseInt(value)
             this.setCategories()
@@ -214,6 +217,7 @@ export default {
                 image: null,
                 name: '',
             };
+            this.$refs.fileupload.value ="";
         },
         createItem() {
             let data = localStorage.getItem('user');
@@ -393,7 +397,9 @@ export default {
 <style scoped>
 .width {
     width: 80%;
-    box-shadow: 10px 10px 30px 10px;
+    box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
+    
+    
 
 }
 

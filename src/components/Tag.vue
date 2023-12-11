@@ -13,29 +13,34 @@
             <div>
                 <div class="text">
                     <div class="mt-6 table-responsive-sm">
-                        <table class="table" style="border: 1px solid; border-collapse: collapse;">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Tag Name</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(tag, index) in tages" :key="index" class="border-6">
-                                    <td>{{ index + 1 }}</td>
-                                    <td>{{ tag.name }}</td>
-                                    <td>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" @click="currentTag = tag" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                                        </button>
+                        <template v-if="filterTages.length === 0">
+                            <p>No categories found.</p>
+                        </template>
+                        <div v-else>
+                            <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Tag Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(tag, index) in filterTages" :key="index" class="border-6">
+                                        <td>{{ index + 1 }}</td>
+                                        <td>{{ tag.name }}</td>
+                                        <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" @click="openEdit(tag)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                                            </button>
 
-                                        <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                            <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -58,7 +63,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
 
                             <button type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
 
@@ -66,34 +71,34 @@
                     </div>
                 </div>
             </div>
-             <!-- edit modal -->
+            <!-- edit modal -->
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <div class="mt-2 text-start">
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentTag.name"></div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div class="mt-2 text-start">
+                                <label for="">Name<span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentTag.name"></div>
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+
+                            <button @click="updateItem(currentTag.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save Tages</button>
 
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-
-                        <button @click="updateItem(currentTag.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-
                     </div>
                 </div>
             </div>
         </div>
-        </div>
-        
+
     </div>
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
@@ -107,6 +112,8 @@
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert2';
+
 import {
     useToast
 } from "vue-toastification";
@@ -118,7 +125,7 @@ import PageEvent from '@/components/PageEvent.vue'
 
 export default {
     name: 'ProjectComponent',
-    components:{
+    components: {
         Loading,
         PageEvent,
         Pagination
@@ -127,6 +134,7 @@ export default {
         return {
             isLoading: false,
             fullPage: true,
+            search: '',
             tages: [],
             createTag: {
                 name: '',
@@ -134,42 +142,59 @@ export default {
             currentTag: '',
             updateTag: [{
                 name: '',
-            
+
             }],
             page: 1,
             total: 0,
             last_page: null,
             perPage: 10,
             records: [],
-           
+
         };
     },
     mounted() {
         this.isLoading = true;
-        this.getTages(this.page,this.perPage);
+        this.getTages(this.page, this.perPage);
+    },
+    computed: {
+        filterTages() {
+            if (!this.tages || !Array.isArray(this.tages)) {
+                return [];
+            }
+
+            return this.tages.filter((item) => {
+                return Object.values(item).some((val) => {
+                    return String(val).toLowerCase().includes(this.search.toLowerCase());
+                });
+            });
+        }
     },
     methods: {
-        pageChange(value){
+
+        openEdit(tag){
+             this.currentTag = JSON.parse(JSON.stringify(tag));
+        },
+        pageChange(value) {
             this.perPage = parseInt(value)
             this.setCategories()
         },
         setCategories() {
             this.page = 1;
-            this.getTages(this.page,this.perPage);
+            this.getTages(this.page, this.perPage);
         },
 
         resetFormData() {
-            this.createTag.name = ''; 
+            this.createTag.name = '';
         },
         createItem() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-           let formData = new FormData()
-           formData.append('name', this.createTag.name);
+            let formData = new FormData()
+            formData.append('name', this.createTag.name);
 
-           axios.post(`https://blog-api-dev.octalinfotech.com/api/tages/store`, formData, {
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/tages/store`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -190,7 +215,6 @@ export default {
             })
 
         },
-      
 
         getTages(page) {
             let data = localStorage.getItem('user');
@@ -231,7 +255,7 @@ export default {
                 toast.success(res.data.message, {
                     timeout: 2000
                 });
-                
+
                 this.tages = res.data.data.data
                 this.getTages();
 
@@ -248,6 +272,22 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
+            swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: "red",
+                cancelButtonColor: "blue"
+            }).then((result) => {
+                if (result.value) {
+                    swal(
+                        'Deleted!',
+                        'Your imaginary file has been deleted.',
+                        'success'
+                    )
             axios.delete(`https://blog-api-dev.octalinfotech.com/api/tages/${id}/delete`, {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -255,20 +295,23 @@ export default {
 
             }).then((res) => {
                 console.log(res);
-                this.getTages(this.page,this.perPage);
-                toast.success(res.data.message, {
-                    timeout: 2000
-                });
+                this.getTages(this.page, this.perPage);
+                
 
             }).catch((err) => {
                 console.log(err);
-                toast.error(err.response.data.message, {
-                    timeout: 2000
+               
                 });
+            } else if (result.dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
             });
 
         },
-      
 
     }
 }
