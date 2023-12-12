@@ -1,8 +1,8 @@
 <template>
-<div class="width height mt-5  ms-3 rounded-5 ">
+<div class="width height mt-5  ms-5 rounded-5 ">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
-            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
+            <input class="float-lg-start ms-5 mt-5 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
         <div class="">
             <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Tages</button>
@@ -14,7 +14,7 @@
                 <div class="text">
                     <div class="mt-6 table-responsive-sm">
                         <template v-if="filterTages.length === 0">
-                            <p>No categories found.</p>
+                            <p>No tages found.</p>
                         </template>
                         <div v-else>
                             <table class="table" style="border: 1px solid; border-collapse: collapse;">
@@ -296,7 +296,9 @@ export default {
             }).then((res) => {
                 console.log(res);
                 this.getTages(this.page, this.perPage);
-                
+                toast.success(res.data.message, {
+                    timeout: 2000
+                });
 
             }).catch((err) => {
                 console.log(err);
@@ -323,8 +325,9 @@ export default {
 }
 
 .width {
-    width: 80%;
-    box-shadow: 10px 10px 30px 10px;
+    width: 85%;
+    box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
+    
 
 }
 

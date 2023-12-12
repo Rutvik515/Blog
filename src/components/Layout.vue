@@ -37,7 +37,7 @@
             </nav>
           </div>
           <div>
-          <div class="container-fluid d-flex p-0" style="float: right">
+          <div class="container-fluid d-flex p-0" >
             <div>
               <nav class="navbar p-0 ">
                 <ul class="navbar-nav h-100 flex-column w-100">
