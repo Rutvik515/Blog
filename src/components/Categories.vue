@@ -55,6 +55,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+
                         <div class="text-start">
 
                             <label for="">Category image <span class="text-danger">*</span></label>
@@ -95,12 +96,12 @@
 
                         </div>
                     </div>
+                    
                     <div class="text-start p-0">
 
                         <label class="container">Category image <span class="text-danger">*</span></label>
                         <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
-
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -326,31 +327,6 @@ export default {
             })
 
         },
-        // allCategories() {
-        //     let data = localStorage.getItem('user');
-        //     data = JSON.parse(data);
-        //     let token = data.token;
-
-        //     axios.get("https://blog-api-dev.octalinfotech.com/api/categories/all", {
-        //         headers: {
-        //             Authorization: `Bearer ${token}`
-        //         }
-        //     }).then((res) => {
-        //         toast.success(res.data.message, {
-        //             timeout: 2000
-        //         });
-        //         this.categories = res.data.data.data
-        //         this.getCategories();
-        //     }).catch((err) => {
-        //         console.log(err);
-        //         toast.error(err.response.data.message, {
-        //             timeout: 2000
-        //         });
-        //         console.log(err);
-
-        //     })
-
-        // },
 
         updateItem(id) {
             let data = localStorage.getItem('user');
