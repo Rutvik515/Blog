@@ -33,11 +33,11 @@
                             <td><img class="img-fluid d-inline justify-content-center" :src="user.image" alt=""></td>
                             <td>
                                 <!-- Button trigger modal -->
-                                <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                                 </button>
 
-                                <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                                <button class="bg-color" @click="removeItem(user.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                                     </i></button>
                             </td>
 
@@ -57,18 +57,30 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="text-start">
-
-                            <label for="">Category image <span class="text-danger">*</span></label>
-                            <div class=" border-2 p-1 text-center rounded-2 w-full">
-                                <input type="file" class="custom-file-input" @change="uploadImage">
-
-                            </div>
-                        </div>
+                               <div class="d-flex gap-4">
                         <div class="mt-2 text-start">
                             <label for="">Name<span class="text-danger">*</span></label>
                             <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.name"></div>
 
+                        </div>
+                        <div class="mt-2 text-start">
+                            <label for="">Email<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.email"></div>
+
+                        </div>
+                    </div>
+                        <div class="mt-2 text-start">
+                            <label for="">Change Password<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.password"></div>
+
+                        </div>
+                        <div class="text-start">
+
+                            <label for="">User image <span class="text-danger">*</span></label>
+                            <div class=" border-2 p-1 text-center rounded-2 w-full">
+                                <input type="file" class="custom-file-input" @change="uploadImage">
+
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -95,28 +107,31 @@
 
                             <label for="">Name<span class="text-danger">*</span></label>
                             <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
+                        </div>
 
+                        <div>
                             <div class="mt-2 text-start">
-                                <label for="">Password<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password" v-model="createUser.password"></div>
-
+                                <label for="">Email<span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-body d-flex gap-4">
+
                         <div class="mt-2 text-start">
-
-                            <label for="">Email<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
-
+                            <label for="">Password<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password" v-model="createUser.password"></div>
+                        </div>
+                        <div>
                             <div class="mt-2 text-start">
                                 <label for="">Password Confirmation
                                     <span class="text-danger">*</span></label>
                                 <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password"></div>
-
                             </div>
                         </div>
                     </div>
-                    <div class="text-start p-0">
 
+                    <div class="text-start p-0">
                         <label class="container">User image <span class="text-danger">*</span></label>
                         <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
                             <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
@@ -146,31 +161,40 @@
 
 <script>
 import axios from 'axios';
+import swal from 'sweetalert2';
+
 
 import {
     useToast
 } from "vue-toastification";
 const toast = useToast();
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/css/index.css';
 
 // import Mainlayout from './MainLayout.vue';
 export default {
     name: 'ServiceComponent',
     components: {
         // Mainlayout
+        Loading
     },
     data() {
         return {
             users: [],
             search: '',
+            isLoading: false,
             createUser: {
                 name: '',
-                email:'',
-                password:'',
-                image:'',
+                email: '',
+                password: '',
+                image: '',
             },
             currentUser: '',
             updateUser: [{
                 name: '',
+                email:'',
+                password:'',
+                image: '',
             }],
         }
     },
@@ -189,24 +213,32 @@ export default {
     },
     mounted() {
         this.getUser()
+        this.isLoading = true;
+
     },
     methods: {
+
+        openEdit(user) {
+            this.currentUser= JSON.parse(JSON.stringify(user));
+        },
         getUser() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get('https://blog-api-dev.octalinfotech.com/api/users?page=', {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/users`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
                 this.users = res.data.data.data
                 console.log(res);
+                this.isLoading = false;
+
             })
         },
         createItem() {
-        let data = localStorage.getItem('user');
+            let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
@@ -223,7 +255,7 @@ export default {
 
             }).then((res) => {
                 toast.success(res.data.message, {
-                timeout: 2000
+                    timeout: 2000
                 });
                 this.users = res.data.data.data
                 this.resetFormData();
@@ -244,12 +276,102 @@ export default {
             this.createCategory = {
                 image: null,
                 name: '',
-                email:'',
-                password:'',
+                email: '',
+                password: '',
             };
             this.$refs.fileupload.value = "";
         },
+
+        updateItem(id){
+             let data = localStorage.getItem('user');
+             data = JSON.parse(data);
+             let token = data.token;
+
+             let formData = new FormData()
+             formData.append('name', this.currentUser.name);
+             formData.append('email', this.currentUser.email);
+             formData.append('password', this.currentUser.password);
+             formData.append('image', this.currentUser.image);
+
+           
+            
+             axios.post(`https://blog-api-dev.octalinfotech.com/api/users/${id}/update`,formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+             }).then((res)=> {
+                toast.success(res.data.message,{
+                    timeout: 2000
+                });
+                this.users = res.data.data.data;
+                this.getUser();
+
+             }).catch((err)=> {
+                toast.error(err.response.data.message,{
+                    timeout: 2000
+                });
+            })
+
+
+        },
+        
+        removeItem(id) {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: "red",
+                cancelButtonColor: "blue"
+            }).then((result) => {
+                if (result.value) {
+                    swal(
+                        'Deleted!',
+                        'Your imaginary file has been deleted.',
+                        'success'
+                    )
+            axios.delete(`https://blog-api-dev.octalinfotech.com/api/users/${id}/delete`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+
+            }).then((res) => {
+                console.log(res);
+                this.getUser()
+                toast.success(res.data.message, {
+                    timeout: 2000
+                });
+
+            }).catch((err) => {
+                console.log(err);
+                toast.error(err.response.data.message, {
+                    timeout: 2000
+                });
+               
+                });
+            } else if (result.dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            });
+
+        },
+        uploadImage(event) {
+            this.currentUser.image = event.target.files[0];
+        },
     },
+   
+
 }
 </script>
 
