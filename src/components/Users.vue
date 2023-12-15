@@ -53,30 +53,30 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                               <div class="d-flex gap-4">
-                        <div class="mt-2 text-start">
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.name"></div>
+                        <div class="d-flex gap-4">
+                            <div class="mt-2 text-start">
+                                <label for="">Name<span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.name"></div>
 
-                        </div>
-                        <div class="mt-2 text-start">
-                            <label for="">Email<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.email"></div>
+                            </div>
+                            <div class="mt-2 text-start">
+                                <label for="">Email<span class="text-danger">*</span></label>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.email"></div>
 
+                            </div>
                         </div>
-                    </div>
-                        <div class="mt-2 text-start">
+                        <div class="mt-3 text-start">
                             <label for="">Change Password<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.password"></div>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="" v-model="currentUser.password"></div>
 
                         </div>
-                        <div class="text-start">
+                        <div class="text-start mt-3">
 
-                            <label for="">User image <span class="text-danger">*</span></label>
+                            <label for="">Image <span class="text-danger">*</span></label>
                             <div class=" border-2 p-1 text-center rounded-2 w-full">
                                 <input type="file" class="custom-file-input" @change="uploadImage">
 
@@ -120,13 +120,13 @@
 
                         <div class="mt-2 text-start">
                             <label for="">Password<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password" v-model="createUser.password"></div>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.password"></div>
                         </div>
                         <div>
                             <div class="mt-2 text-start">
                                 <label for="">Password Confirmation
                                     <span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your password"></div>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.comPassword"></div>
                             </div>
                         </div>
                     </div>
@@ -162,8 +162,8 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert2';
-
-
+import PageEvent from './PageEvent.vue';
+import Pagination from 'v-pagination-3';
 import {
     useToast
 } from "vue-toastification";
@@ -176,7 +176,10 @@ export default {
     name: 'ServiceComponent',
     components: {
         // Mainlayout
-        Loading
+        Loading,
+        PageEvent,
+        Pagination
+
     },
     data() {
         return {
@@ -188,14 +191,21 @@ export default {
                 email: '',
                 password: '',
                 image: '',
+                comPassword: '',
             },
             currentUser: '',
             updateUser: [{
                 name: '',
-                email:'',
-                password:'',
+                email: '',
+                password: '',
                 image: '',
             }],
+            page: 1,
+            total: 0,
+            last_page: null,
+            perPage: 10,
+            records: [],
+
         }
     },
     computed: {
@@ -212,21 +222,32 @@ export default {
         }
     },
     mounted() {
-        this.getUser()
+        this.getUsers()
         this.isLoading = true;
 
     },
     methods: {
+        pageChange(value) {
+            this.perPage = parseInt(value)
+            this.setUsers()
+        },
+        setUsers() {
+            this.page = 1;
+            this.getUsers(this.page, this.perPage);
+        },
+        myCallback: function (page) {
+            this.getUsers(page)
+        },
 
         openEdit(user) {
-            this.currentUser= JSON.parse(JSON.stringify(user));
+            this.currentUser = JSON.parse(JSON.stringify(user));
         },
-        getUser() {
+        getUsers(page) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/users`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/users?page=${page}&per_page=${this.perPage}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -234,6 +255,8 @@ export default {
                 this.users = res.data.data.data
                 console.log(res);
                 this.isLoading = false;
+                this.last_page = res.data.data.last_page;
+                this.total = res.data.data.total;
 
             })
         },
@@ -259,7 +282,7 @@ export default {
                 });
                 this.users = res.data.data.data
                 this.resetFormData();
-                this.getUser();
+                this.getUsers(this.page);
 
             }).catch((err) => {
                 console.log(err);
@@ -273,49 +296,47 @@ export default {
             this.createUser.image = e.target.files[0];
         },
         resetFormData() {
-            this.createCategory = {
+            this.createUser = {
                 image: null,
                 name: '',
                 email: '',
                 password: '',
+                comPassword: '',
             };
             this.$refs.fileupload.value = "";
         },
 
-        updateItem(id){
-             let data = localStorage.getItem('user');
-             data = JSON.parse(data);
-             let token = data.token;
+        updateItem(id) {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
 
-             let formData = new FormData()
-             formData.append('name', this.currentUser.name);
-             formData.append('email', this.currentUser.email);
-             formData.append('password', this.currentUser.password);
-             formData.append('image', this.currentUser.image);
+            let formData = new FormData()
+            formData.append('name', this.currentUser.name);
+            formData.append('email', this.currentUser.email);
+            formData.append('password', this.currentUser.password);
+            formData.append('image', this.currentUser.image);
 
-           
-            
-             axios.post(`https://blog-api-dev.octalinfotech.com/api/users/${id}/update`,formData, {
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/users/${id}/update`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
 
-             }).then((res)=> {
-                toast.success(res.data.message,{
+            }).then((res) => {
+                toast.success(res.data.message, {
                     timeout: 2000
                 });
                 this.users = res.data.data.data;
-                this.getUser();
+                this.getUsers();
 
-             }).catch((err)=> {
-                toast.error(err.response.data.message,{
+            }).catch((err) => {
+                toast.error(err.response.data.message, {
                     timeout: 2000
                 });
             })
 
-
         },
-        
+
         removeItem(id) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -337,26 +358,26 @@ export default {
                         'Your imaginary file has been deleted.',
                         'success'
                     )
-            axios.delete(`https://blog-api-dev.octalinfotech.com/api/users/${id}/delete`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    axios.delete(`https://blog-api-dev.octalinfotech.com/api/users/${id}/delete`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
 
-            }).then((res) => {
-                console.log(res);
-                this.getUser()
-                toast.success(res.data.message, {
-                    timeout: 2000
-                });
+                    }).then((res) => {
+                        console.log(res);
+                        this.getUsers(this.page, this.perPage);
+                        toast.success(res.data.message, {
+                            timeout: 2000
+                        });
 
-            }).catch((err) => {
-                console.log(err);
-                toast.error(err.response.data.message, {
-                    timeout: 2000
-                });
-               
-                });
-            } else if (result.dismiss === 'cancel') {
+                    }).catch((err) => {
+                        console.log(err);
+                        toast.error(err.response.data.message, {
+                            timeout: 2000
+                        });
+
+                    });
+                } else if (result.dismiss === 'cancel') {
                     swal(
                         'Cancelled',
                         'Your imaginary file is safe :)',
@@ -370,7 +391,6 @@ export default {
             this.currentUser.image = event.target.files[0];
         },
     },
-   
 
 }
 </script>
