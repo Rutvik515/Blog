@@ -1,11 +1,14 @@
 <template>
-<div class="width height mt-5  ms-5 rounded-5 m-0">
+<div class="width height mt-5 ml-52 rounded-5">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
         <div class="">
-            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Blog</button>
+            <router-link to="/layout/createBlog"> 
+            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" >New Blog</button>
+            </router-link>
+            <router-view></router-view>
         </div>
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
@@ -101,7 +104,7 @@
         </div>
 
         <!-- Create Modal-->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="width: auto;">
                     <div class="modal-header">
@@ -153,7 +156,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />

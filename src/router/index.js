@@ -10,6 +10,7 @@ const routes = [
     component:() => import("../components/Login.vue"),
   },
   
+  
   {
     path: "/layout",
     name: "layout",  
@@ -39,6 +40,11 @@ const routes = [
         path: "/layout/blog",
         name: "Blog",  
         component:() => import("../components/Blog.vue"),
+      },
+      {
+        path: "/layout/createBlog",
+        name: "createBlog",   
+        component:() => import("../components/createBlog.vue"),
       },
       // {
       //   path: "/layout/footer",

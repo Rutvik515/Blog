@@ -37,34 +37,44 @@
             </nav>
           </div>
           <div>
-          <div class="container-fluid d-flex p-0" >
-            <div class="bg-color">
-              <nav class="navbar p-0 ">
-                <ul class="navbar-nav h-100 flex-column w-100">
-                  <router-link to="/layout/dashboard" class="nav-item text-decoration-none">
-                    <li class="nav-link"><i class="fa-solid fa-house ms-3"></i><span class="ms-2">Dashboard</span></li>
-                  </router-link>
-                  <hr class="my-1">
-                  <router-link to="/layout/categories" class="nav-item text-decoration-none">
-                    <li class="nav-link"><i class="fa-solid ms-3 fa-graduation-cap"></i><span class="ms-2">Categories</span></li>
-                  </router-link>
-                  <hr class="my-1">
-                  <router-link to="/layout/tag" class="nav-item text-decoration-none">
-                    <li class="nav-link"><i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Tag</span></li>
-                  </router-link>
-                  <hr class="my-1">
-                  <router-link to="/layout/users" class="nav-item text-decoration-none">
-                    <li class="nav-link"><i class="fa-solid ms-3 fa-users"></i><span class="ms-2">Users</span></li>
-                  </router-link>
-                  <hr class="my-1">
-                  <router-link to="/layout/blog" class="nav-item text-decoration-none">
-                    <li class="nav-link"><i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Blog</span></li>
-                  </router-link>
-                </ul>
-              </nav>
-            </div>
-            <router-view></router-view>
-          </div>
+            <div class="container-fluid d-flex p-0">
+    <div class="bg-color">
+      <nav class="navbar p-0">
+        <ul class="navbar-nav h-100 flex-column w-100">
+          <router-link to="/layout/dashboard" class="nav-item text-decoration-none">
+            <li :class="{ 'nav-link': true, 'active': activeLink === 'dashboard' }" @click="setActiveLink('dashboard')">
+              <i class="fa-solid fa-house ms-3"></i><span class="ms-2">Dashboard</span>
+            </li>
+          </router-link>
+          <hr class="my-1">
+          <router-link to="/layout/categories" class="nav-item text-decoration-none">
+            <li :class="{ 'nav-link': true, 'active': activeLink === 'categories' }" @click="setActiveLink('categories')">
+              <i class="fa-solid ms-3 fa-graduation-cap"></i><span class="ms-2">Categories</span>
+            </li>
+          </router-link>
+          <hr class="my-1">
+          <router-link to="/layout/tag" class="nav-item text-decoration-none">
+            <li :class="{ 'nav-link': true, 'active': activeLink === 'tag' }" @click="setActiveLink('tag')">
+              <i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Tag</span>
+            </li>
+          </router-link>
+          <hr class="my-1">
+          <router-link to="/layout/users" class="nav-item text-decoration-none">
+            <li :class="{ 'nav-link': true, 'active': activeLink === 'users' }" @click="setActiveLink('users')">
+              <i class="fa-solid ms-3 fa-users"></i><span class="ms-2">Users</span>
+            </li>
+          </router-link>
+          <hr class="my-1">
+          <router-link to="/layout/blog" class="nav-item text-decoration-none">
+            <li :class="{ 'nav-link': true, 'active': activeLink === 'blog' }" @click="setActiveLink('blog')">
+              <i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Blog</span>
+            </li>
+          </router-link>
+        </ul>
+      </nav>
+    </div>
+    <router-view></router-view>
+  </div>
           </div>
         </template>
       </mainLayout>
@@ -82,9 +92,13 @@
     data() {
       return {
         isOpen: false,
+        activeLink: null,
       }
     },
     methods: {
+      setActiveLink(link) {
+      this.activeLink = link;
+    },
       logout() {
         this.$router.push("/login");
         localStorage.removeItem("user");
@@ -95,6 +109,9 @@
   </script>
   
   <style scoped>
+.active {
+  background-color: #90b2d4 !important;
+}
 
   .w-100{
     width: 180px !important;
@@ -106,6 +123,8 @@
 
   .bg-color{
     background-color: #e4e8eafc;
+    height: 100vh;
+    position:fixed
   }
   
   .bg-dark {

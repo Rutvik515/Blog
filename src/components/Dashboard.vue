@@ -1,13 +1,13 @@
 <template>
-    <div class="bg-body-secondary container-fluid hg-10 wh-10">
-      <div class="d-flex flex-column flex-md-row align-items-md-center">
+    <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
+      <div class="d-flex flex-column flex-md-row align-items-md-center" style="margin-left: 180px;">
         <img class="m-3 mt-4 img-fluid " src="https://ims-api.octalinfotech.com/images/avatar.png" style="height: 64px;" alt="">
         <div class="mt-4">
           <h1 class="font-size mb-2">Good Morning, Rutvik Kher</h1>
         </div>
       </div>
   
-      <div class="d-flex flex-column flex-md-row w-100 gap-3 gap-md-5 p-3">
+      <div class="d-flex flex-column flex-md-row w-75 gap-3 gap-md-5 p-3 container " style="margin-left: 180px;">
         <div class="w-100 w-md-50 bg-dark p-4 text-white bg-current mb-3 mb-md-0">
           <p>User {{ showDashboard.user }}</p>
         </div>
@@ -61,6 +61,8 @@
   .text {
     text-decoration: none;
   }
+
+  
   .border-none {
     border: none;
   }

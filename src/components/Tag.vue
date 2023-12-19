@@ -1,5 +1,5 @@
 <template>
-<div class="width height mt-5  ms-5 rounded-5 ">
+<div class="width height mt-5 ml-52  rounded-5 ">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-5 p-2 border " type="search" v-model="search" placeholder="search something....">
