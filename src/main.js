@@ -8,10 +8,12 @@ import { VueEditor } from "vue3-editor";
 
 import {LoadingPlugin} from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
+import Multiselect from '@vueform/multiselect'
 
 const app  = createApp(App);
 
 app.use(LoadingPlugin)
+app.use(Multiselect )
 app.use(VueEditor)
 app.use(router)
 app.use(Toast)
