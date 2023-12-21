@@ -13,27 +13,27 @@
                     <div class="modal-body d-flex gap-4">
                         <div class="mt-2 text-start">
                             <label for="name">Title<span class="text-danger">*</span></label>
-                            <div><input id="name" class="border-2 p-2 width-5 rounded-2" type="text" placeholder="Enter your title" v-model="createBlog.title"></div>
+                            <div><input id="name" class="border-2 p-2 width-5 rounded-2" type="text" placeholder="Enter your title" v-model="createBlog.title" @input="convertToSlug"></div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="email">Slug<span class="text-danger">*</span></label>
-                            <div><input id="email" class="border-2 p-2  width-5 rounded-2 " type="text" placeholder="Enter your slug" v-model="createBlog.slug"></div>
+                            <div><input id="email" class="border-2 p-2  width-5 rounded-2 " type="text" placeholder="Enter your slug" v-model="createBlog.slug" disabled></div>
                         </div>
                     </div>
                     <div class="modal-body d-flex gap-4">
                         <div class="mt-2 text-start">
                             <label for="password">User<span class="text-danger">*</span></label>
                             <div>
-                                
+
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your use"> -->
-                                <Multiselect class=" width-5 rounded-2" v-model="user" :options="userOptions"  placeholder="Select Option"/>
+                                <Multiselect class=" width-5 rounded-2" v-model="user" :options="userOptions" placeholder="Select Option" />
                             </div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="confirmPassword">Tag<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="tage" :options="tageOptions"  placeholder="Select Option"/>
-                               
+                                <Multiselect class=" width-5 rounded-2" v-model="tage" :options="tageOptions" placeholder="Select Option" />
+
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
                         </div>
@@ -42,14 +42,14 @@
                         <div class="mt-2 text-start">
                             <label for="password">Categories<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="categories" :options="categoriesOptions"  placeholder="Select Option"/>
+                                <Multiselect class=" width-5 rounded-2" v-model="categories" :options="categoriesOptions" placeholder="Select Option" />
 
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your categories" v-model="createUser"> -->
                             </div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="confirmPassword">Date<span class="text-danger">*</span></label>
-                            <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createUser"></div>
+                            <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createBlog.date"></div>
                         </div>
                     </div>
                     <div class="text-start p-0 mt-2">
@@ -71,7 +71,7 @@
         <div class="modal-footer mt-2 mr-2">
 
             <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary" @click="createItem" >Submit</button>
         </div>
     </div>
 </div>
@@ -79,8 +79,11 @@
 
 <script>
 import axios from 'axios';
-import Multiselect from '@vueform/multiselect'
-
+import Multiselect from '@vueform/multiselect';
+import {
+    useToast
+} from "vue-toastification";
+const toast = useToast();
 import {
     VueEditor
 } from "vue3-editor";
@@ -93,17 +96,21 @@ export default {
 
     data() {
         return {
-            createBlog:{
-                title:'',
-                slug:'',
+            createBlog: {
+                title: '',
+                slug: '',
+                image:'',
+
             },
-            content: "<h1>Some initial content</h1>",
-            user: null,   
-            tage:null,
-            categories:null,
+            currentBlog: '',
+
+            content: "<h1></h1>",
+            user: null,
+            tage: null,
+            categories: null,
             userOptions: [],
-            tageOptions:[],
-            categoriesOptions:[],
+            tageOptions: [],
+            categoriesOptions: [],
 
         };
     },
@@ -114,10 +121,16 @@ export default {
     },
 
     methods: {
-        uploadImage1() {
-            // Implement your image upload logic here
 
+        convertToSlug(event) {
+            let text = event.target.value;
+
+    
+            this.createBlog.slug = text.toLowerCase()
+                .replace(/ /g, "-")
+                .replace(/[^\w-]+/g, "");
         },
+       
         getUsers() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -129,9 +142,9 @@ export default {
                 }
             }).then((res) => {
                 this.userOptions = res.data.data.map((value) => {
-                    return{
-                        label:value.name,
-                        value:value.id
+                    return {
+                        label: value.name,
+                        value: value.id
                     }
                 })
                 console.log(res.data.data);
@@ -147,10 +160,10 @@ export default {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
-                this.tageOptions = res.data.data.map((value)=>{
-                    return{
-                        label:value.name,
-                        value:value.id
+                this.tageOptions = res.data.data.map((value) => {
+                    return {
+                        label: value.name,
+                        value: value.id
                     }
                 })
                 console.log(res.data.data);
@@ -166,10 +179,10 @@ export default {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
-                this.categoriesOptions = res.data.data.map((value)=>{
-                    return{
-                        label:value.name,
-                        value:value.id,
+                this.categoriesOptions = res.data.data.map((value) => {
+                    return {
+                        label: value.name,
+                        value: value.id,
                     }
                 })
                 console.log(this.categories);
@@ -177,6 +190,39 @@ export default {
                 console.log(err);
             })
 
+        },
+      
+        createItem() {
+    let data = localStorage.getItem('user');
+    data = JSON.parse(data);
+    let token = data.token;
+    let formData = new FormData();
+
+    formData.append('image', this.createBlog.image); // Fix the typo here
+    formData.append('name', this.createBlog.name);
+
+    axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }).then((res) => {
+        toast.success(res.data.message, {
+            timeout: 2000
+        });
+        // this.resetFormData();
+        this.getUsers();
+        this.getTages();
+        this.getCategories();
+
+    }).catch((err) => {
+        console.log(err);
+        toast.error(err.response.data.message, {
+            timeout: 2000
+        });
+    });
+},
+        uploadImage1(event) {
+            this.createBlog.image = event.target.files[0];
         },
 
         submitForm() {

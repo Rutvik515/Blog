@@ -47,7 +47,7 @@
                                     <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                                 </button>
 
-                                <button class="bg-color" @click="removeItem(user.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                                <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                                     </i></button>
                             </td>
 
@@ -174,9 +174,14 @@
 import axios from 'axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
+import swal from 'sweetalert2';
 
 import Pagination from 'v-pagination-3';
 import PageEvent from '@/components/PageEvent.vue'
+import {
+    useToast
+} from "vue-toastification";
+const toast = useToast();
 
 export default {
     name: 'ContactComponent',
@@ -236,6 +241,52 @@ export default {
             })
 
         },
+        removeItem(id){
+
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            swal({
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this imaginary file!',
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: "red",
+                cancelButtonColor: "blue"
+            }).then((result) => {
+                if (result.value) {
+                    swal(
+                        'Deleted!',
+                        'Your imaginary file has been deleted.',
+                        'success'
+                    )
+                    axios.delete(`https://blog-api-dev.octalinfotech.com/api/blogs/${id}/delete`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+
+                    }).then((res) => {
+                        console.log(res);
+                        this.getBlogs();
+                        toast.success(res.data.message, {
+                            timeout: 2000
+                        });
+
+                    }).catch((err) => {
+                        console.log(err);
+                    })
+                } else if (result.dismiss === 'cancel') {
+                    swal(
+                        'Cancelled',
+                        'Your imaginary file is safe :)',
+                        'error'
+                    )
+                }
+            })
+        }
     }
 }
 </script>
