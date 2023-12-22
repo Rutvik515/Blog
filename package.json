@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "@vueform/multiselect": "^2.6.6",
+    "@vuepic/vue-datepicker": "^7.4.0",
     "axios": "^1.6.0",
     "bootstrap": "^5.3.2",
     "core-js": "^3.8.3",
+    "moment": "^2.29.4",
     "properties": "^1.2.1",
     "sweetalert2": "^7.33.1",
     "v-pagination-3": "^0.1.7",

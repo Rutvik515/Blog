@@ -40,7 +40,7 @@
                             <td>
                                 <p v-html="blog.description"></p>
                             </td>
-                            <td>{{ blog.status }}</td>
+                            <td><span class=""  style="color: black;" ><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'Unpublished'}}</span></span></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -381,5 +381,13 @@ th {
 
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.red{
+    background: red;
+}
+
+.green{
+    background: green;
 }
 </style>

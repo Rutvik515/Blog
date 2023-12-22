@@ -26,36 +26,51 @@
                             <div>
 
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your use"> -->
-                                <Multiselect class=" width-5 rounded-2" v-model="user" :options="userOptions" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.user" :options="userOptions" placeholder="Select Option" />
                             </div>
                         </div>
                         <div class="mt-2 text-start">
-                            <label for="confirmPassword">Tag<span class="text-danger">*</span></label>
+                            <label for="confirmPassword">Tags<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="tage" :options="tageOptions" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.tags" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
                         </div>
                     </div>
-                    <div class="modal-body d-flex gap-4">
-                        <div class="mt-2 text-start">
+                    <div class="modal-body d-flex gap-3">
+                        <div class="mt-3 text-start">
                             <label for="password">Categories<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="categories" :options="categoriesOptions" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.category" :options="categoriesOptions" placeholder="Select Option" />
 
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your categories" v-model="createUser"> -->
                             </div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="confirmPassword">Date<span class="text-danger">*</span></label>
-                            <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createBlog.date"></div>
+                            <VueDatePicker v-model="createBlog.date" class=" p-2 width-5 rounded-2"></VueDatePicker>
+                            <!-- <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createBlog.date"></div> -->
                         </div>
+
                     </div>
-                    <div class="text-start p-0 mt-2">
-                        <label class="container p-0">User image <span class="text-danger">*</span></label>
-                        <div class="container border-2 p-0 text-center rounded-2 float-lg-start " style="width: 480px;height: 44px;">
-                            <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+                    <div class="modal-body d-flex ">
+
+                    </div>
+                    <div class="modal-body d-flex gap-4">
+                        <div class="text-start p-0 mt-2 width-10">
+                            <label class="container p-0">User image <span class="text-danger">*</span></label>
+                            <div class="container border-2 p-0 text-center rounded-2 float-lg-start " style="width: 480px;height: 44px;">
+                                <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+                            </div>
+                        </div>
+                        <div class="mt-2 mr-10 text-start">
+                            <label for="">Status<span class="text-danger" >*</span></label>
+                            <div>
+                                <Multiselect class="width-5 rounded-2" v-model="createBlog.status " :options="statusOptions"  placeholder="Select Option" />
+
+                                <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
+                            </div>
                         </div>
                     </div>
 
@@ -64,21 +79,24 @@
         </div>
     </div>
     <div id="app " class="container mt-5">
-        <vue-editor v-model="content"></vue-editor>
+        <vue-editor v-model="createBlog.description"></vue-editor>
     </div>
     <div class="mt-3">
         <hr>
         <div class="modal-footer mt-2 mr-2">
 
             <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" @click="createItem" >Submit</button>
+            <button type="submit" class="btn btn-primary" @click="createItem">Submit</button>
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
 import axios from 'axios';
+import moment from 'moment'
 import Multiselect from '@vueform/multiselect';
 import {
     useToast
@@ -91,7 +109,8 @@ import {
 export default {
     components: {
         VueEditor,
-        Multiselect
+        Multiselect,
+        VueDatePicker
     },
 
     data() {
@@ -99,18 +118,27 @@ export default {
             createBlog: {
                 title: '',
                 slug: '',
-                image:'',
+                image: '',
+                description: '',
+                status: '',
+                user: '',
+                category: '',
+                tags: '',
+                date: ''
 
             },
             currentBlog: '',
 
             content: "<h1></h1>",
             user: null,
+            date: '',
             tage: null,
+            status: null,
             categories: null,
             userOptions: [],
             tageOptions: [],
             categoriesOptions: [],
+            statusOptions: ['publish', 'unpublish']
 
         };
     },
@@ -125,12 +153,11 @@ export default {
         convertToSlug(event) {
             let text = event.target.value;
 
-    
             this.createBlog.slug = text.toLowerCase()
                 .replace(/ /g, "-")
                 .replace(/[^\w-]+/g, "");
         },
-       
+
         getUsers() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -191,36 +218,49 @@ export default {
             })
 
         },
-      
+
         createItem() {
-    let data = localStorage.getItem('user');
-    data = JSON.parse(data);
-    let token = data.token;
-    let formData = new FormData();
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+            let formData = new FormData();
+            this.createBlog.date = moment(this.createBlog.date).format("YYYY-MM-DD");
 
-    formData.append('image', this.createBlog.image); // Fix the typo here
-    formData.append('name', this.createBlog.name);
 
-    axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }).then((res) => {
-        toast.success(res.data.message, {
-            timeout: 2000
-        });
-        // this.resetFormData();
-        this.getUsers();
-        this.getTages();
-        this.getCategories();
+            formData.append('title', this.createBlog.title);
+            // formData.append('name', this.createBlog.slug);
+            formData.append('image', this.createBlog.image);
+            formData.append('description', this.createBlog.description);
+            formData.append('status', this.createBlog.status === 'publish' ? 1 : 2);
+            formData.append('user_id', this.createBlog.user);
+            formData.append('category_id', this.createBlog.category);
+            formData.append('tag_ids', this.createBlog.tags);
+            formData.append('date', this.createBlog.date);
 
-    }).catch((err) => {
-        console.log(err);
-        toast.error(err.response.data.message, {
-            timeout: 2000
-        });
-    });
-},
+
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                toast.success(res.data.message, {
+                    timeout: 2000
+                });
+                
+                // this.resetFormData();
+                this.$router.push("/layout/blog");
+                this.getUsers();
+                this.getTages();
+                this.getCategories();
+
+
+            }).catch((err) => {
+                console.log(err);
+                toast.error(err.response.data.message, {
+                    timeout: 2000
+                });
+            });
+        },
         uploadImage1(event) {
             this.createBlog.image = event.target.files[0];
         },
@@ -239,6 +279,10 @@ export default {
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
     height: 47rem;
     width: 70rem;
+}
+
+.width-10 {
+    width: 478px;
 }
 
 .width-5 {
