@@ -42,9 +42,14 @@ const routes = [
         component:() => import("../components/Blog.vue"),
       },
       {
-        path: "/layout/createBlog",
+        path: "/layout/blog/create",
         name: "createBlog",   
         component:() => import("../components/createBlog.vue"),
+      },
+      {
+        path: "/layout/blog/edit/:id",
+        name: "updateBlog",   
+        component:() => import("../components/updateBlog.vue"),
       },
       // {
       //   path: "/layout/footer",

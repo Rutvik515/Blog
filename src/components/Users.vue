@@ -21,7 +21,7 @@
                             <th>id</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Avtar</th>
+                            <th>Avatar</th>
                             <th>Action</th>
                         </tr>
                     </thead>

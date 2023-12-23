@@ -4,7 +4,7 @@
         <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">
                 <div class="modal-header">
-                    <h5 class="modal-title">New Blog</h5>
+                    <h5 class="modal-title">Update Blog</h5>
                     <router-link to="/layout/blog">
                         <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
                     </router-link>
@@ -13,11 +13,11 @@
                     <div class="modal-body d-flex gap-4">
                         <div class="mt-2 text-start">
                             <label for="name">Title<span class="text-danger">*</span></label>
-                            <div><input id="name" class="border-2 p-2 width-5 rounded-2" type="text" placeholder="Enter your title" v-model="createBlog.title" @input="convertToSlug"></div>
+                            <div><input id="name" class="border-2 p-2 width-5 rounded-2" type="text" placeholder="Enter your title" v-model="currentBlog.title" @input="convertToSlug"></div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="email">Slug<span class="text-danger">*</span></label>
-                            <div><input id="email" class="border-2 p-2  width-5 rounded-2 " type="text" placeholder="Enter your slug" v-model="createBlog.slug" disabled></div>
+                            <div><input id="email" class="border-2 p-2  width-5 rounded-2 " type="text" placeholder="Enter your slug" v-model="currentBlog.slug" disabled></div>
                         </div>
                     </div>
                     <div class="modal-body d-flex gap-4">
@@ -26,13 +26,13 @@
                             <div>
 
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your use"> -->
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.user" :options="userOptions" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="currentBlog.user_id" :options="userOptions" placeholder="Select Option" />
                             </div>
                         </div>
                         <div class="mt-3 text-start">
                             <label for="">Tags<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.tags" :options="tageOptions" :closeOnSelect="true"  :searchable="true" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="currentBlog.tag" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
@@ -42,15 +42,14 @@
                         <div class="mt-3 text-start">
                             <label for="">Category<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.category" :options="categoriesOptions" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="currentBlog.category_id" :options="categoriesOptions" placeholder="Select Option" />
 
                                 <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your categories" v-model="createUser"> -->
                             </div>
                         </div>
                         <div class="mt-2 text-start">
                             <label for="" class="ml-1">Date<span class="text-danger">*</span></label>
-                            <VueDatePicker v-model="createBlog.date" class=" p-2 width-5 rounded-2"></VueDatePicker>
-                            <!-- <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createBlog.date"></div> -->
+                            <VueDatePicker v-model="currentBlog.date" class=" p-2 width-5 rounded-2"></VueDatePicker>
                         </div>
 
                     </div>
@@ -61,13 +60,14 @@
                         <div class="text-start p-0 mt-3 width-10">
                             <label class="container p-0">Image <span class="text-danger">*</span></label>
                             <div class="container border-2 p-0 text-center rounded-2 float-lg-start " style="width: 480px;height: 44px;">
-                                <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+                                <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage">
                             </div>
                         </div>
                         <div class="mt-3 mr-10 text-start">
                             <label for="">Status<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class="width-5 rounded-2" v-model="createBlog.status " :options="statusOptions" placeholder="Select Option" />
+                                {{ currentBlog.status  }}
+                                <Multiselect class="width-5 rounded-2" v-model="currentBlog.status" :options="statusOptions" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
@@ -79,12 +79,12 @@
         </div>
     </div>
     <div class="float-start ml-4 mt-4">
-            <label for="" >Description<span class="text-danger">*</span></label>
-        </div>
+        <label for="">Description<span class="text-danger">*</span></label>
+    </div>
     <div id="app " class="container mt-5">
-      
+
         <div>
-            <vue-editor v-model="createBlog.description"></vue-editor>
+            <vue-editor v-model="currentBlog.description"></vue-editor>
         </div>
     </div>
     <div class="mt-3">
@@ -92,7 +92,7 @@
         <div class="modal-footer mt-2 mr-2">
 
             <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" @click="createItem">Submit</button>
+            <button type="submit" class="btn btn-primary" @click="updateItem(currentBlog.id)">Submit</button>
         </div>
     </div>
 </div>
@@ -104,6 +104,9 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import axios from 'axios';
 import moment from 'moment'
 import Multiselect from '@vueform/multiselect';
+import {
+    useRoute
+} from 'vue-router';
 import {
     useToast
 } from "vue-toastification";
@@ -121,7 +124,7 @@ export default {
 
     data() {
         return {
-            createBlog: {
+            updateBlog: [{
                 title: '',
                 slug: '',
                 image: '',
@@ -132,9 +135,10 @@ export default {
                 tags: '',
                 date: ''
 
-            },
-            currentBlog: '',
+            }],
+            blogs: [],
 
+            currentBlog: '',
             content: "<h1></h1>",
             user: null,
             date: '',
@@ -144,7 +148,9 @@ export default {
             userOptions: [],
             tageOptions: [],
             categoriesOptions: [],
-            statusOptions: ['publish', 'unpublish']
+            statusOptions: [{
+                
+            }, 'unpublish']
 
         };
     },
@@ -152,14 +158,49 @@ export default {
         this.getUsers();
         this.getTages();
         this.getCategories();
+        this.getBlogs(useRoute().params.id);
+
     },
 
     methods: {
 
+        getBlogs(id) {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/blogs/${id}/show`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                this.currentBlog = res.data.data;
+                
+                console.error(res.data.data);
+                this.currentBlog.tag = this.currentBlog.tag.map((item) => {
+                    return item.id;
+                });
+                this.currentBlog.user_id = this.currentBlog.user_id
+                    .map((item) => {
+                        return item.id;
+                    });
+                this.currentBlog.category_id = this.currentBlog.category_id
+                    .map((item) => {
+                        return item.id;
+                    });
+                    this.currentBlog.status = this.currentBlog.status == 1 ? 'publish' : 'unpublish';
+
+                console.error(this.currentBlog);
+                this.isLoading = false;
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        },
         convertToSlug(event) {
             let text = event.target.value;
 
-            this.createBlog.slug = text.toLowerCase()
+            this.currentBlog.slug = text.toLowerCase()
                 .replace(/ /g, "-")
                 .replace(/[^\w-]+/g, "");
         },
@@ -225,24 +266,23 @@ export default {
 
         },
 
-        createItem() {
+        updateItem(id) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
             let formData = new FormData();
-            this.createBlog.date = moment(this.createBlog.date).format("YYYY-MM-DD");
+            this.currentBlog.date = moment(this.currentBlog.date).format("YYYY-MM-DD");
 
-            formData.append('title', this.createBlog.title);
-            // formData.append('name', this.createBlog.slug);
-            formData.append('image', this.createBlog.image);
-            formData.append('description', this.createBlog.description);
-            formData.append('status', this.createBlog.status === 'publish' ? 1 : 2);
-            formData.append('user_id', this.createBlog.user);
-            formData.append('category_id', this.createBlog.category);
-            formData.append('tag_ids', this.createBlog.tags);
-            formData.append('date', this.createBlog.date);
+            formData.append('title', this.currentBlog.title);
+            formData.append('image', this.currentBlog.image);
+            formData.append('description', this.currentBlog.description);
+            formData.append('status', this.currentBlog.status === 'publish' ? 1 : 2);
+            formData.append('user_id', this.currentBlog.user);
+            formData.append('category_id', this.currentBlog.category);
+            formData.append('tag_ids', this.currentBlog.tags);
+            formData.append('date', this.currentBlog.date);
 
-            axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {
+            axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/${id}/update`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -264,8 +304,8 @@ export default {
                 });
             });
         },
-        uploadImage1(event) {
-            this.createBlog.image = event.target.files[0];
+        uploadImage(e) {
+            this.currentBlog.image = e.target.files[0];
         },
 
         submitForm() {

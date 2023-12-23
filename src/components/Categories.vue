@@ -20,7 +20,7 @@
                         <tr>
                             <th>id</th>
                             <th>Categories Name</th>
-                            <th>Avtar</th>
+                            <th>Avatar</th>
                             <th>Action</th>
                         </tr>
                     </thead>

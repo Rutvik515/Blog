@@ -5,8 +5,8 @@
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
         </div>
         <div class="">
-            <router-link to="/layout/createBlog"> 
-            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" >New Blog</button>
+            <router-link to="/layout/blog/create">
+                <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white">New Blog</button>
             </router-link>
             <router-view></router-view>
         </div>
@@ -22,7 +22,7 @@
                     <thead>
                         <tr>
                             <th>id</th>
-                            <th>avtar</th>
+                            <th>Avatar</th>
                             <th>title</th>
                             <th>Categories</th>
                             <th>Description</th>
@@ -40,12 +40,14 @@
                             <td>
                                 <p v-html="blog.description"></p>
                             </td>
-                            <td><span class=""  style="color: black;" ><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'Unpublished'}}</span></span></td>
+                            <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'Unpublished'}}</span></span></td>
                             <td>
                                 <!-- Button trigger modal -->
-                                <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                                </button>
+                                <router-link :to='`/layout/blog/edit/${blog.id}`'>
+                                    <button type="button" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                                    </button>
+                                </router-link>
 
                                 <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                                     </i></button>
@@ -59,7 +61,7 @@
 
         <!-- edit modal -->
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -101,7 +103,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Create Modal-->
         <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -196,6 +198,7 @@ export default {
             blogs: [],
             search: '',
             isLoading: false,
+            // currentBlog:'',
 
         }
     },
@@ -220,6 +223,10 @@ export default {
     },
     methods: {
 
+        // openEdit(blog) {
+        //     this.currentBlog = JSON.parse(JSON.stringify(blog));
+        // },
+
         getBlogs() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -241,7 +248,7 @@ export default {
             })
 
         },
-        removeItem(id){
+        removeItem(id) {
 
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -383,11 +390,11 @@ th {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-.red{
+.red {
     background: red;
 }
 
-.green{
+.green {
     background: green;
 }
 </style>

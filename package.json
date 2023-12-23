@@ -15,6 +15,7 @@
     "core-js": "^3.8.3",
     "moment": "^2.29.4",
     "properties": "^1.2.1",
+    "run": "^1.4.0",
     "sweetalert2": "^7.33.1",
     "v-pagination-3": "^0.1.7",
     "vue": "^3.2.13",
