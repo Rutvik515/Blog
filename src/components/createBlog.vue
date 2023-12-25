@@ -1,5 +1,5 @@
 <template>
-<div class="ml-96 mt-12 width rounded-5">
+<div class="ml-96 mt-12 width ">
     <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">
@@ -32,7 +32,7 @@
                         <div class="mt-3 text-start">
                             <label for="">Tags<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.tags" :options="tageOptions" :closeOnSelect="true"  :searchable="true" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.tags" :options="tageOptions" :closeOnSelect="true" :searchable="true" mode="tags" :multiple="true" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
@@ -79,10 +79,10 @@
         </div>
     </div>
     <div class="float-start ml-4 mt-4">
-            <label for="" >Description<span class="text-danger">*</span></label>
-        </div>
+        <label for="">Description<span class="text-danger">*</span></label>
+    </div>
     <div id="app " class="container mt-5">
-      
+
         <div>
             <vue-editor v-model="createBlog.description"></vue-editor>
         </div>
@@ -129,7 +129,7 @@ export default {
                 status: '',
                 user: '',
                 category: '',
-                tags: '',
+                tags: [],
                 date: ''
 
             },
@@ -144,7 +144,7 @@ export default {
             userOptions: [],
             tageOptions: [],
             categoriesOptions: [],
-            statusOptions: ['publish', 'unpublish']
+            statusOptions: ['Publish', 'UnPublish']
 
         };
     },
@@ -233,13 +233,13 @@ export default {
             this.createBlog.date = moment(this.createBlog.date).format("YYYY-MM-DD");
 
             formData.append('title', this.createBlog.title);
-            // formData.append('name', this.createBlog.slug);
             formData.append('image', this.createBlog.image);
             formData.append('description', this.createBlog.description);
-            formData.append('status', this.createBlog.status === 'publish' ? 1 : 2);
+            formData.append('status', this.createBlog.status === 'Publish' ? 1 : 2);
             formData.append('user_id', this.createBlog.user);
             formData.append('category_id', this.createBlog.category);
-            formData.append('tag_ids', this.createBlog.tags);
+            this.createBlog.tags.forEach((value)=>formData.append('tag_ids[]', value))
+            
             formData.append('date', this.createBlog.date);
 
             axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {

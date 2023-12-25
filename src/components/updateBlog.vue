@@ -1,5 +1,5 @@
 <template>
-<div class="ml-96 mt-12 width rounded-5">
+<div class="ml-96 mt-12 width">
     <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">
@@ -66,7 +66,6 @@
                         <div class="mt-3 mr-10 text-start">
                             <label for="">Status<span class="text-danger">*</span></label>
                             <div>
-                                {{ currentBlog.status  }}
                                 <Multiselect class="width-5 rounded-2" v-model="currentBlog.status" :options="statusOptions" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
@@ -90,8 +89,11 @@
     <div class="mt-3">
         <hr>
         <div class="modal-footer mt-2 mr-2">
+            <router-link to="/layout/blog">
 
-            <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-secondary mr-2" >Cancel</button>
+        </router-link>
+
             <button type="submit" class="btn btn-primary" @click="updateItem(currentBlog.id)">Submit</button>
         </div>
     </div>
@@ -149,8 +151,14 @@ export default {
             tageOptions: [],
             categoriesOptions: [],
             statusOptions: [{
-                
-            }, 'unpublish']
+                    label: 'Publish',
+                    value: 1
+                },
+                {
+                    label: 'UnPublish',
+                    value: 2
+                }
+            ]
 
         };
     },
@@ -164,6 +172,7 @@ export default {
 
     methods: {
 
+        
         getBlogs(id) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -175,11 +184,13 @@ export default {
                 }
             }).then((res) => {
                 this.currentBlog = res.data.data;
-                
+
                 console.error(res.data.data);
-                this.currentBlog.tag = this.currentBlog.tag.map((item) => {
-                    return item.id;
-                });
+
+                this.currentBlog.tag = this.currentBlog.tag
+                    .map((item) => {
+                        return item.id;
+                    });
                 this.currentBlog.user_id = this.currentBlog.user_id
                     .map((item) => {
                         return item.id;
@@ -188,9 +199,7 @@ export default {
                     .map((item) => {
                         return item.id;
                     });
-                    this.currentBlog.status = this.currentBlog.status == 1 ? 'publish' : 'unpublish';
 
-                console.error(this.currentBlog);
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
@@ -276,7 +285,7 @@ export default {
             formData.append('title', this.currentBlog.title);
             formData.append('image', this.currentBlog.image);
             formData.append('description', this.currentBlog.description);
-            formData.append('status', this.currentBlog.status === 'publish' ? 1 : 2);
+            formData.append('status', this.currentBlog.status);
             formData.append('user_id', this.currentBlog.user);
             formData.append('category_id', this.currentBlog.category);
             formData.append('tag_ids', this.currentBlog.tags);
@@ -290,12 +299,11 @@ export default {
                 toast.success(res.data.message, {
                     timeout: 2000
                 });
-
-                // this.resetFormData();
-                this.$router.push("/layout/blog");
                 this.getUsers();
                 this.getTages();
                 this.getCategories();
+                this.$router.push("/layout/blog");
+              
 
             }).catch((err) => {
                 console.log(err);

@@ -1,5 +1,5 @@
 <template>
-<div class="width height mt-5 ml-52 rounded-5">
+<div class="width height mt-5 ml-52 rounded-3">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
@@ -40,11 +40,11 @@
                             <td>
                                 <p v-html="blog.description"></p>
                             </td>
-                            <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'Unpublished'}}</span></span></td>
+                            <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'UnPublished'}}</span></span></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <router-link :to='`/layout/blog/edit/${blog.id}`'>
-                                    <button type="button" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <button type="button" class="bg-color" >
                                         <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                                     </button>
                                 </router-link>
@@ -59,106 +59,7 @@
             </div>
         </div>
 
-        <!-- edit modal -->
-
-        <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update Blog</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="d-flex gap-4">
-                            <div class="mt-2 text-start">
-                                <label for="">Name<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser"></div>
-
-                            </div>
-                            <div class="mt-2 text-start">
-                                <label for="">Email<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser"></div>
-
-                            </div>
-                        </div>
-                        <div class="mt-3 text-start">
-                            <label for="">Change Password<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="" v-model="currentUser"></div>
-
-                        </div>
-                        <div class="text-start mt-3">
-
-                            <label for="">Image <span class="text-danger">*</span></label>
-                            <div class=" border-2 p-1 text-center rounded-2 w-full">
-                                <input type="file" class="custom-file-input" @change="uploadImage">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
-
-                        <button @click="updateItem(currentUser.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
-
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-        <!-- Create Modal-->
-        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content" style="width: auto;">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Blog</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex gap-4">
-
-                        <div class="mt-2 text-start">
-
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser"></div>
-                        </div>
-
-                        <div>
-                            <div class="mt-2 text-start">
-                                <label for="">Email<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body d-flex gap-4">
-
-                        <div class="mt-2 text-start">
-                            <label for="">Password<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser"></div>
-                        </div>
-                        <div>
-                            <div class="mt-2 text-start">
-                                <label for="">Password Confirmation
-                                    <span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="text-start p-0">
-                        <label class="container">image <span class="text-danger">*</span></label>
-                        <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
-                            <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
-
-                        <button type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
-
-                    </div>
-                </div>
-            </div>
-        </div> -->
+      
     </div>
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
@@ -199,11 +100,17 @@ export default {
             search: '',
             isLoading: false,
             // currentBlog:'',
+            page: 1,
+            total: 0,
+            last_page: null,
+            perPage: 10,
+            records: [],
+
 
         }
     },
     mounted() {
-        this.getBlogs();
+        this.getBlogs(this.page, this.perPage);
         this.isLoading = true;
 
     },
@@ -227,26 +134,29 @@ export default {
         //     this.currentBlog = JSON.parse(JSON.stringify(blog));
         // },
 
-        getBlogs() {
+        getBlogs(page) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/blogs`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
                 this.blogs = res.data.data.data;
                 console.log(this.blogs);
-                // this.last_page = res.data.data.last_page;
-                // this.total = res.data.data.total;
+                this.last_page = res.data.data.last_page;
+                this.total = res.data.data.total;
 
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
             })
 
+        },
+        myCallback: function (page) {
+            this.getBlogs(page)
         },
         removeItem(id) {
 
