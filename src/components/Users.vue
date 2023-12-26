@@ -171,11 +171,11 @@ const toast = useToast();
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
-// import Mainlayout from './MainLayout.vue';
+// import mainLayout from './mainLayout.vue';
 export default {
     name: 'ServiceComponent',
     components: {
-        // Mainlayout
+        // mainLayout
         Loading,
         PageEvent,
         Pagination

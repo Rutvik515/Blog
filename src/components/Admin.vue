@@ -41,31 +41,31 @@
     <div class="bg-color">
       <nav class="navbar p-0">
         <ul class="navbar-nav h-100 flex-column w-100">
-          <router-link to="/layout/dashboard" class="nav-item text-decoration-none">
+          <router-link to="/admin/dashboard" class="nav-item text-decoration-none">
             <li :class="{ 'nav-link': true, 'active': activeLink === 'dashboard' }" @click="setActiveLink('dashboard')">
               <i class="fa-solid fa-house ms-3"></i><span class="ms-2">Dashboard</span>
             </li>
           </router-link>
           <hr class="my-1">
-          <router-link to="/layout/categories" class="nav-item text-decoration-none">
+          <router-link to="/admin/categories" class="nav-item text-decoration-none">
             <li :class="{ 'nav-link': true, 'active': activeLink === 'categories' }" @click="setActiveLink('categories')">
               <i class="fa-solid ms-3 fa-graduation-cap"></i><span class="ms-2">Categories</span>
             </li>
           </router-link>
           <hr class="my-1">
-          <router-link to="/layout/tag" class="nav-item text-decoration-none">
+          <router-link to="/admin/tag" class="nav-item text-decoration-none">
             <li :class="{ 'nav-link': true, 'active': activeLink === 'tag' }" @click="setActiveLink('tag')">
               <i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Tag</span>
             </li>
           </router-link>
           <hr class="my-1">
-          <router-link to="/layout/users" class="nav-item text-decoration-none">
+          <router-link to="/admin/users" class="nav-item text-decoration-none">
             <li :class="{ 'nav-link': true, 'active': activeLink === 'users' }" @click="setActiveLink('users')">
               <i class="fa-solid ms-3 fa-users"></i><span class="ms-2">Users</span>
             </li>
           </router-link>
           <hr class="my-1">
-          <router-link to="/layout/blog" class="nav-item text-decoration-none">
+          <router-link to="/admin/blog" class="nav-item text-decoration-none">
             <li :class="{ 'nav-link': true, 'active': activeLink === 'blog' }" @click="setActiveLink('blog')">
               <i class="fa-solid ms-3 fa-rocket"></i><span class="ms-2">Blog</span>
             </li>
@@ -85,7 +85,7 @@
   <script>
   import mainLayout from './MainLayout.vue';
   export default {
-    name: 'layoutComponent',
+    name: 'adminComponent',
     components: {
       mainLayout,
     },

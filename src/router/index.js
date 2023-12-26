@@ -12,47 +12,47 @@ const routes = [
   
   
   {
-    path: "/layout",
-    name: "layout",  
-    component:() => import("../components/Layout.vue"),
+    path: "/admin",
+    name: "admin",  
+    component:() => import("../components/Admin.vue"),
     children:[
       {
-        path: "/layout/dashboard",
+        path: "/admin/dashboard",
         name: "Dashboard",  
         component:() => import("../components/Dashboard.vue"),
       },
       {
-        path: "/layout/categories",
+        path: "/admin/categories",
         name: "About",  
         component:() => import("../components/Categories.vue"),
       },
       {
-        path: "/layout/tag",
+        path: "/admin/tag",
         name: "Tag",   
         component:() => import("../components/Tag.vue"),
       },
       {
-        path: "/layout/users",
+        path: "/admin/users",
         name: "Users",   
         component:() => import("../components/Users.vue"),
       },
       {
-        path: "/layout/blog",
+        path: "/admin/blog",
         name: "Blog",  
         component:() => import("../components/Blog.vue"),
       },
       {
-        path: "/layout/blog/create",
+        path: "/admin/blog/create",
         name: "createBlog",   
         component:() => import("../components/createBlog.vue"),
       },
       {
-        path: "/layout/blog/edit/:id",
+        path: "/admin/blog/edit/:id",
         name: "updateBlog",   
         component:() => import("../components/updateBlog.vue"),
       },
       // {
-      //   path: "/layout/footer",
+      //   path: "/admin/footer",
       //   name: "Footer",  
       //   component:() => import("../components/Footer.vue"),
       // },

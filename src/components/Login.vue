@@ -54,7 +54,7 @@ const toast = useToast();
             toast.success(res.data.message, {
         timeout: 2000
       });
-            this.$router.push("/layout")
+            this.$router.push("/admin")
           }).catch(error => {
             console.error(error);
             toast.error(error.response.data.message, {

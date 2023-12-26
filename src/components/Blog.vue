@@ -1,15 +1,16 @@
 <template>
 <div class="width height mt-5 ml-52 rounded-3">
     <div class="container-fluid  bg-dark-500">
-        <div class=" d-flex">
+        <div class=" d-flex justify-between">
             <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
-        </div>
-        <div class="">
-            <router-link to="/layout/blog/create">
-                <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white">New Blog</button>
+            <div class="">
+            <router-link to="/admin/blog/create">
+                <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white mt-3 mr-3">New Blog</button>
             </router-link>
             <router-view></router-view>
         </div>
+        </div>
+       
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
 
@@ -33,8 +34,9 @@
                     <tbody>
                         <tr v-for="(blog , index) in filterBlogs" :key="index" class="border-6">
                             <td>{{ index+1 }}</td>
-                            <td><img class="img-fluid d-inline justify-content-center" :src="blog.image" alt=""></td>
-
+                            <td class="d-flex"><img class="img-fluid rounded-5 " :src="blog.image" alt="">
+                                <div class="text-start ml-4 mt-2">{{ blog.user_name }}</div> 
+                                <!-- <div class="text-start ml-4 mt-2">{{ blog.date }}</div> --></td>
                             <td>{{ blog.title }}</td>
                             <td>{{ blog.category_name }}</td>
                             <td>
@@ -43,7 +45,7 @@
                             <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'UnPublished'}}</span></span></td>
                             <td>
                                 <!-- Button trigger modal -->
-                                <router-link :to='`/layout/blog/edit/${blog.id}`'>
+                                <router-link :to='`/admin/blog/edit/${blog.id}`'>
                                     <button type="button" class="bg-color" >
                                         <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                                     </button>
@@ -73,7 +75,7 @@
 </template>
 
 <script>
-// import Mainlayout from './MainLayout.vue';
+// import mainLayout from './mainLayout.vue';
 import axios from 'axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
@@ -89,7 +91,7 @@ const toast = useToast();
 export default {
     name: 'ContactComponent',
     components: {
-        // Mainlayout
+        // mainLayout
         Loading,
         Pagination,
         PageEvent
@@ -111,6 +113,7 @@ export default {
     },
     mounted() {
         this.getBlogs(this.page, this.perPage);
+
         this.isLoading = true;
 
     },
@@ -133,6 +136,14 @@ export default {
         // openEdit(blog) {
         //     this.currentBlog = JSON.parse(JSON.stringify(blog));
         // },
+        pageChange(value) {
+            this.perPage = parseInt(value)
+            this.setBlogs()
+        },
+        setBlogs() {
+            this.page = 1;
+            this.getBlogs(this.page, this.perPage);
+        },
 
         getBlogs(page) {
             let data = localStorage.getItem('user');
@@ -145,10 +156,8 @@ export default {
                 }
             }).then((res) => {
                 this.blogs = res.data.data.data;
-                console.log(this.blogs);
                 this.last_page = res.data.data.last_page;
                 this.total = res.data.data.total;
-
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);

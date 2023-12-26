@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <loginComponent /> -->
-    <!-- <layoutComponent /> -->
+    <!-- <adminComponent /> -->
   </div>
   <router-view></router-view>
 <div>
@@ -13,12 +13,12 @@
 <script>
 // import loginComponent from './components/Login.vue'
 // import footerComponent from './components/Footer.vue'
-// import layoutComponent from './components/layout.vue'
+// import adminComponent from './components/admin.vue'
 export default {
   name: 'App',
   components: {
     // loginComponent,
-    // layoutComponent
+    // adminComponent
     // footerComponent
   }
 }

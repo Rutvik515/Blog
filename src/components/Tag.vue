@@ -176,9 +176,9 @@ export default {
         },
         pageChange(value) {
             this.perPage = parseInt(value)
-            this.setCategories()
+            this.setTages()
         },
-        setCategories() {
+        setTages() {
             this.page = 1;
             this.getTages(this.page, this.perPage);
         },

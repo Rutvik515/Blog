@@ -5,7 +5,7 @@
             <div class="modal-content" style="width: auto;">
                 <div class="modal-header">
                     <h5 class="modal-title">Update Blog</h5>
-                    <router-link to="/layout/blog">
+                    <router-link to="/admin/blog">
                         <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
                     </router-link>
                 </div>
@@ -32,7 +32,7 @@
                         <div class="mt-3 text-start">
                             <label for="">Tags<span class="text-danger">*</span></label>
                             <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="currentBlog.tag" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" />
+                                <Multiselect class=" width-5 rounded-2" v-model="currentBlog.tag" mode="tags" :multiple="true" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" />
 
                                 <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
@@ -89,7 +89,7 @@
     <div class="mt-3">
         <hr>
         <div class="modal-footer mt-2 mr-2">
-            <router-link to="/layout/blog">
+            <router-link to="/admin/blog">
 
             <button type="button" class="btn btn-secondary mr-2" >Cancel</button>
         </router-link>
@@ -134,7 +134,7 @@ export default {
                 status: '',
                 user: '',
                 category: '',
-                tags: '',
+                tags: [],
                 date: ''
 
             }],
@@ -281,14 +281,17 @@ export default {
             let token = data.token;
             let formData = new FormData();
             this.currentBlog.date = moment(this.currentBlog.date).format("YYYY-MM-DD");
-
+               console.log(this.currentBlog);
             formData.append('title', this.currentBlog.title);
             formData.append('image', this.currentBlog.image);
             formData.append('description', this.currentBlog.description);
             formData.append('status', this.currentBlog.status);
-            formData.append('user_id', this.currentBlog.user);
-            formData.append('category_id', this.currentBlog.category);
-            formData.append('tag_ids', this.currentBlog.tags);
+            formData.append('user_id', this.currentBlog.user_id);
+            formData.append('category_id', this.currentBlog.category_id);
+            // formData.append('tag_ids', this.currentBlog.tag_ids);
+
+            this.currentBlog.tag.forEach((value)=>formData.append('tag_ids[0]', value))
+
             formData.append('date', this.currentBlog.date);
 
             axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/${id}/update`, formData, {
@@ -299,10 +302,9 @@ export default {
                 toast.success(res.data.message, {
                     timeout: 2000
                 });
-                this.getUsers();
-                this.getTages();
-                this.getCategories();
-                this.$router.push("/layout/blog");
+ 
+              
+                this.$router.push("/admin/blog");
               
 
             }).catch((err) => {

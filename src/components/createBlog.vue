@@ -5,7 +5,7 @@
             <div class="modal-content" style="width: auto;">
                 <div class="modal-header">
                     <h5 class="modal-title">New Blog</h5>
-                    <router-link to="/layout/blog">
+                    <router-link to="/admin/blog">
                         <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
                     </router-link>
                 </div>
@@ -252,7 +252,7 @@ export default {
                 });
 
                 // this.resetFormData();
-                this.$router.push("/layout/blog");
+                this.$router.push("/admin/blog");
                 this.getUsers();
                 this.getTages();
                 this.getCategories();
