@@ -1,12 +1,20 @@
 <template>
-<div class="width height mt-5 ml-52  rounded-5 ">
+<div class="width height mt-5 ml-60  rounded-3">
     <div class="container-fluid  bg-dark-500">
-        <div class=" d-flex">
-            <input class="float-lg-start ms-5 mt-5 p-2 border " type="search" v-model="search" placeholder="search something....">
+        <div class="d-flex justify-between p-3">
+              
+            <div>
+              <div>
+                    <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
+                </div>
+                <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
+            </div>
+
+            <div class="">
+                <BButton class="float-lg-end mr-5 mt-3 border-1 rounded-1 p-2 " data-bs-toggle="modal" data-bs-target="#exampleModal1" variant="outline-primary">New Tages</BButton>
+            </div>
         </div>
-        <div class="">
-            <button class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Tages</button>
-        </div>
+
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
 
@@ -17,12 +25,12 @@
                             <p>No tages found.</p>
                         </template>
                         <div v-else>
-                            <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                            <table class="table table-hover align-items-center">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
-                                        <th>Tag Name</th>
-                                        <th>Action</th>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Tag Name</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -171,8 +179,8 @@ export default {
     },
     methods: {
 
-        openEdit(tag){
-             this.currentTag = JSON.parse(JSON.stringify(tag));
+        openEdit(tag) {
+            this.currentTag = JSON.parse(JSON.stringify(tag));
         },
         pageChange(value) {
             this.perPage = parseInt(value)
@@ -187,7 +195,7 @@ export default {
             this.createTag.name = '';
         },
         createItem() {
-        let data = localStorage.getItem('user');
+            let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
@@ -201,7 +209,7 @@ export default {
 
             }).then((res) => {
                 toast.success(res.data.message, {
-                timeout: 2000
+                    timeout: 2000
                 });
                 this.tages = res.data.data.data
                 this.resetFormData();
@@ -288,23 +296,23 @@ export default {
                         'Your imaginary file has been deleted.',
                         'success'
                     )
-            axios.delete(`https://blog-api-dev.octalinfotech.com/api/tages/${id}/delete`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
+                    axios.delete(`https://blog-api-dev.octalinfotech.com/api/tages/${id}/delete`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
 
-            }).then((res) => {
-                console.log(res);
-                this.getTages(this.page, this.perPage);
-                toast.success(res.data.message, {
-                    timeout: 2000
-                });
+                    }).then((res) => {
+                        console.log(res);
+                        this.getTages(this.page, this.perPage);
+                        toast.success(res.data.message, {
+                            timeout: 2000
+                        });
 
-            }).catch((err) => {
-                console.log(err);
-               
-                });
-            } else if (result.dismiss === 'cancel') {
+                    }).catch((err) => {
+                        console.log(err);
+
+                    });
+                } else if (result.dismiss === 'cancel') {
                     swal(
                         'Cancelled',
                         'Your imaginary file is safe :)',
@@ -327,7 +335,6 @@ export default {
 .width {
     width: 85%;
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
-    
 
 }
 
@@ -370,7 +377,7 @@ input:focus-visible {
     border: none;
 }
 
-td {
+/* td {
     border: 1px solid;
     border-collapse: collapse;
     text-align: center;
@@ -382,5 +389,13 @@ th {
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
+} */
+
+.icon-margin {
+    margin-left: -125px;
+    margin-top: 16px;
+    z-index: 1;
+    padding: 12px;
+  
 }
 </style>

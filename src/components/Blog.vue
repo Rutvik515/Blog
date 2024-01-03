@@ -1,11 +1,16 @@
 <template>
-<div class="width height mt-5 ml-52 rounded-3">
+<div class="width height mt-5 ml-60 rounded-3">
     <div class="container-fluid  bg-dark-500">
-        <div class=" d-flex justify-between">
-            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
+        <div class=" d-flex justify-between p-3">
+            <div>
+              <div>
+                    <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
+                </div>
+                <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
+            </div>
             <div class="">
             <router-link to="/admin/blog/create">
-                <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white mt-3 mr-3">New Blog</button>
+                <BButton @click="resetFormData" class="float-lg-end  mt-0 border-1 rounded-1 p-2  mt-3 mr-3" variant="outline-primary">New Blog</BButton>
             </router-link>
             <router-view></router-view>
         </div>
@@ -18,29 +23,32 @@
                 <p>No users found.</p>
             </template>
             <div v-else>
-                <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                <table class="table table-hover align-items-center">
 
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>Avatar</th>
-                            <th>title</th>
-                            <th>Categories</th>
-                            <th>Description</th>
-                            <th>Status</th>
-                            <th>Action</th>
+                            <th scope="col">id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Categories</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(blog , index) in filterBlogs" :key="index" class="border-6">
                             <td>{{ index+1 }}</td>
-                            <td class="d-flex"><img class="img-fluid rounded-5 " :src="blog.image" alt="">
-                                <div class="text-start ml-4 mt-2">{{ blog.user_name }}</div> 
-                                <!-- <div class="text-start ml-4 mt-2">{{ blog.date }}</div> --></td>
+                            <td>{{ blog.user_name }}</td>
+                            <td><img class="img-fluid  d-inline justify-content-center rounded-5" :src="blog.image" alt=""></td>
+
                             <td>{{ blog.title }}</td>
                             <td>{{ blog.category_name }}</td>
-                            <td>
-                                <p v-html="blog.description"></p>
+                            <td  class="overflow-hidden w-[20px]">
+                                <p v-html="blog.description.length > 99 ? blog.description.substring(0, 60) + '...' : blog.description"></p>
+
+                                
                             </td>
                             <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'UnPublished'}}</span></span></td>
                             <td>
@@ -267,7 +275,7 @@ input:focus-visible {
     border: none;
 }
 
-td {
+/* td {
     border: 1px solid;
     border-collapse: collapse;
     text-align: center;
@@ -279,7 +287,7 @@ th {
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-}
+} */
 
 .custom-file-input::-webkit-file-upload-button {
     visibility: hidden;
@@ -310,10 +318,18 @@ th {
 }
 
 .red {
-    background: red;
+background-color: rgba(224, 40, 40, 0.815);
 }
 
 .green {
     background: green;
+}
+
+.icon-margin {
+    margin-left: -125px;
+    margin-top: 16px;
+    z-index: 1;
+    padding: 12px;
+  
 }
 </style>

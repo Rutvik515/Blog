@@ -9,8 +9,17 @@ const routes = [
     // redirect:'/login',
     component:() => import("../components/Login.vue"),
   },
+  {
+    path: "/",
+    name: "WebShow",  
+    component:() => import("../components/webPage/BlogShow.vue"),
+  },
   
-  
+  {
+    path: "/blogshow/:id",
+    name: "blogShow",  
+    component:() => import("../components/BlogWeb.vue"),
+  },
   {
     path: "/admin",
     name: "admin",  

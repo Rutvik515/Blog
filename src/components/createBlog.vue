@@ -6,7 +6,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title">New Blog</h5>
                     <router-link to="/admin/blog">
-                        <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
+                        <button type="button" class="bg-blue-400 hover:bg-blue-800 text-white rounded-2 p-2 w-75 h-75 mr-10 mt-3">Back</button>
                     </router-link>
                 </div>
                 <form @submit.prevent="submitForm">
@@ -60,7 +60,7 @@
                     <div class="modal-body d-flex gap-4">
                         <div class="text-start p-0 mt-3 width-10">
                             <label class="container p-0">Image <span class="text-danger">*</span></label>
-                            <div class="container border-2 p-0 text-center rounded-2 float-lg-start " style="width: 480px;height: 44px;">
+                            <div class="container border-2 pl-1 text-start rounded-2 float-lg-start " style="width: 480px;height: 44px;">
                                 <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
                             </div>
                         </div>

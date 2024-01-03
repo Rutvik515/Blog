@@ -1,12 +1,18 @@
 <template>
-<div class="width height mt-5 ml-52 rounded-5">
+<div class="width height mt-5 ml-60 rounded-3 ">
     <div class="container-fluid  bg-dark-500">
-        <div class=" d-flex">
-            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
-        </div>
+        <div class=" d-flex justify-between p-3">
+            <div>
+              <div>
+                    <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
+                </div>
+                <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
+            </div>
         <div class="">
-            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Categories</button>
+            <BButton @click="resetFormData" class="float-lg-end border-1 rounded-1 mr-5 mt-3 p-2 " data-bs-toggle="modal" variant="outline-primary" data-bs-target="#exampleModal1">New Categories</BButton>
         </div>
+        </div>
+     
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
 
@@ -14,21 +20,22 @@
                 <p>No categories found.</p>
             </template>
             <div v-else>
-                <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                <table class="table table-hover align-items-center" >
 
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>Categories Name</th>
-                            <th>Avatar</th>
-                            <th>Action</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Categories Name</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Action</th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="(category , index) in filterCategories" :key="index" class="border-6">
                             <td>{{ index+1 }}</td>
                             <td>{{ category.name }}</td>
-                            <td><img class="img-fluid d-inline justify-content-center" :src="category.image" alt=""></td>
+                            <td><img class="img-fluid d-inline justify-content-center rounded-5" :src="category.image" alt=""></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -91,16 +98,16 @@
                     <div class="modal-body">
 
                         <div class="mt-2 text-start">
-                            <label for="" >Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createCategory.name" ></div>
+                            <label for="">Name<span class="text-danger">*</span></label>
+                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createCategory.name"></div>
 
                         </div>
                     </div>
-                    
+
                     <div class="text-start p-0">
 
                         <label class="container">Category image <span class="text-danger">*</span></label>
-                        <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
+                        <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
                             <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
                         </div>
                     </div>
@@ -417,7 +424,7 @@ input:focus-visible {
     border: none;
 }
 
-td {
+/* td {
     border: 1px solid;
     border-collapse: collapse;
     text-align: center;
@@ -429,30 +436,43 @@ th {
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-}
+} */
 
 .custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
+    visibility: hidden;
 }
+
 .custom-file-input::before {
-  content: 'Select some image';
-  display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
+    content: 'Select some image';
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
 }
+
 .custom-file-input:hover::before {
-  border-color: black;
+    border-color: black;
 }
+
 .custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
+
+.icon-margin {
+    margin-left: -125px;
+    margin-top: 16px;
+    z-index: 1;
+    padding: 12px;
+  
+}
+
 </style>

@@ -1,28 +1,91 @@
 <template>
-<div class="width height mt-5 ml-52 rounded-5 ">
+<div class="width height mt-5 ml-60 rounded-3">
     <div class="container-fluid  bg-dark-500">
-        <div class=" d-flex">
-            <input class="float-lg-start ms-5 mt-3 p-2 border " type="search" v-model="search" placeholder="search something....">
+        <div class="d-flex justify-between p-3">
+            <div>
+              <div>
+                    <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
+                </div>
+                <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
+            </div>
+            <div class="">
+                <BButton @click="resetFormData" class="float-lg-end mr-5 mt-3 p-2 border-1 rounded-1 " variant="outline-primary">New User</BButton>
+                <!-- <BButton @click="modal = !modal"> Toggle modal </BButton> -->
+
+
+            </div>
         </div>
-        <div class="">
-            <button @click="resetFormData" class="float-lg-end mt-0 border-1 rounded-1 p-2 bg-dark text-white" data-bs-toggle="modal" data-bs-target="#exampleModal1">New User</button>
-        </div>
-        <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+
+        <BModal v-model="modal" title="New User">
+
+            <div class=" d-flex gap-4">
+
+                <div class="mt-2 text-start">
+
+                    <label for="">Name<span class="text-danger">*</span></label>
+                    <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
+                    <div class="input-errors" v-for="error of v$.createUser.name.$errors" :key="error.$uid">
+                        {{ error.$message }}
+                    </div>
+                </div>
+
+                <div>
+                    <div class="mt-2 text-start">
+                        <label for="">Email<span class="text-danger">*</span></label>
+                        <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
+                        <div class="input-errors" v-for="error of v$.createUser.email.$errors" :key="error.$uid">
+                            {{ error.$message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex gap-4">
+
+                <div class="mt-2 text-start">
+                    <label for="">Password<span class="text-danger">*</span></label>
+
+                    <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.password"></div>
+                    <div class="input-errors" v-for="error of v$.createUser.password.$errors" :key="error.$uid">
+                        {{ error.$message }}
+                    </div>
+                </div>
+    
+            </div>
+
+            <div class="text-start p-0">
+                <label class="container">User image <span class="text-danger">*</span></label>
+                <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
+                    <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+
+                </div>
+            </div>
+
+            <template #footer>
+                <div>
+                    <button type="button" class="btn btn-secondary " @click="modal = false">Cancle</button>
+
+                    <button type="button" @click="createItem" class="btn btn-primary ms-3">Submit</button>
+
+                </div>
+            </template>
+        </BModal>
+
+        <loading v-model:active="isLoading" :can-cancel="true" />
         <div class="mt-6 table-responsive-sm">
 
             <template v-if="filterUsers.length === 0">
                 <p>No users found.</p>
             </template>
             <div v-else>
-                <table class="table" style="border: 1px solid; border-collapse: collapse;">
+                <table class="table table-hover align-items-center">
 
                     <thead>
                         <tr>
-                            <th>id</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Avatar</th>
-                            <th>Action</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Avatar</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,7 +93,7 @@
                             <td>{{ index+1 }}</td>
                             <td>{{ user.name }}</td>
                             <td>{{ user.email }}</td>
-                            <td><img class="img-fluid d-inline justify-content-center" :src="user.image" alt=""></td>
+                            <td><img class="img-fluid d-inline justify-content-center rounded-5" :src="user.image" alt=""></td>
                             <td>
                                 <!-- Button trigger modal -->
                                 <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -98,7 +161,6 @@
             <div class="modal-dialog">
                 <div class="modal-content" style="width: auto;">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New User</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body d-flex gap-4">
@@ -107,12 +169,18 @@
 
                             <label for="">Name<span class="text-danger">*</span></label>
                             <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
+                            <div class="input-errors" v-for="error of v$.createUser.name.$errors" :key="error.$uid">
+                                {{ error.$message }}
+                            </div>
                         </div>
 
                         <div>
                             <div class="mt-2 text-start">
                                 <label for="">Email<span class="text-danger">*</span></label>
                                 <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
+                                <div class="input-errors" v-for="error of v$.createUser.email.$errors" :key="error.$uid">
+                                    {{ error.$message }}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -120,20 +188,29 @@
 
                         <div class="mt-2 text-start">
                             <label for="">Password<span class="text-danger">*</span></label>
+
                             <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.password"></div>
+                            <div class="input-errors" v-for="error of v$.createUser.password.$errors" :key="error.$uid">
+                                {{ error.$message }}
+                            </div>
                         </div>
-                        <div>
+                        <!-- <div>
                             <div class="mt-2 text-start">
                                 <label for="">Password Confirmation
                                     <span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.comPassword"></div>
+                                <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.confirmPassword"></div>
+
                             </div>
-                        </div>
+                            <div class="input-errors" v-for="error of v$.createUser.confirmPassword.$errors" :key="error.$uid">
+                                {{ error.$message }}
+                            </div>
+
+                        </div> -->
                     </div>
 
                     <div class="text-start p-0">
                         <label class="container">User image <span class="text-danger">*</span></label>
-                        <div id="fileupload" class="container border-2 p-0 text-center rounded-2 w-full " style="width: 466px;height: 44px;">
+                        <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
                             <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
 
                         </div>
@@ -160,6 +237,12 @@
 </template>
 
 <script>
+import useVuelidate from '@vuelidate/core'
+import {
+    required,
+    minLength,
+    helpers
+} from '@vuelidate/validators'
 import axios from 'axios';
 import swal from 'sweetalert2';
 import PageEvent from './PageEvent.vue';
@@ -178,20 +261,23 @@ export default {
         // mainLayout
         Loading,
         PageEvent,
-        Pagination
+
+        Pagination,
 
     },
     data() {
         return {
+            // openModel: false,
             users: [],
             search: '',
             isLoading: false,
+            modal: false,
             createUser: {
                 name: '',
                 email: '',
                 password: '',
                 image: '',
-                comPassword: '',
+                // confirmPassword: '',
             },
             currentUser: '',
             updateUser: [{
@@ -200,12 +286,20 @@ export default {
                 password: '',
                 image: '',
             }],
+            password: '',
+            // confirmPassword: '',
+            name: '',
             page: 1,
             total: 0,
             last_page: null,
             perPage: 10,
             records: [],
 
+        }
+    },
+    setup() {
+        return {
+            v$: useVuelidate(),
         }
     },
     computed: {
@@ -221,12 +315,38 @@ export default {
             });
         }
     },
+    validations() {
+        return {
+
+            createUser: {
+
+                name: {
+                    required: helpers.withMessage('Name field is required', required),
+
+                },
+                password: {
+                    required: helpers.withMessage('Password field is required', required),
+                    minLength: minLength(6, required),
+                },
+                email: {
+                    required: helpers.withMessage('Email field is required', required),
+                    minLength: minLength(6, required),
+                },
+                // confirmPassword: {
+                //     required: helpers.withMessage('Confirm Password field is required', required),
+                //     sameAsPassword: helpers.withMessage('Passwords do not match', (value) => value === this.createUser.password),
+                // },
+            },
+        }
+
+    },
     mounted() {
-        this.getUsers()
-        this.isLoading = true;
+         this.getUsers()
+         this.isLoading = true;
 
     },
     methods: {
+        
         pageChange(value) {
             this.perPage = parseInt(value)
             this.setUsers()
@@ -261,6 +381,9 @@ export default {
             })
         },
         createItem() {
+            const isFormCorrect = this.v$.$validate()
+            console.log(isFormCorrect);
+
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
@@ -283,6 +406,8 @@ export default {
                 this.users = res.data.data.data
                 this.resetFormData();
                 this.getUsers(this.page);
+                // this.openModel = false ;
+                this.modal = false;
 
             }).catch((err) => {
                 console.log(err);
@@ -296,6 +421,8 @@ export default {
             this.createUser.image = e.target.files[0];
         },
         resetFormData() {
+            // this.openModel = true;
+            this.modal = !this.modal;
             this.createUser = {
                 image: null,
                 name: '',
@@ -435,6 +562,11 @@ input:focus-visible {
     color: blue;
 }
 
+.input-errors {
+    color: red;
+    margin-top: 5px;
+}
+
 .color-red {
     color: red;
 }
@@ -445,7 +577,7 @@ input:focus-visible {
     border: none;
 }
 
-td {
+/* td {
     border: 1px solid;
     border-collapse: collapse;
     text-align: center;
@@ -457,30 +589,41 @@ th {
     border-collapse: collapse;
     text-align: center;
     padding: 10px;
-}
+} */
 
 .custom-file-input::-webkit-file-upload-button {
-  visibility: hidden;
+    visibility: hidden;
 }
+
 .custom-file-input::before {
-  content: 'Select some image';
-  display: inline-block;
-  background: linear-gradient(top, #f9f9f9, #e3e3e3);
-  border: 1px solid #999;
-  border-radius: 3px;
-  padding: 5px 8px;
-  outline: none;
-  white-space: nowrap;
-  -webkit-user-select: none;
-  cursor: pointer;
-  text-shadow: 1px 1px #fff;
-  font-weight: 700;
-  font-size: 10pt;
+    content: 'Select some image';
+    display: inline-block;
+    background: linear-gradient(top, #f9f9f9, #e3e3e3);
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 5px 8px;
+    outline: none;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    cursor: pointer;
+    text-shadow: 1px 1px #fff;
+    font-weight: 700;
+    font-size: 10pt;
 }
+
 .custom-file-input:hover::before {
-  border-color: black;
+    border-color: black;
 }
+
 .custom-file-input:active::before {
-  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+.icon-margin {
+    margin-left: -125px;
+    margin-top: 16px;
+    z-index: 1;
+    padding: 12px;
+  
 }
 </style>
