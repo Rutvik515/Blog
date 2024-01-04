@@ -87,12 +87,12 @@
             <vue-editor v-model="createBlog.description"></vue-editor>
         </div>
     </div>
-    <div class="mt-3">
+    <div class="">
         <hr>
-        <div class="modal-footer mt-2 mr-2">
+        <div class="modal-footer  mr-2 ">
 
-            <button type="button" class="btn btn-secondary mr-2" data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary" @click="createItem">Submit</button>
+            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary ms-4" @click="createItem">Submit</button>
         </div>
     </div>
 </div>
@@ -280,7 +280,7 @@ export default {
 <style src="@vueform/multiselect/themes/default.css"></style><style scoped>
 .width {
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
-    height: 47rem;
+    height: 48rem;
     width: 70rem;
 }
 

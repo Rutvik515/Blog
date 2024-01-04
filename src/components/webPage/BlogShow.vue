@@ -1,6 +1,6 @@
 <template>
 <headerVue></headerVue>
-<carousel :items-to-show="4.5" class="w-75 container mt-24">
+<carousel :items-to-show="3.5" class="w-75 container mt-24">
     <slide v-for="categoriesShow in categoriesShows" :key="categoriesShow">
         <div class="">
             <div>
@@ -26,12 +26,12 @@
                                     </router-link>
             </div>
             <!-- <div class="mr-28 mt-2 ">{{ blogShow.category_name }}</div> -->
-            <div class="mr-48" v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 20) + '.....' : blogShow.description">
+            <div class="mr-48" v-html="blogShow.description.length > 10 ? blogShow.description.substring(0, 20) + '.....' : blogShow.description">
             </div>
             <div class="mr-28 mt-2 d-flex ">
                 <div>
 
-                        <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.image" alt="">
+                        <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
 
                 </div>
                 <div class="ml-4 mt-1 ">{{ blogShow.user_name }}</div>
@@ -79,7 +79,7 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get("https://blog-api-dev.octalinfotech.com/api/categories?page=1&search=a", {
+            axios.get("https://blog-api-dev.octalinfotech.com/api/categories?page=1", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -103,7 +103,7 @@ export default {
                 }
             }).then((res) => {
                 this.blogShows = res.data.data.data;
-                console.log(res.data.data.data);
+                console.log(res.data.data);
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
@@ -117,8 +117,8 @@ export default {
 
 <style>
 .img-border {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
 }
 

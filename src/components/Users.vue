@@ -3,7 +3,7 @@
     <div class="container-fluid  bg-dark-500">
         <div class="d-flex justify-between p-3">
             <div>
-              <div>
+                <div>
                     <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
                 </div>
                 <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
@@ -12,15 +12,14 @@
                 <BButton @click="resetFormData" class="float-lg-end mr-5 mt-3 p-2 border-1 rounded-1 " variant="outline-primary">New User</BButton>
                 <!-- <BButton @click="modal = !modal"> Toggle modal </BButton> -->
 
-
             </div>
         </div>
 
-        <BModal v-model="modal" title="New User">
+        <BModal v-model="modal" title="New User" class="W-[200PX]">
 
             <div class=" d-flex gap-4">
 
-                <div class="mt-2 text-start">
+                <div class="mt-3 text-start">
 
                     <label for="">Name<span class="text-danger">*</span></label>
                     <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
@@ -30,7 +29,7 @@
                 </div>
 
                 <div>
-                    <div class="mt-2 text-start">
+                    <div class="mt-3 text-start">
                         <label for="">Email<span class="text-danger">*</span></label>
                         <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
                         <div class="input-errors" v-for="error of v$.createUser.email.$errors" :key="error.$uid">
@@ -41,18 +40,31 @@
             </div>
             <div class="d-flex gap-4">
 
-                <div class="mt-2 text-start">
-                    <label for="">Password<span class="text-danger">*</span></label>
+                <div class="mt-3 text-start">
+                    <label for="" class="w-[200px]">Password<span class="text-danger">*</span></label>
 
                     <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.password"></div>
                     <div class="input-errors" v-for="error of v$.createUser.password.$errors" :key="error.$uid">
                         {{ error.$message }}
                     </div>
                 </div>
-    
+
+                <div>
+                    <div class="mt-3 text-start">
+                        <label for="">Password Confirmation
+                            <span class="text-danger">*</span></label>
+                        <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.confirmPassword"></div>
+
+                    </div>
+                    <div class="input-errors" v-for="error of v$.createUser.confirmPassword.$errors" :key="error.$uid">
+                        {{ error.$message }}
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="text-start p-0">
+            <div class="text-start p-0 mt-3">
                 <label class="container">User image <span class="text-danger">*</span></label>
                 <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
                     <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
@@ -277,7 +289,7 @@ export default {
                 email: '',
                 password: '',
                 image: '',
-                // confirmPassword: '',
+                confirmPassword: '',
             },
             currentUser: '',
             updateUser: [{
@@ -332,21 +344,21 @@ export default {
                     required: helpers.withMessage('Email field is required', required),
                     minLength: minLength(6, required),
                 },
-                // confirmPassword: {
-                //     required: helpers.withMessage('Confirm Password field is required', required),
-                //     sameAsPassword: helpers.withMessage('Passwords do not match', (value) => value === this.createUser.password),
-                // },
+                confirmPassword: {
+                    // required: helpers.withMessage( required),
+                    sameAsPassword: helpers.withMessage('Passwords do not match', (value) => value === this.createUser.password),
+                },
             },
         }
 
     },
     mounted() {
-         this.getUsers()
-         this.isLoading = true;
+        this.getUsers()
+        this.isLoading = true;
 
     },
     methods: {
-        
+
         pageChange(value) {
             this.perPage = parseInt(value)
             this.setUsers()
@@ -624,6 +636,6 @@ th {
     margin-top: 16px;
     z-index: 1;
     padding: 12px;
-  
+
 }
 </style>

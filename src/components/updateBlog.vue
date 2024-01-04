@@ -330,7 +330,7 @@ export default {
 <style src="@vueform/multiselect/themes/default.css"></style><style scoped>
 .width {
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;
-    height: 47rem;
+    height: 48rem;
     width: 70rem;
 }
 

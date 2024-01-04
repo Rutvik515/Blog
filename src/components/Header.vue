@@ -15,13 +15,11 @@
                 </button>
                 <div class="collapse navbar-collapse text-uppercase gap-5  justify-content-end" id="navbaraid">
                     <ul class="navbar-nav text-start">
-                        <li class="nav-item"><a class="nav-link text-white" href="#home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#blog">Blog</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#project">Categories</a></li>
-                        <li class="nav-item"><a class="nav-link text-white" href="#contact">Contact Us</a></li>
-                         <!-- <div class="mt-0">
-              <div>
-                    <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
+                        <li class="nav-item"><a class="nav-link text-white">Home</a></li>
+                        <li class="nav-item"><a class="nav-link text-white">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link text-white">Categories</a></li>
+                        <li class="nav-item"><a class="nav-link text-white">Contact Us</a></li>
+                         <!-- <div class="mt-0">            <div>                  <i class="fa-solid fa-magnifying-glass position-absolute icon-margin rounded-end-0 border  "></i>
                 </div>
                 <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 bg-none" type="search" v-model="search" placeholder="search something....">
             </div> -->
