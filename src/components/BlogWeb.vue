@@ -28,22 +28,36 @@
     </div>
 
     <div class="icon-margin d-flex ">
-        <button type="button" class="btn btn-primary d-flex ms-2" style="width: 150px;height: 40px;"><img class="align-items-center" src="https://www.logo.wine/a/logo/Facebook/Facebook-f_Logo-Blue-Logo.wine.svg " style="width: 30px;height: 30px;" alt=""><span class="text-center mt-1 ml-2">Facebook</span></button>
-        <button type="button" class="btn btn-danger d-flex ml-3 " style="width: 120px;height: 40px;"><img class="mt-1" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_of_Twitter.svg/292px-Logo_of_Twitter.svg.png" alt="" style="width: 20px;height: 20px;"><span class="text-center mt-1  ml-3">Twitter</span></button>
-        <button type="button" class="btn btn-info d-flex ml-3 " style="width: 140px;height: 40px;"><img class="mt-1" src="https://cdn3d.iconscout.com/3d/free/thumb/free-envelope-mail-6431881-5307257.png" alt="" style="width: 20px;height: 20px;"><span class="text-center mt-1  ml-3 text-white">Envelope</span></button>
-        <button type="button" class="btn btn-primary d-flex ml-3 " style="width: 140px;height: 40px;"><img class="mt-1" src="https://cdn1.iconfinder.com/data/icons/logotypes/32/circle-linkedin-512.png" alt="" style="width: 20px;height: 20px;"><span class="text-center ml-3 mt-1">Linkedin</span></button>
+        <!-- Facebook -->
+        <a data-mdb-ripple-init class="btn text-white btn-floating m-1 " style="background-color: #3b5998;" href="#!" role="button"><i class="fab fa-facebook-f mr-2"></i>Facebook</a>
+
+        <!-- Twitter -->
+        <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #55acee;" href="#!" role="button"><i class="fab fa-twitter mr-2"></i>Twitter</a>
+
+        <!-- Google -->
+
+        <!-- Linkedin -->
+        <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="#!" role="button"><i class="fab fa-linkedin-in mr-2"></i>Linkedin</a>
+        <!-- Github -->
+        <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="#!" role="button"><i class="fab fa-github mr-2"></i>Github</a>
     </div>
 
     <div class="d-flex justify-content-around container mt-32 ">
         <div>
-          <img :src="blogWebs.image" alt="">
+            <img :src="blogWebs.image" alt="">
         </div>
+
         <div>
-          <p v-html="blogWebs.description"></p>
+            <div class="mb-4 text-color">
+                <p>{{ blogWebs.title }}</p>
+            </div>
+            <div class="">
+                <p v-html="blogWebs.description"></p>
+            </div>
         </div>
     </div>
-
 </div>
+
 </template>
 
 <script>
@@ -130,5 +144,12 @@ a {
 .icon-margin {
     margin-left: 250px;
     margin-top: 50px;
+}
+
+.text-color {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    color: black;
+    font: bold 700;
 }
 </style>

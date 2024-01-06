@@ -46,7 +46,7 @@
                             <td>{{ blog.title }}</td>
                             <td>{{ blog.category_name }}</td>
                             <td  class="overflow-hidden w-[20px]">
-                                <p v-html="blog.description.length > 99 ? blog.description.substring(0, 60) + '...' : blog.description"></p>
+                                <p v-html="blog.description.length > 99 ? blog.description.substring(0, 40) + '...' : blog.description"></p>
 
                                 
                             </td>

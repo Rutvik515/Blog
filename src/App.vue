@@ -15,11 +15,13 @@
 // import footerComponent from './components/Footer.vue'
 // import adminComponent from './components/admin.vue'
 export default {
+  
   name: 'App',
   components: {
     // loginComponent,
     // adminComponent
     // footerComponent
+    
   }
 }
 </script>
@@ -33,4 +35,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 </style>

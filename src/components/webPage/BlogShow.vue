@@ -21,26 +21,36 @@
     <div class="row">
         <div class="col-md-4" v-for="blogShow in blogShows" :key="blogShow.id">
             <div class="mt-5">
-                    <router-link :to='`/blogShow/${blogShow.id}`' >
-                <img class="width-img img-fluid" :src="blogShow.image" alt="">
-                                    </router-link>
+                <router-link :to='`/blogShow/${blogShow.id}`'>
+                    <img class="width-img img-fluid" :src="blogShow.image" alt="">
+                </router-link>
             </div>
-            <!-- <div class="mr-28 mt-2 ">{{ blogShow.category_name }}</div> -->
-            <div class="mr-48" v-html="blogShow.description.length > 10 ? blogShow.description.substring(0, 20) + '.....' : blogShow.description">
+            <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div>
+            <div class="mr-28 mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 15) + '.....' : blogShow.description">
             </div>
             <div class="mr-28 mt-2 d-flex ">
                 <div>
 
-                        <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
+                    <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
 
                 </div>
                 <div class="ml-4 mt-1 ">{{ blogShow.user_name }}</div>
                 <div class="ml-4 mt-1 ">{{ blogShow.date }}</div>
             </div>
-              <div class="mr-44 mt-1">{{ blogShow.category_name }}</div>
+            <div class="mr-44 mt-1">{{ blogShow.category_name }}</div>
         </div>
     </div>
 </section>
+
+    <section>
+        <div class="d-flex justify-content-center mt-5">
+            <img src="../../assets/octal-logo.png" alt="" class="rounded-img">
+        </div>
+        <div class="mt-4 text-size">
+             <p> <b>❝</b> One-stop solution for a wide range of web development services. Fully customized and responsive websites- <br> worldclass solution to our valued customers. Expiries at fullscale, personalized-unlocking endless possibilities. <br>Shopify and Shopify Plus development is Octal Infotech's specialty. We have a top team of E-Commerce web <br>developers.</p> 
+             <!-- <i class="fa-regular fa-star  bg-yellow-400"></i> -->
+        </div>
+    </section>
 </template>
 
 <script>
@@ -137,11 +147,28 @@ export default {
     grid-template-columns: auto auto auto;
 }
 
-.pic-rounded{
-    width:50px;
+.pic-rounded {
+    width: 50px;
     height: 50px;
 }
 
+.text-color {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 25px;
+    color: black;
+    font: bold 700;
+}
+
+.rounded-img{
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    
+}
+
+.text-size{
+    font-size: 20px;
+}
 @media (min-width: 768px) {
     .grid-div {
         grid-template-columns: repeat(3, 1fr);
