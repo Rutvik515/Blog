@@ -3,7 +3,7 @@
 <carousel :items-to-show="3.5" class="w-75 container mt-24">
     <slide v-for="categoriesShow in categoriesShows" :key="categoriesShow">
         <div class="">
-            <div>
+            <div class="">
                 <img class="img-border img-fluid " :src="categoriesShow.image" alt="">
             </div>
             <div>
@@ -21,12 +21,12 @@
     <div class="row">
         <div class="col-md-4" v-for="blogShow in blogShows" :key="blogShow.id">
 
-            <div class="mt-5">
+            <div class="mt-5 card " style="width:300px">
                 <router-link :to='`/blogShow/${blogShow.id}`'>
-                    <img class="width-img img-fluid" :src="blogShow.image" alt="">
+                    <img class="width-img img-fluid hover-effect" :src="blogShow.image" alt="">
                 </router-link>
             </div>
-            <div class="mr-28 mt-2 d-flex ">
+            <div class=" mt-2 d-flex width-user ml-14 justify-evenly">
                 <div>
 
                     <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
@@ -35,10 +35,10 @@
                 <div class="ml-4 mt-2 ">{{ blogShow.user_name }}</div>
                 <div class="ml-4 mt-2 ">{{ blogShow.date }}</div>
             </div>
-            <div class="mr-44  text-color">{{ blogShow.category_name }}</div>
+            <div class=" text-color">{{ blogShow.category_name }}</div>
 
             <!-- <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div> -->
-            <div class="mr-44 mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description">
+            <div class=" mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 20) + '.....' : blogShow.description">
             </div>
            
         </div>
@@ -46,7 +46,7 @@
 </section>
 
     <section>
-        <div class="d-flex justify-content-center mt-5">
+        <div class="flex justify-center mt-5 hover-effect1">
             <img src="../../assets/octal-logo.png" alt="" class="rounded-img">
         </div>
         <div class="mt-4 text-size">
@@ -102,7 +102,7 @@
       <li class="menu__item"><a class="menu__link" href="#">Contact</a></li>
 
     </ul>
-    <p>&copy;2021 Nadine Coelho | All Rights Reserved</p>
+    <p>&copy;2024 Nadine Coelho | All Rights Reserved</p>
   </footer>
     </section>
 </template>
@@ -202,8 +202,12 @@ export default {
 }
 
 .pic-rounded {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
+}
+
+.width-user{
+  width: 300px !important;
 }
 
 .text-color {
@@ -361,5 +365,121 @@ body {
     background-positon-x: 0px;
   }
 }
+
+.card{
+    /* margin-top: 200px!important; */
+    /* width:400px; */
+    margin: auto;
+    /* height: 400px; */
+    position: relative;
+    transition: transform 4s ease-in;
+    overflow: hidden;
+    border:4px solid #fff;
+
+}
+.hover-effect{
+    /* width:100%; */
+    /* height: 400px; */
+    transition: transform 1s ease-in;
+}
+.hover-effect:hover{
+    transform: scale(1.2);
+}
+.card:before {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
+/*     content: "Yeah!"; */
+    transform:translateY(-100%);
+    font-size: 25px;
+    color:#fff;
+   display: block;
+    background-color: rgba(188, 143, 143, 0.137);
+    z-index: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+   font-family: sans-serif;
+    transition: transform .4s ease-in;
+    border:4px solid white;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.card:after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left:0;
+/*     content: "Yeah!"; */
+    transform:translateY(100%);
+    font-size: 25px;
+    color:#fff;
+   display: block;
+    background-color: rgba(188, 143, 143, 0.137);
+    z-index: 1;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+   font-family: sans-serif;
+    transition: transform .4s ease-in;
+    border:4px solid white;
+    justify-content: center;
+    box-sizing: border-box;
+}
+ .card:hover::before{
+ transform: translateY(0%); 
+ 
+}
+.card:hover::after{
+    transform: translateY(0%); 
+    
+   }
+
+   @media only screen and (max-width: 600px) {
+       body{
+           display: block;
+       }
+   }
+
+   
+.hover-effect1::before {
+    right: 0;
+    opacity:0.7;
+    top: 0;
+}
+.hover-effect1::after {
+    bottom: 0;
+    opacity: 0.7;
+    left: 0;
+}
+
+div.hover-effect1{
+  
+    transition: transform .4s ease-in;
+     
+  position:relative;
+}
+
+.hover-effect1::before, .hover-effect1::after {
+    content: "";
+    background: #fff;
+    height: 0;
+    width: 0;
+    z-index: 1;
+    position: absolute;
+    -webkit-transition-duration: 1.3s !important;
+    -o-transition-duration: 1.3s;
+  transition-duration: 1.3s !important;
+}
+.hover-effect1:hover::after, .hover-effect1:hover::before {
+    height: 100%;
+    opacity: 0;
+    width: 100%;
+}
+
 
 </style>
