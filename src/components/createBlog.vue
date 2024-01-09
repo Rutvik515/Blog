@@ -6,7 +6,8 @@
                 <div class="modal-header">
                     <h5 class="modal-title">New Blog</h5>
                     <router-link to="/admin/blog">
-                        <button type="button" class="bg-blue-400 hover:bg-blue-800 text-white rounded-2 p-2 w-75 h-75 mr-10 mt-3">Back</button>
+                        <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
+                       
                     </router-link>
                 </div>
                 <form @submit.prevent="submitForm">
@@ -318,5 +319,12 @@ export default {
 
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+}
+
+@media (min-width: 768px){
+    .width {
+        width: 65rem;
+        margin-left: 300px;
+    }
 }
 </style>
