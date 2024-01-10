@@ -8,14 +8,14 @@
                 </div>
                 <input class="float-lg-start ms-5 mt-3 p-2 border rounded-start-0 " type="search" v-model="search" placeholder="search something....">
             </div>
-            <div class="">
+            <div class=" " style="width:%">
                 <BButton @click="resetFormData" class="float-lg-end mr-5 mt-3 p-2 border-1 rounded-1 " variant="outline-primary">New User</BButton>
                 <!-- <BButton @click="modal = !modal"> Toggle modal </BButton> -->
 
             </div>
         </div>
 
-        <BModal v-model="modal" title="New User" class="W-[200PX]">
+        <BModal v-model="modal" title="New User" class="">
 
             <div class=" d-flex gap-4">
 
@@ -169,9 +169,9 @@
         </div>
 
         <!-- Create Modal-->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog">
-                <div class="modal-content" style="width: auto;">
+                <div class="modal-content" style="width: 50%;">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -205,7 +205,7 @@
                             <div class="input-errors" v-for="error of v$.createUser.password.$errors" :key="error.$uid">
                                 {{ error.$message }}
                             </div>
-                        </div>
+                        </div> -->
                         <!-- <div>
                             <div class="mt-2 text-start">
                                 <label for="">Password Confirmation
@@ -218,7 +218,7 @@
                             </div>
 
                         </div> -->
-                    </div>
+                    <!-- </div>
 
                     <div class="text-start p-0">
                         <label class="container">User image <span class="text-danger">*</span></label>
@@ -235,8 +235,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>-->
+    </div> 
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
         <div v-if="last_page > 1">

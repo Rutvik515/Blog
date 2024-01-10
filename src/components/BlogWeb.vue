@@ -51,8 +51,8 @@
             <div class="mb-4 text-color">
                 <p>{{ blogWebs.title }}</p>
             </div>
-            <div class="">
-                <p v-html="blogWebs.description"></p>
+            <div class="d-inline">
+                <p v-html="blogWebs.description" class="text-justify"></p>
             </div>
         </div>
     </div>

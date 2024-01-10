@@ -1,9 +1,11 @@
 <template>
     <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
-      <div class="d-flex flex-column flex-md-row align-items-md-center" style="margin-left: 180px;">
-        <img data-v-1fd8a062="" src="../assets/octal-logo.png" alt="Logo" class="rounded-pill" style="width: 40px;">
-        <div class="mt-4">
-          <h1 class="font-size mb-2">Good Morning, Rutvik Kher</h1>
+      <div class="d-flex flex-row mt-4 align-items-md-center text-center" style="margin-left: 200px;">
+        <div class="items-center">
+         <img data-v-1fd8a062="" src="../assets/octal-logo.png" alt="Logo" class="rounded-pill" style="width: 40px;">
+        </div>
+        <div class="ml-2">
+          <h1 class="font-size mb-2"> {{ currentTimeOfDay }} Rutvik Kher</h1>
         </div>
       </div>
       <div class="ml-40 mt-10">
@@ -39,9 +41,15 @@
     name: 'HomeComponent',
     data() {
       return {
-        showDashboard: {}
+        showDashboard: {},
+        currentHour: new Date().getHours(),
       };
     },
+    computed: {
+    currentTimeOfDay() {
+      return this.getTimeOfDay(this.currentHour);
+    },
+  },
     mounted() {
       this.getDashboard();
     },
@@ -60,8 +68,26 @@
           .then((res) => {
             this.showDashboard = res.data.data;
           });
+      },
+      getTimeOfDay(hour) {
+      let timeOfDay;
+
+      switch (true) {
+        case hour >= 6 && hour < 12:
+          timeOfDay = "Good Morning!";
+          break;
+        case hour >= 12 && hour < 18:
+          timeOfDay = "Good Afternoon!";
+          break;
+        default:
+          timeOfDay = "Good Night!";
+          break;
       }
-    }
+
+      return timeOfDay;
+    },
+  },
+    
   };
   </script>
   
