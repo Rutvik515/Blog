@@ -69,15 +69,18 @@
             this.showDashboard = res.data.data;
           });
       },
-      getTimeOfDay(hour) {
+      getTimeOfDay() {
       let timeOfDay;
 
       switch (true) {
-        case hour >= 6 && hour < 12:
+        case this.currentHour   > 6:
           timeOfDay = "Good Morning!";
           break;
-        case hour >= 12 && hour < 18:
+        case this.currentHour > 12:
           timeOfDay = "Good Afternoon!";
+          break;
+          case this.currentHour > 21:
+          timeOfDay = "Good Evening!";
           break;
         default:
           timeOfDay = "Good Night!";

@@ -332,4 +332,11 @@ background-color: rgba(224, 40, 40, 0.815);
     padding: 12px;
   
 }
+
+@media screen and (min-width: 768px) {
+    .width {
+        width: 90rem;
+        margin-right: 40px;
+    }
+}
 </style>

@@ -369,4 +369,12 @@ export default {
 .custom-file-input:active::before {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
+
+@media (min-width: 1200px){
+    .width {
+        width: 65rem;
+        margin-left: 300px;
+    }
+}
+
 </style>

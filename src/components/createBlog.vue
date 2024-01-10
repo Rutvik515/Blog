@@ -321,10 +321,12 @@ export default {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-@media (min-width: 768px){
+@media (min-width: 1200px){
     .width {
         width: 65rem;
         margin-left: 300px;
     }
 }
+
+
 </style>

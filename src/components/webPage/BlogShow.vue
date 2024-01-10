@@ -67,7 +67,7 @@
     <section>
         <div class="d-flex justify-content-center mt-16">
             <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d59506.18818722751!2d72.85386725000001!3d21.226424749999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sin!4v1686806699190!5m2!1sen!2sin"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d59506.18818722751!2d72.85386725000001!3d21.226424749999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i1200!4f13.1!5e0!3m2!1sen!2sin!4v1686806699190!5m2!1sen!2sin"
                 width="70%" height="450px" style="border:0;" allowfullscreen="" loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
 
@@ -202,7 +202,7 @@ export default {
 .text-size{
     font-size: 20px;
 }
-@media (min-width: 768px) {
+@media (min-width: 1200px) {
     .grid-div {
         grid-template-columns: repeat(3, 1fr);
     }
