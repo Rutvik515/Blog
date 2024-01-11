@@ -70,26 +70,26 @@
           });
       },
       getTimeOfDay() {
-      let timeOfDay;
+            let timeOfDay;
+         console.log(this.currentHour);
+            switch (true) {
+                case this.currentHour >= 6 && this.currentHour < 12:
+                    timeOfDay = "Good Morning!";
+                    break;
+                case this.currentHour >= 12 && this.currentHour < 17:
+                    timeOfDay = "Good Afternoon!";
+                    break;
+                case this.currentHour >= 17 && this.currentHour < 21:
+                    timeOfDay = "Good Evening!";
+                    break;
+                default:
+                    timeOfDay = "Good Night!";
+                    break;
+            }
 
-      switch (true) {
-        case this.currentHour   > 6:
-          timeOfDay = "Good Morning!";
-          break;
-        case this.currentHour > 12:
-          timeOfDay = "Good Afternoon!";
-          break;
-          case this.currentHour > 21:
-          timeOfDay = "Good Evening!";
-          break;
-        default:
-          timeOfDay = "Good Night!";
-          break;
-      }
-
-      return timeOfDay;
+            return timeOfDay;
+        },
     },
-  },
     
   };
   </script>

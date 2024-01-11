@@ -202,7 +202,7 @@ export default {
 .text-size{
     font-size: 20px;
 }
-@media (min-width: 1200px) {
+@media (max-width: 1200px) {
     .grid-div {
         grid-template-columns: repeat(3, 1fr);
     }
