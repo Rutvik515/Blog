@@ -639,7 +639,7 @@ th {
 
 }
 
-@media (min-width: 1200px){
+@media (max-width: 1200px){
     .width {
         width: 90rem;
         margin-right: 40px;

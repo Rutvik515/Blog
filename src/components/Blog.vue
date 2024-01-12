@@ -17,7 +17,7 @@
         </div>
        
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
-        <div class="mt-6 table-responsive-sm">
+        <div class="mt-6 table-responsive-sm media-class">
 
             <template v-if="filterBlogs.length === 0">
                 <p>No users found.</p>
@@ -333,9 +333,16 @@ background-color: rgba(224, 40, 40, 0.815);
   
 }
 
-@media screen and (min-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .width {
         width: 90rem;
+        margin-right: 40px;
+    }
+} */
+
+@media (max-width: 1200px){
+    .media-class {
+        width: 500px;
         margin-right: 40px;
     }
 }

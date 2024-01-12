@@ -1,5 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 // import Home from "";
+import Auth from "../components/Middleware/Auth";
+import middlewarePipeline from "../components/Middleware/middleware-pipeline";
 
 
 const routes = [
@@ -22,7 +24,11 @@ const routes = [
   },
   {
     path: "/admin",
-    name: "admin",  
+    name: "admin", 
+    meta: {
+      middleware: [Auth],
+    }, 
+    redirect : '/admin/dashboard',
     component:() => import("../components/Admin.vue"),
     children:[
       {
@@ -81,5 +87,25 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+
+router.beforeEach((to, from, next) => {
+  /** Navigate to next if middleware is not applied */
+  if (!to.meta.middleware) {
+    return next();
+  }
+  const middleware = to.meta.middleware;
+  const context = {
+    to,
+    from,
+    next,
+    //   store  | You can also pass store as an argument
+  };
+  return middleware[0]({
+    ...context,
+    next: middlewarePipeline(context, middleware, 1),
+  });
+});
+
 
 export default router;
