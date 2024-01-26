@@ -1,5 +1,5 @@
 <template>
-<div class="ml-96 mt-12 width ">
+<div class="ml-36 mt-12 width ">
     <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">

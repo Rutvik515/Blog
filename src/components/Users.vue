@@ -1,5 +1,5 @@
 <template>
-<div class="width height mt-5 ml-60 rounded-3">
+<!-- <div class="width height mt-5 ml-60 rounded-3">
     <div class="container-fluid  bg-dark-500">
         <div class="d-flex justify-between p-3">
             <div>
@@ -10,7 +10,7 @@
             </div>
             <div class=" " style="width:%">
                 <BButton @click="resetFormData" class="float-lg-end mr-5 mt-3 p-2 border-1 rounded-1 " variant="outline-primary">New User</BButton>
-                <!-- <BButton @click="modal = !modal"> Toggle modal </BButton> -->
+                <BButton @click="modal = !modal"> Toggle modal </BButton>
 
             </div>
         </div>
@@ -107,7 +107,7 @@
                             <td>{{ user.email }}</td>
                             <td><img class="img-fluid d-inline justify-content-center rounded-5" :src="user.image" alt=""></td>
                             <td>
-                                <!-- Button trigger modal -->
+                                Button trigger modal
                                 <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                     <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                                 </button>
@@ -120,56 +120,124 @@
                     </tbody>
                 </table>
             </div>
+        </div> -->
+
+<!-- Create Modal -->
+<BModal v-model="modal" title="New User" class="">
+
+    <div class=" d-flex gap-4">
+
+        <div class="mt-3 text-start">
+
+            <label for="">Name<span class="text-danger">*</span></label>
+            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your  name" v-model="createUser.name"></div>
+            <div class="input-errors" v-for="error of v$.createUser.name.$errors" :key="error.$uid">
+                {{ error.$message }}
+            </div>
         </div>
 
-        <!-- edit modal -->
+        <div>
+            <div class="mt-3 text-start">
+                <label for="">Email<span class="text-danger">*</span></label>
+                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your email " v-model="createUser.email"></div>
+                <div class="input-errors" v-for="error of v$.createUser.email.$errors" :key="error.$uid">
+                    {{ error.$message }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex gap-4">
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="mt-3 text-start">
+            <label for="" class="w-[200px]">Password<span class="text-danger">*</span></label>
+
+            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.password"></div>
+            <div class="input-errors" v-for="error of v$.createUser.password.$errors" :key="error.$uid">
+                {{ error.$message }}
+            </div>
+        </div>
+
+        <div>
+            <div class="mt-3 text-start">
+                <label for="">Password Confirmation
+                    <span class="text-danger">*</span></label>
+                <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="Enter your password" v-model="createUser.confirmPassword"></div>
+
+            </div>
+            <div class="input-errors" v-for="error of v$.createUser.confirmPassword.$errors" :key="error.$uid">
+                {{ error.$message }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="text-start p-0 mt-3">
+        <label class="container">User image <span class="text-danger">*</span></label>
+        <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
+            <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+
+        </div>
+    </div>
+
+    <template #footer>
+        <div>
+            <button type="button" class="btn btn-secondary " @click="modal = false">Cancle</button>
+
+            <button type="button" @click="createItem" class="btn btn-primary ms-3">Submit</button>
+
+        </div>
+    </template>
+</BModal>
+
+<!-- edit modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex gap-4">
+                    <div class="mt-2 text-start">
+                        <label for="">Name<span class="text-danger">*</span></label>
+                        <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.name"></div>
+
                     </div>
-                    <div class="modal-body">
-                        <div class="d-flex gap-4">
-                            <div class="mt-2 text-start">
-                                <label for="">Name<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.name"></div>
+                    <div class="mt-2 text-start">
+                        <label for="">Email<span class="text-danger">*</span></label>
+                        <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.email"></div>
 
-                            </div>
-                            <div class="mt-2 text-start">
-                                <label for="">Email<span class="text-danger">*</span></label>
-                                <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentUser.email"></div>
-
-                            </div>
-                        </div>
-                        <div class="mt-3 text-start">
-                            <label for="">Change Password<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="" v-model="currentUser.password"></div>
-
-                        </div>
-                        <div class="text-start mt-3">
-
-                            <label for="">Image <span class="text-danger">*</span></label>
-                            <div class=" border-2 p-1 text-center rounded-2 w-full">
-                                <input type="file" class="custom-file-input" @change="uploadImage">
-
-                            </div>
-                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                </div>
+                <div class="mt-3 text-start">
+                    <label for="">Change Password<span class="text-danger">*</span></label>
+                    <div><input class="border-2 p-2 w-full rounded-2" type="password" placeholder="" v-model="currentUser.password"></div>
 
-                        <button @click="updateItem(currentUser.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+                </div>
+                <div class="text-start mt-3">
+
+                    <label for="">Image <span class="text-danger">*</span></label>
+                    <div class=" border-2 p-1 text-center rounded-2 w-full">
+                        <input type="file" class="custom-file-input" @change="uploadImage">
 
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
 
-        <!-- Create Modal-->
-        <!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <button @click="updateItem(currentUser.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Modal-->
+<!-- <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content" style="width: 50%;">
                     <div class="modal-header">
@@ -206,7 +274,7 @@
                                 {{ error.$message }}
                             </div>
                         </div> -->
-                        <!-- <div>
+<!-- <div>
                             <div class="mt-2 text-start">
                                 <label for="">Password Confirmation
                                     <span class="text-danger">*</span></label>
@@ -218,7 +286,7 @@
                             </div>
 
                         </div> -->
-                    <!-- </div>
+<!-- </div>
 
                     <div class="text-start p-0">
                         <label class="container">User image <span class="text-danger">*</span></label>
@@ -236,7 +304,7 @@
                 </div>
             </div>
         </div>-->
-    </div> 
+<!-- </div> 
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
         <div v-if="last_page > 1">
@@ -245,6 +313,91 @@
         </div>
     </div>
 
+</div> -->
+
+<loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+
+<div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+    <div class="flex gap-8 md:flex-row flex-col mb-5">
+        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+    </div>
+    <div class="px-6 lg:px-2">
+        <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+            <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                <BButton @click="resetFormData" class="float-lg-end   border-1 rounded-1" variant="outline-primary">New User</BButton>
+                <!-- <BButton @click="modal = !modal"> Toggle modal </BButton> -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Id
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-center">
+                    Name
+
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Email
+
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Avatar
+
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(user , index) in filterUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                <td class="px-6 py-4 text-center">
+                    {{ index+1 }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    {{ user.name }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    {{ user.email }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <img class="img-fluid d-inline justify-content-center rounded-5" :src="user.image" alt="">
+                </td>
+                <td class="px-6 py-4 text-center">
+                    <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                    </button>
+
+                    <button class="bg-color" @click="removeItem(user.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                        </i></button>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+        <div class="flex gap-8 md:flex-row flex-col mb-5">
+            <div>
+                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+            </div>
+        </div>
+        <div class="px-6 lg:px-2">
+            <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+                <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                    <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -639,7 +792,7 @@ th {
 
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
     .width {
         width: 90rem;
         margin-right: 40px;

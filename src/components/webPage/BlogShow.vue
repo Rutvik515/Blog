@@ -19,7 +19,7 @@
 
 <section class="container mt-4">
     <div class="row">
-        <div class="col-md-4" v-for="blogShow in blogShows" :key="blogShow.id">
+        <div class="col-md-6 col-xl-4" v-for="blogShow in blogShows" :key="blogShow.id">
 
             <div class="mt-5 card " style="width:300px">
                 <router-link :to='`/blogShow/${blogShow.id}`'>
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 import headerVue from '../Header.vue'
 import footerComponents from '../Footer.vue'
@@ -341,5 +342,11 @@ div.hover-effect1{
     width: 100%;
 }
 
-
+@media screen and (max-width:768px) {
+    .container{
+        display: grid;
+        grid-template: auto auto;
+    }
+    
+}
 </style>

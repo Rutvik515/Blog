@@ -1,5 +1,5 @@
 <template>
-<div class="width height mt-5 ml-60 rounded-3">
+<!-- <div class="width height mt-5 ml-60 rounded-3">
     <div class="container-fluid  bg-dark-500">
         <div class=" d-flex justify-between p-3">
             <div>
@@ -15,7 +15,7 @@
             <router-view></router-view>
         </div>
         </div>
-       
+
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm media-class">
 
@@ -48,11 +48,10 @@
                             <td  class="overflow-hidden w-[20px]">
                                 <p v-html="blog.description.length > 99 ? blog.description.substring(0, 40) + '...' : blog.description"></p>
 
-                                
                             </td>
                             <td><span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1 ?'Published':'UnPublished'}}</span></span></td>
                             <td>
-                                <!-- Button trigger modal -->
+                                 Button trigger modal 
                                 <router-link :to='`/admin/blog/edit/${blog.id}`'>
                                     <button type="button" class="bg-color" >
                                         <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
@@ -69,16 +68,129 @@
             </div>
         </div>
 
-      
     </div>
     <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
         <div v-if="last_page > 1">
 
-            <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+            <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />    
         </div>
     </div>
 
+</div> -->
+<loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+
+<div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+    <div class="flex gap-8 md:flex-row flex-col mb-5">
+        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+    </div>
+    <div class="px-6 lg:px-2">
+        <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+            <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                <router-link to="/admin/blog/create">
+                    <BButton @click="resetFormData" class="float-lg-end   border-1 rounded-1 " variant="outline-primary">New Blog</BButton>
+                </router-link>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    sr No
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+
+                <th scope="col" class="px-6 py-3">
+                    Title
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Categories
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Status
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Action
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(blog, index) in filterBlogs" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <td class="px-6 py-4">
+                    {{index + 1}}
+                </td>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <div class="flex items-center">
+                        <div class="h-11 w-11">
+                            <img :src="blog.image" alt="employee_img" class="h-11 w-11 rounded-full object-cover" />
+                        </div>
+                        <div class="ml-2">
+                            <div class="font-medium text-gray-900">
+                                {{ blog.user_name }}
+                            </div>
+                            <div class="mt-1 text-gray-500">{{ blog.date }}</div>
+                        </div>
+                    </div>
+                </th>
+
+                <td class="px-6 py-4">
+                    {{ blog.title }}
+                </td>
+                <td class="px-6 py-4">
+                    {{ blog.category_name }}
+                </td>
+                <td class="px-6 py-4">
+
+                    <span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1
+                                    ? 'Published' : 'UnPublished' }}</span></span>
+                </td>
+                <td class="px-6 py-4">
+                    <router-link :to='`/admin/blog/edit/${blog.id}`'>
+                        <button type="button" class="bg-color">
+                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                        </button>
+                    </router-link>
+
+                    <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                        </i></button>
+                </td>
+
+            </tr>
+
+        </tbody>
+
+        <!-- <div class="relative">
+            <div class="absolute left-0">
+
+                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+            </div>
+            <div class="absolute right-0" v-if="last_page > 1">
+
+                <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+            </div>
+        </div> -->
+
+    </table>
+    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+        <div class="flex gap-8 md:flex-row flex-col mb-5">
+            <div>
+                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+            </div>
+        </div>
+        <div class="px-6 lg:px-2">
+            <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+                <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                    <pagination v-model="page"  :records="total" :per-page="10" @paginate="myCallback" />
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </template>
 
@@ -116,14 +228,11 @@ export default {
             perPage: 10,
             records: [],
 
-
         }
     },
     mounted() {
         this.getBlogs(this.page, this.perPage);
-
         this.isLoading = true;
-
     },
 
     computed: {
@@ -166,6 +275,7 @@ export default {
                 this.blogs = res.data.data.data;
                 this.last_page = res.data.data.last_page;
                 this.total = res.data.data.total;
+                console.log(res.data.data.total);
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
@@ -318,7 +428,7 @@ th {
 }
 
 .red {
-background-color: rgba(224, 40, 40, 0.815);
+    background-color: rgba(224, 40, 40, 0.815);
 }
 
 .green {
@@ -330,7 +440,7 @@ background-color: rgba(224, 40, 40, 0.815);
     margin-top: 16px;
     z-index: 1;
     padding: 12px;
-  
+
 }
 
 /* @media screen and (max-width: 768px) {
@@ -340,7 +450,7 @@ background-color: rgba(224, 40, 40, 0.815);
     }
 } */
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
     .media-class {
         width: 500px;
         margin-right: 40px;

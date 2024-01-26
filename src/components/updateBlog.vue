@@ -1,5 +1,5 @@
 <template>
-<div class="ml-96 mt-12 width">
+<div class="ml-36 mt-12 width">
     <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">
@@ -95,6 +95,76 @@
         </router-link>
 
             <button type="submit" class="btn btn-primary" @click="updateItem(currentBlog.id)">Submit</button>
+        </div>
+    </div>
+</div>
+
+
+<loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+
+<div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+    <div class="flex gap-8 md:flex-row flex-col mb-5">
+        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+    </div>
+    <div class="px-6 lg:px-2">
+        <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+            <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                <BButton @click="resetFormData" class="float-lg-end   border-1 rounded-1 " variant="outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Tag</BButton>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Id
+                </th>
+
+                <th scope="col" class="px-6 py-3 text-center">
+                    Tag NAme
+                </th>
+                <th scope="col" class="px-6 py-3 text-center">
+                    Action
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="(tag, index) in filterTages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                <td class="px-6 py-4 text-center">
+                    {{ index + 1 }}
+                </td>
+                <td class="px-6 py-4 text-center">
+                    {{ tag.name }}
+                </td>
+
+                <td class="px-6 py-4 text-center">
+                    <button type="button" @click="openEdit(tag)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                    </button>
+
+                    <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
+                </td>
+
+            </tr>
+
+        </tbody>
+    </table>
+    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+        <div class="flex gap-8 md:flex-row flex-col mb-5">
+            <div>
+                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+            </div>
+        </div>
+        <div class="px-6 lg:px-2">
+            <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
+                <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+                    <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,5 +1,53 @@
 <template>
-    <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
+  <div class="sm:px-6 lg:mx-auto bg-white lg:px-8">
+        <div class="py-6 md:flex md:items-center md:justify-between  lg:border-gray-200">
+            <div class="min-w-0 flex-1">
+                <div class="flex items-center"><img class="hidden h-16 w-16 rounded-full sm:block"
+                        src="https://ims-api.octalinfotech.com/storage/images/1686053683.jpg" alt="">
+                    <div>
+                        <div class="flex items-center"><img class="h-16 w-16 rounded-full sm:hidden"
+                                src="https://ims-api.octalinfotech.com/storage/images/1686053683.jpg" alt="">
+                            <h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">Good
+                                Afternoon, Rutvik Kher</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="flex flex-wrap justify-between  px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500">
+            <a href="/student/complete-tasks" class="" style="text-decoration: none;">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-green-600 dark:text-white">
+                    Blog</h5>
+            </a>
+            <h1 class="text-2xl font-semibold text-black">{{ showDashboard.blog }}</h1>
+        </div>
+        <div class="flex flex-wrap justify-between px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500">
+            <a href="/student/complete-tasks" class="" style="text-decoration: none;">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-green-600 dark:text-white">
+                    Tags</h5>
+            </a>
+            <h1 class="text-2xl font-semibold text-black">{{ showDashboard.tag }}</h1>
+        </div>
+        <div href="#"
+            class="flex flex-wrap justify-between px-8 py-3 bg-pink-50 rounded-sm shadow border-b-4 border-pink-500">
+            <a href="/student/attendances" class="" style="text-decoration: none;">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-pink-600 dark:text-white">
+                    Users</h5>
+            </a>
+            <h1 class="text-2xl font-semibold text-black">{{ showDashboard.user }}</h1>
+        </div>
+        <div href="#"
+            class="flex flex-wrap justify-between px-8 py-3 bg-yellow-50 rounded-sm shadow border-b-4 border-yellow-500">
+            <a href="/student/leaves" class="" style="text-decoration: none;">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-yellow-600 dark:text-white">
+                    Categories</h5>
+            </a>
+            <h1 class="text-2xl font-semibold text-black">{{ showDashboard.category }}</h1>
+        </div>
+    </div>
+    <!-- <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
       <div class="d-flex flex-row mt-4 align-items-md-center text-center" style="margin-left: 200px;">
         <div class="items-center">
          <img data-v-1fd8a062="" src="../assets/octal-logo.png" alt="Logo" class="rounded-pill" style="width: 40px;">
@@ -8,7 +56,7 @@
           <h1 class="font-size mb-2"> {{ currentTimeOfDay }} Rutvik Kher</h1>
         </div>
       </div>
-      <div class="ml-40 mt-10">
+      <div class="ml-40 ">
       <div class="d-flex flex-column   flex-md-row w-50  gap-md-5 p-3 container ">
         <div class="w-100 w-md-50 d-flex justify-content-between p-4 text-white bg-current mb-3 mb-md-0 bg-green-50 rounded-sm shadow border-b-4 border-green-500 ">
           <h5 data-v-cef1fb98="" class="mb-2 text-2xl font-semibold tracking-tight text-green-600 ">User</h5>
@@ -31,7 +79,7 @@
         </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </template>
   
   <script>
@@ -95,30 +143,6 @@
   </script>
   
   <style scoped>
-  .text {
-    text-decoration: none;
-  }
-
-  
-  .border-none {
-    border: none;
-  }
-  .ms-6 {
-    margin-left: 54px;
-    font-size: 18px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  }
-  .hg-10 {
-    height: 100px;
-  }
-  .font-size {
-    font-size: 30px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #111825;
-    font-weight: 700;
-  }
-  .mt-6 {
-    margin-top: 40px;
-  }
+ 
   </style>
   

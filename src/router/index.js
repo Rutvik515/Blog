@@ -47,7 +47,7 @@ const routes = [
         component:() => import("../components/Tag.vue"),
       },
       {
-        path: "/admin/users",
+        path: "/admin/user",
         name: "Users",   
         component:() => import("../components/Users.vue"),
       },
