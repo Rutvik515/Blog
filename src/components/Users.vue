@@ -387,7 +387,7 @@
     <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
         <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
-                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+                <PageEvent @onChange="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
             </div>
         </div>
         <div class="px-6 lg:px-2">

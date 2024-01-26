@@ -90,46 +90,47 @@
     </div>
 </nav>
 
-<aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-neutral-300 border-r border-gray-800 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+<aside id="logo-sidebar" class="fixed mrg-top top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-neutral-300 border-r border-gray-800 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul class="space-y-2 font-medium">
+            
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/dashboard" class="router-link">
+                <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <router-link to="/admin/dashboard" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-gauge fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3">Dashboard</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Dashboard</span>
                     </router-link>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/blog" class="router-link">
+                <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <router-link to="/admin/blog" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-blog fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3">Blog</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Blog</span>
                     </router-link>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/tag" class="router-link">
+                <a href="#" class=" text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <router-link to="/admin/tag" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-tag fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3">Tag</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Tag</span>
                     </router-link>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/user" class="router-link">
+                <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <router-link to="/admin/user" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-user fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3">User</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">User</span>
                     </router-link>
                 </a>
             </li>
             <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/categories" class="router-link">
+                <a href="#" class="text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <router-link to="/admin/categories" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-list fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3">Categories</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Categories</span>
                     </router-link>
                 </a>
             </li>
@@ -210,4 +211,7 @@ export default {
 
 <style scoped>
 
+.mrg-top{
+    margin-top: -14px !important;
+}
 </style>

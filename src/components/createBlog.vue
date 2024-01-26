@@ -1,103 +1,173 @@
 <template>
-<div class="ml-36 mt-12 width ">
-    <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="mx-auto p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20 2xl:p-24">
+      <div class="sm:ml-5 md:ml-10 xl:ml-20">
+        <div
+          id="modal"
+          class="w-full sm:w-auto md:w-full lg:w-3/4 xl:w-2/3 2xl:w-1/2"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
             <div class="modal-content" style="width: auto;">
-                <div class="modal-header">
-                    <h5 class="modal-title">New Blog</h5>
-                    <router-link to="/admin/blog">
-                        <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">Back</button>
-                       
-                    </router-link>
+              <div class="modal-header">
+                <h5 class="modal-title">New Blog</h5>
+                <router-link to="/admin/blog">
+                  <button
+                    type="button"
+                    class="bg-dark text-white rounded-2 p-2 mr-5 mt-3"
+                  >
+                    Back
+                  </button>
+                </router-link>
+              </div>
+              <form @submit.prevent="submitForm">
+                <div class="modal-body">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Title -->
+                    <div class="mb-4">
+                      <label for="name" class="block text-sm font-medium text-gray-700">
+                        Title<span class="text-danger">*</span>
+                      </label>
+                      <input
+                        id="name"
+                        type="text"
+                        v-model="createBlog.title"
+                        @input="convertToSlug"
+                        class="mt-1 p-2 border rounded w-full"
+                        placeholder="Enter your title"
+                      />
+                    </div>
+  
+                    <!-- Slug -->
+                    <div class="mb-4">
+                      <label for="email" class="block text-sm font-medium text-gray-700">
+                        Slug<span class="text-danger">*</span>
+                      </label>
+                      <input
+                        id="email"
+                        type="text"
+                        v-model="createBlog.slug"
+                        class="mt-1 p-2 border rounded w-full"
+                        placeholder="Enter your slug"
+                        disabled
+                      />
+                    </div>
+  
+                    <!-- User -->
+                    <div class="mb-4">
+                      <label for="user" class="block text-sm font-medium text-gray-700">
+                        User<span class="text-danger">*</span>
+                      </label>
+                      <Multiselect
+                        v-model="createBlog.user"
+                        :options="userOptions"
+                        placeholder="Select Option"
+                        class="w-full rounded-2"
+                      />
+                    </div>
+  
+                    <!-- Tags -->
+                    <div class="mb-4">
+                      <label for="tags" class="block text-sm font-medium text-gray-700">
+                        Tags<span class="text-danger">*</span>
+                      </label>
+                      <Multiselect
+                        v-model="createBlog.tags"
+                        :options="tageOptions"
+                        :closeOnSelect="true"
+                        :searchable="true"
+                        mode="tags"
+                        :multiple="true"
+                        placeholder="Select Option"
+                        class="w-full rounded-2"
+                      />
+                    </div>
+  
+                    <!-- Category -->
+                    <div class="mb-4">
+                      <label for="category" class="block text-sm font-medium text-gray-700">
+                        Category<span class="text-danger">*</span>
+                      </label>
+                      <Multiselect
+                        v-model="createBlog.category"
+                        :options="categoriesOptions"
+                        placeholder="Select Option"
+                        class="w-full rounded-2"
+                      />
+                    </div>
+  
+                    <!-- Date -->
+                    <div class="mb-4">
+                      <label for="date" class="block text-sm font-medium text-gray-700">
+                        Date<span class="text-danger">*</span>
+                      </label>
+                      <VueDatePicker v-model="createBlog.date" class="p-2 w-full rounded-2" />
+                    </div>
+  
+                    <!-- Image -->
+                    <div class="mb-4">
+                      <label for="fileupload" class="block text-sm font-medium text-gray-700">
+                        Image<span class="text-danger">*</span>
+                      </label>
+                      <div class="flex items-center border">
+                        <input
+                          ref="fileupload"
+                          type="file"
+                          class="custom-file-input mt-1 w-full"
+                          style="cursor: pointer;"
+                          @input="uploadImage1"
+                        />
+                      </div>
+                    </div>
+  
+                    <!-- Status -->
+                    <div class="mb-4">
+                      <label for="status" class="block text-sm font-medium text-gray-700">
+                        Status<span class="text-danger">*</span>
+                      </label>
+                      <Multiselect
+                        v-model="createBlog.status"
+                        :options="statusOptions"
+                        placeholder="Select Option"
+                        class="w-full rounded-2"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <form @submit.prevent="submitForm">
-                    <div class="modal-body d-flex gap-4">
-                        <div class="mt-2 text-start">
-                            <label for="name">Title<span class="text-danger">*</span></label>
-                            <div><input id="name" class="border-2 p-2 width-5 rounded-2" type="text" placeholder="Enter your title" v-model="createBlog.title" @input="convertToSlug"></div>
-                        </div>
-                        <div class="mt-2 text-start">
-                            <label for="email">Slug<span class="text-danger">*</span></label>
-                            <div><input id="email" class="border-2 p-2  width-5 rounded-2 " type="text" placeholder="Enter your slug" v-model="createBlog.slug" disabled></div>
-                        </div>
-                    </div>
-                    <div class="modal-body d-flex gap-4">
-                        <div class="mt-3 text-start">
-                            <label for="">User<span class="text-danger">*</span></label>
-                            <div>
-
-                                <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your use"> -->
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.user" :options="userOptions" placeholder="Select Option" />
-                            </div>
-                        </div>
-                        <div class="mt-3 text-start">
-                            <label for="">Tags<span class="text-danger">*</span></label>
-                            <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.tags" :options="tageOptions" :closeOnSelect="true" :searchable="true" mode="tags" :multiple="true" placeholder="Select Option" />
-
-                                <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-body d-flex gap-3">
-                        <div class="mt-3 text-start">
-                            <label for="">Category<span class="text-danger">*</span></label>
-                            <div>
-                                <Multiselect class=" width-5 rounded-2" v-model="createBlog.category" :options="categoriesOptions" placeholder="Select Option" />
-
-                                <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your categories" v-model="createUser"> -->
-                            </div>
-                        </div>
-                        <div class="mt-2 text-start">
-                            <label for="" class="ml-1">Date<span class="text-danger">*</span></label>
-                            <VueDatePicker v-model="createBlog.date" class=" p-2 width-5 rounded-2"></VueDatePicker>
-                            <!-- <div><input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your date" v-model="createBlog.date"></div> -->
-                        </div>
-
-                    </div>
-                    <div class="modal-body d-flex ">
-
-                    </div>
-                    <div class="modal-body d-flex gap-4">
-                        <div class="text-start p-0 mt-3 width-10">
-                            <label class="container p-0">Image <span class="text-danger">*</span></label>
-                            <div class="container border-2 pl-1 text-start rounded-2 float-lg-start " style="width: 480px;height: 44px;">
-                                <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
-                            </div>
-                        </div>
-                        <div class="mt-3 mr-10 text-start">
-                            <label for="">Status<span class="text-danger">*</span></label>
-                            <div>
-                                <Multiselect class="width-5 rounded-2" v-model="createBlog.status " :options="statusOptions" placeholder="Select Option" />
-
-                                <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
-                            </div>
-                        </div>
-                    </div>
-
-                </form>
+                <div class="modal-body">
+                  <!-- ... (rest of your code) -->
+                </div>
+              </form>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="float-start ml-4 mt-4">
+      </div>
+      <div class="float-start ml-4 mt-4">
         <label for="">Description<span class="text-danger">*</span></label>
-    </div>
-    <div id="app " class="container mt-5">
-
+      </div>
+      <div id="app" class="container mt-5">
         <div>
-            <vue-editor v-model="createBlog.description"></vue-editor>
+          <vue-editor v-model="createBlog.description"></vue-editor>
         </div>
-    </div>
-    <div class="">
-        <hr>
-        <div class="modal-footer  mr-2 ">
-
-            <button type="button" class="btn btn-secondary " data-bs-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary ms-4" @click="createItem">Submit</button>
+      </div>
+      <div class="">
+        <hr />
+        <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Cancel
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12"
+            @click="createItem"
+          >
+            Submit
+          </button>
         </div>
+      </div>
     </div>
-</div>
-</template>
+  </template>
 
 <script>
 import VueDatePicker from '@vuepic/vue-datepicker';
@@ -239,8 +309,8 @@ export default {
             formData.append('status', this.createBlog.status === 'Publish' ? 1 : 2);
             formData.append('user_id', this.createBlog.user);
             formData.append('category_id', this.createBlog.category);
-            this.createBlog.tags.forEach((value)=>formData.append('tag_ids[]', value))
-            
+            this.createBlog.tags.forEach((value) => formData.append('tag_ids[]', value))
+
             formData.append('date', this.createBlog.date);
 
             axios.post(`https://blog-api-dev.octalinfotech.com/api/blogs/store`, formData, {
@@ -321,12 +391,10 @@ export default {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
     .width {
         width: 65rem;
         margin-left: 300px;
     }
 }
-
-
 </style>

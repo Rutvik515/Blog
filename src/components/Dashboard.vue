@@ -17,22 +17,22 @@
     </div>
     <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div class="flex flex-wrap justify-between  px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500">
-            <a href="/student/complete-tasks" class="" style="text-decoration: none;">
+            <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-green-600 dark:text-white">
                     Blog</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.blog }}</h1>
         </div>
-        <div class="flex flex-wrap justify-between px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500">
-            <a href="/student/complete-tasks" class="" style="text-decoration: none;">
-                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-green-600 dark:text-white">
+        <div class="flex flex-wrap justify-between px-8 py-3 bg-blue-50 rounded-sm shadow border-b-4 border-blue-500">
+            <a href="" class="" style="text-decoration: none;">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-blue-600 dark:text-white">
                     Tags</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.tag }}</h1>
         </div>
         <div href="#"
             class="flex flex-wrap justify-between px-8 py-3 bg-pink-50 rounded-sm shadow border-b-4 border-pink-500">
-            <a href="/student/attendances" class="" style="text-decoration: none;">
+            <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-pink-600 dark:text-white">
                     Users</h5>
             </a>
@@ -40,7 +40,7 @@
         </div>
         <div href="#"
             class="flex flex-wrap justify-between px-8 py-3 bg-yellow-50 rounded-sm shadow border-b-4 border-yellow-500">
-            <a href="/student/leaves" class="" style="text-decoration: none;">
+            <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-yellow-600 dark:text-white">
                     Categories</h5>
             </a>

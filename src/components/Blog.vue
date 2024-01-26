@@ -177,16 +177,16 @@
         </div> -->
 
     </table>
-    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+   <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
         <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
-                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
+                <PageEvent @onChange="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
             </div>
         </div>
         <div class="px-6 lg:px-2">
             <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
                 <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
-                    <pagination v-model="page"  :records="total" :per-page="10" @paginate="myCallback" />
+                    <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
                 </div>
             </div>
         </div>

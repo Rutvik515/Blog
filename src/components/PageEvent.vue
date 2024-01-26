@@ -23,7 +23,7 @@ export default{
     },
     methods: {
         onChange(event){
-           this.$emit('onChnage', event.target.value) 
+           this.$emit('onChange', event.target.value) 
         }   
     },
     

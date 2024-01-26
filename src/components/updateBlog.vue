@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
 <div class="ml-36 mt-12 width">
     <div class="ml-5" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
         <div class="modal-dialog">
@@ -25,7 +25,6 @@
                             <label for="">User<span class="text-danger">*</span></label>
                             <div>
 
-                                <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your use"> -->
                                 <Multiselect class=" width-5 rounded-2" v-model="currentBlog.user_id" :options="userOptions" placeholder="Select Option" />
                             </div>
                         </div>
@@ -34,7 +33,6 @@
                             <div>
                                 <Multiselect class=" width-5 rounded-2" v-model="currentBlog.tag" mode="tags" :multiple="true" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" />
 
-                                <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
                         </div>
                     </div>
@@ -44,7 +42,6 @@
                             <div>
                                 <Multiselect class=" width-5 rounded-2" v-model="currentBlog.category_id" :options="categoriesOptions" placeholder="Select Option" />
 
-                                <!-- <input id="password" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your categories" v-model="createUser"> -->
                             </div>
                         </div>
                         <div class="mt-2 text-start">
@@ -68,7 +65,6 @@
                             <div>
                                 <Multiselect class="width-5 rounded-2" v-model="currentBlog.status" :options="statusOptions" placeholder="Select Option" />
 
-                                <!-- <input id="confirmPassword" class="border-2 p-2 width-5 rounded-2" type="password" placeholder="Enter your tag" v-model="createUser"> -->
                             </div>
                         </div>
                     </div>
@@ -91,83 +87,130 @@
         <div class="modal-footer mt-2 mr-2">
             <router-link to="/admin/blog">
 
-            <button type="button" class="btn btn-secondary mr-2" >Cancel</button>
-        </router-link>
+                <button type="button" class="btn btn-secondary mr-2">Cancel</button>
+            </router-link>
 
             <button type="submit" class="btn btn-primary" @click="updateItem(currentBlog.id)">Submit</button>
         </div>
     </div>
 </div>
 
+</template> -->
 
-<loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
+<template>
+    <div class="mx-auto p-4 sm:p-8 md:p-12 lg:p-16 xl:p-20 2xl:p-24">
+        <div class="sm:ml-5 md:ml-10 xl:ml-20">
+            <div id="modal" class="w-full sm:w-auto md:w-full lg:w-3/4 xl:w-2/3 2xl:w-1/2" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content" style="width: auto;">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Update Blog</h5>
+                            <router-link to="/admin/blog">
+                                <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">
+                                    Back
+                                </button>
+                            </router-link>
+                        </div>
+                        <form @submit.prevent="submitForm">
+                            <div class="modal-body">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Title -->
+                                    <div class="mb-4">
+                                        <label for="name" class="block text-sm font-medium text-gray-700">
+                                            Title<span class="text-danger">*</span>
+                                        </label>
+                                        <input id="name" type="text" v-model="currentBlog.title" @input="convertToSlug" class="mt-1 p-2 border rounded w-full" placeholder="Enter your title" />
+                                    </div>
 
-<div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
-    <div class="flex gap-8 md:flex-row flex-col mb-5">
-        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
-    </div>
-    <div class="px-6 lg:px-2">
-        <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
-            <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
-                <BButton @click="resetFormData" class="float-lg-end   border-1 rounded-1 " variant="outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">New Tag</BButton>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" class="px-6 py-3 text-center">
-                    Id
-                </th>
+                                    <!-- Slug -->
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-sm font-medium text-gray-700">
+                                            Slug<span class="text-danger">*</span>
+                                        </label>
+                                        <input id="email" type="text" class="mt-1 p-2 border rounded w-full" placeholder="Enter your slug" v-model="currentBlog.slug" disabled />
+                                    </div>
 
-                <th scope="col" class="px-6 py-3 text-center">
-                    Tag NAme
-                </th>
-                <th scope="col" class="px-6 py-3 text-center">
-                    Action
-                </th>
+                                    <!-- User -->
+                                    <div class="mb-4">
+                                        <label for="user" class="block text-sm font-medium text-gray-700">
+                                            User<span class="text-danger">*</span>
+                                        </label>
+                                        <Multiselect v-model="currentBlog.user_id" :options="userOptions" placeholder="Select Option" class="w-full rounded-2" />
+                                    </div>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(tag, index) in filterTages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <!-- Tags -->
+                                    <div class="mb-4">
+                                        <label for="tags" class="block text-sm font-medium text-gray-700">
+                                            Tags<span class="text-danger">*</span>
+                                        </label>
+                                        <Multiselect v-model="currentBlog.tag" mode="tags" :multiple="true" :options="tageOptions" :closeOnSelect="true" :searchable="true" placeholder="Select Option" class="w-full rounded-2" />
+                                    </div>
 
-                <td class="px-6 py-4 text-center">
-                    {{ index + 1 }}
-                </td>
-                <td class="px-6 py-4 text-center">
-                    {{ tag.name }}
-                </td>
+                                    <!-- Category -->
+                                    <div class="mb-4">
+                                        <label for="category" class="block text-sm font-medium text-gray-700">
+                                            Category<span class="text-danger">*</span>
+                                        </label>
+                                        <Multiselect v-model="currentBlog.category_id" :options="categoriesOptions" placeholder="Select Option" class="w-full rounded-2" />
+                                    </div>
 
-                <td class="px-6 py-4 text-center">
-                    <button type="button" @click="openEdit(tag)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                    </button>
+                                    <!-- Date -->
+                                    <div class="mb-4">
+                                        <label for="date" class="block text-sm font-medium text-gray-700">
+                                            Date<span class="text-danger">*</span>
+                                        </label>
+                                        <VueDatePicker v-model="currentBlog.date" class="p-2 w-full rounded-2" />
+                                    </div>
 
-                    <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
-                </td>
+                                    <!-- Image -->
+                                    <div class="mb-4">
+                                        <label for="fileupload" class="block text-sm font-medium text-gray-700">
+                                            Image<span class="text-danger">*</span>
+                                        </label>
+                                        <div class="flex items-center border">
+                                            <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage" />
+                                        </div>
+                                    </div>
 
-            </tr>
-
-        </tbody>
-    </table>
-    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
-        <div class="flex gap-8 md:flex-row flex-col mb-5">
-            <div>
-                <PageEvent @onChnage="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
-            </div>
-        </div>
-        <div class="px-6 lg:px-2">
-            <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
-                <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
-                    <pagination v-model="page" :records="total" :per-page="10" @paginate="myCallback" />
+                                    <!-- Status -->
+                                    <div class="mb-4">
+                                        <label for="status" class="block text-sm font-medium text-gray-700">
+                                            Status<span class="text-danger">*</span>
+                                        </label>
+                                        <Multiselect v-model="currentBlog.status" :options="statusOptions" placeholder="Select Option" class="w-full rounded-2" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-body">
+                                <!-- ... (rest of your code) -->
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="float-start ml-4 mt-4">
+            <label for="">Description<span class="text-danger">*</span></label>
+        </div>
+        <div id="app" class="container mt-5">
+            <div>
+                <vue-editor v-model="currentBlog.description"></vue-editor>
+            </div>
+        </div>
+        <div class="">
+            <hr />
+            <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16">
+                <router-link to="/admin/blog">
+                <button type="button" class="btn btn-secondary">
+                    Cancel
+                </button>
+            </router-link>
+                <button type="submit" class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12" @click="updateItem(currentBlog.id)">
+                    Submit
+                </button>
+            </div>
+        </div>
     </div>
-</div>
 </template>
 
 <script>
@@ -242,7 +285,6 @@ export default {
 
     methods: {
 
-        
         getBlogs(id) {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -351,7 +393,7 @@ export default {
             let token = data.token;
             let formData = new FormData();
             this.currentBlog.date = moment(this.currentBlog.date).format("YYYY-MM-DD");
-               console.log(this.currentBlog);
+            console.log(this.currentBlog);
             formData.append('title', this.currentBlog.title);
             formData.append('image', this.currentBlog.image);
             formData.append('description', this.currentBlog.description);
@@ -360,7 +402,7 @@ export default {
             formData.append('category_id', this.currentBlog.category_id);
             // formData.append('tag_ids', this.currentBlog.tag_ids);
 
-            this.currentBlog.tag.forEach((value)=>formData.append('tag_ids[0]', value))
+            this.currentBlog.tag.forEach((value) => formData.append('tag_ids[0]', value))
 
             formData.append('date', this.currentBlog.date);
 
@@ -372,10 +414,8 @@ export default {
                 toast.success(res.data.message, {
                     timeout: 2000
                 });
- 
-              
+
                 this.$router.push("/admin/blog");
-              
 
             }).catch((err) => {
                 console.log(err);
@@ -440,11 +480,10 @@ export default {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
     .width {
         width: 65rem;
         margin-left: 300px;
     }
 }
-
 </style>
