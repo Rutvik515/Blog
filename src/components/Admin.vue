@@ -37,18 +37,13 @@
     <div class="px-2 py-2 lg:px-5 lg:pl-3">
         <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
-                <button data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open sidebar</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                        </path>
-                    </svg>
-                </button>
+             
                 <a class="flex ms-2 md:me-24 text-decoration-none ">
                     <img src="http://octalinfotech.com/img/octal-logo.png" alt="Logo" style="width:40px;" class="rounded-pill">
                     <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-black ml-2 text-black">Octal
-                        Infotech</span>
+                        Infotech  </span>
                 </a>
+            <span class="self-end font-semibold sm:text-base whitespace-nowrap dark:text-black text-black border-b-2 border-black z-50">{{$route.name}}</span>
             </div>
             <div class="flex items-center">
                 <div class="flex items-center ms-3">
@@ -95,44 +90,44 @@
         <ul class="space-y-2 font-medium">
             
             <li>
-                <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/dashboard" class="router-link text-decoration-none ">
+                <router-link to="/admin/dashboard" class="router-link text-decoration-none" >
+                <a href="#"  class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <i class="fa-solid fa-gauge fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3 font-serif text-gray-700 text-xl">Dashboard</span>
-                    </router-link>
-                </a>
+                        <span  class="ms-3 font-serif text-gray-700 text-xl">Dashboard</span>
+                    </a>
+                </router-link>
             </li>
             <li>
+                <router-link to="/admin/blog" class="router-link text-decoration-none ">
                 <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/blog" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-blog fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="ms-3 font-serif text-gray-700 text-xl">Blog</span>
-                    </router-link>
-                </a>
+                    </a>
+                </router-link>
             </li>
             <li>
+                <router-link to="/admin/tag" class="router-link text-decoration-none ">
                 <a href="#" class=" text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/tag" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-tag fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="ms-3 font-serif text-gray-700 text-xl">Tag</span>
-                    </router-link>
-                </a>
+                    </a>
+                </router-link>
             </li>
             <li>
+                <router-link to="/admin/user" class="router-link text-decoration-none ">
                 <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/user" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-user fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="ms-3 font-serif text-gray-700 text-xl">User</span>
-                    </router-link>
-                </a>
+                    </a>
+                </router-link>
             </li>
             <li>
+                <router-link to="/admin/categories" class="router-link text-decoration-none ">
                 <a href="#" class="text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <router-link to="/admin/categories" class="router-link text-decoration-none ">
                         <i class="fa-solid fa-list fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
                         <span class="ms-3 font-serif text-gray-700 text-xl">Categories</span>
-                    </router-link>
-                </a>
+                    </a>
+                </router-link>
             </li>
         </ul>
     </div>

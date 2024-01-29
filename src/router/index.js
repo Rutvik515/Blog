@@ -23,6 +23,11 @@ const routes = [
     component:() => import("../components/BlogWeb.vue"),
   },
   {
+    path: "/blogsee/:id",
+    name: "blogsee",  
+    component:() => import("../components/BlogSee.vue"),
+  },
+  {
     path: "/admin",
     name: "admin", 
     meta: {
@@ -38,7 +43,7 @@ const routes = [
       },
       {
         path: "/admin/categories",
-        name: "About",  
+        name: "Categories",  
         component:() => import("../components/Categories.vue"),
       },
       {
@@ -48,7 +53,7 @@ const routes = [
       },
       {
         path: "/admin/user",
-        name: "Users",   
+        name: "User",   
         component:() => import("../components/Users.vue"),
       },
       {

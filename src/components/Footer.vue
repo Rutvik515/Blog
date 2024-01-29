@@ -1,63 +1,138 @@
 <template>
-  <section class="mt-16">
-    <footer class="footer bg-gray-400 text-white py-8">
-      <div class="waves relative">
-        <div class="wave absolute inset-0 bg-blue-500 h-5"></div>
-        <div class="wave absolute inset-0 bg-blue-400 h-4"></div>
+ <footer class="bg-gray-500">
+  <div class="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <div class="text-white flex gap-4">
+      <img src="../assets/octal-logo.png" alt="" class="w-[50px] h-[50px] "> <span class="font-semibold text-3xl">Octal Infotech</span>
       </div>
 
-      <ul class="social-icon flex space-x-4 mt-4">
-        <li class="social-icon__item transform hover:scale-110 transition-transform">
-          <a class="social-icon__link" href="#">
-            <ion-icon name="logo-facebook" style="color: #1877f2;"></ion-icon>
-          </a>
-        </li>
-        <li class="social-icon__item transform hover:scale-110 transition-transform">
-          <a class="social-icon__link" href="#">
-            <ion-icon name="logo-twitter" style="color: #1da1f2;"></ion-icon>
-          </a>
-        </li>
-        <li class="social-icon__item transform hover:scale-110 transition-transform">
-          <a class="social-icon__link" href="#">
-            <ion-icon name="logo-linkedin" style="color: #0077b5;"></ion-icon>
-          </a>
-        </li>
-        <li class="social-icon__item transform hover:scale-110 transition-transform">
-          <a class="social-icon__link hover:text-blue-800" href="#">
-            <ion-icon name="logo-instagram" class="" style="color: #e4405f;"></ion-icon>
-          </a>
-        </li>
+      <ul class="mt-8 flex justify-start gap-6 sm:mt-0 sm:justify-end ">
+      
+        <div class="mt-6 lg:mb-0 mb-6">
+          <button class="bg-white text-blue-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+            <i class="fab fa-twitter"></i></button><button class="bg-white text-blue-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+            <i class="fab fa-facebook-square"></i></button><button class="bg-white text-pink-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+            <i class="fab fa-dribbble"></i></button><button class="bg-white text-black-800 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2" type="button">
+            <i class="fab fa-github"></i>
+          </button>
+        </div>
       </ul>
+    </div>
 
-      <ul class="menu flex space-x-4 mt-4">
-        <li class="menu__item transform hover:scale-110 transition-transform">
-          <a class="menu__link" href="#">Home</a>
-        </li>
-        <li class="menu__item transform hover:scale-110 transition-transform">
-          <a class="menu__link" href="#">About</a>
-        </li>
-        <li class="menu__item transform hover:scale-110 transition-transform">
-          <a class="menu__link" href="#">Services</a>
-        </li>
-        <li class="menu__item transform hover:scale-110 transition-transform">
-          <a class="menu__link" href="#">Team</a>
-        </li>
-        <li class="menu__item transform hover:scale-110 transition-transform">
-          <a class="menu__link" href="#">Contact</a>
-        </li>
-      </ul>
+    <div
+      class="grid grid-cols-1 gap-8 border-t border-gray-100 pt-8 sm:grid-cols-2 lg:grid-cols-4 lg:pt-16"
+    >
+      <div>
+        <p class="font-medium text-white text-justify">Cetegories</p>
 
-      <p class="mt-4">&copy; 2024 Nadine Coelho | All Rights Reserved</p>
-    </footer>
-  </section>
+        <ul class="mt-6 space-y-4 text-sm text-justify" v-for="category in categories" :key="category">
+          <li>
+          </li>
+          <a href="#" class="text-white transition hover:opacity-75 "> {{category.name}} <span>({{  category.blog_count }})</span></a>
+
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-medium text-white text-justify">Company</p>
+
+        <ul class="mt-6 space-y-4 text-sm text-justify">
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> About </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Meet the Team </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Accounts Review </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-medium text-white text-justify">Helpful Links</p>
+
+        <ul class="mt-6 space-y-4 text-sm text-justify">
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Contact </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> FAQs </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Live Chat </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="font-medium text-white text-justify">Legal</p>
+
+        <ul class="mt-6 space-y-4 text-sm text-justify">
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Accessibility </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Returns Policy </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Refund Policy </a>
+          </li>
+
+          <li>
+            <a href="#" class="text-white transition hover:opacity-75"> Hiring Statistics </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="text-xl text-white">&copy; 2024. Company Name. Octal Infotech</p>
+  </div>
+</footer>
 </template>
   
 <script>
+import axios from 'axios';
+
 
     export default {
         name:"footerComponent",
         components:{
-        }
+        },
+        data() {
+          return {
+            categories:[],
+            
+          }
+        },
+        mounted() {
+        this.getCategories();
+    },
+        methods: {
+          getCategories() {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories/count`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                this.categories = res.data.data.data;
+            
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        },
+        },
     }
 </script>
 

@@ -152,9 +152,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                <BButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" variant="outline-secondary">Cancle</BButton>
 
-                <button @click="updateItem(currentTag.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal">Save Tages</button>
+                <BButton @click="updateItem(currentTag.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal" variant="outline-primary">Submit</BButton>
 
             </div>
         </div>
@@ -179,9 +179,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancle</button>
+                <BButton  class=" border-1 rounded-1 " data-bs-dismiss="modal"  variant="outline-secondary">Cancle</BButton>
 
-                <button type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal">Submit</button>
+                <BButton @click="createItem" class="float-lg-end   border-1 rounded-1 " variant="outline-primary" data-bs-dismiss="modal">Submit</BButton>
 
             </div>
         </div>

@@ -199,15 +199,15 @@
         </div>
         <div class="">
             <hr />
-            <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16">
+            <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16 mt-3">
                 <router-link to="/admin/blog">
-                <button type="button" class="btn btn-secondary">
+                <BButton type="button" class="btn btn-secondary" variant="outline-secondary">
                     Cancel
-                </button>
+                </BButton>
             </router-link>
-                <button type="submit" class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12" @click="updateItem(currentBlog.id)">
+                <BButton type="submit" class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12" @click="updateItem(currentBlog.id)" variant="outline-primary">
                     Submit
-                </button>
+                </BButton>
             </div>
         </div>
     </div>

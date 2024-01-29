@@ -15,7 +15,8 @@ import BootstrapVueNext from 'bootstrap-vue-next'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 import moment from 'moment'
-import './registerServiceWorker'
+import './registerServiceWorker';
+import '../src/css/Index.css'
 const app  = createApp(App);
 
 app.use(LoadingPlugin)

@@ -79,22 +79,53 @@
 
 </div> -->
 <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
-
-<div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
-    <div class="flex gap-8 md:flex-row flex-col mb-5">
-        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+                                                                                 
+   
+<!-- search -->
+<div class="flex flex-col xl:flex-row lg:flex-col gap-3 lg:justify-center justify-center  xl:justify-between px-1.5">
+    <div class="">
+        <div>
+            <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search">
+        </div>
     </div>
-    <div class="px-6 lg:px-2">
-        <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
-            <div class="lg:flex-row md:flex-col sm:mt-0 sm:flex-none flex items-center space-x-3 flex-col gap-2">
+     <!-- User -->
+     <div class="flex  flex-col gap-4 lg:flex-col md:flex-col xl:flex-row items-center">
+    <div class="w-[200px]">
+                    <label for="user" class="lg:block text-sm font-medium text-gray-700">
+                    </label>
+                    <Multiselect v-model="user_id" :options="userOptions"  placeholder="Select User" class="rounded-2" />
+                </div>
+
+    <!-- Category -->
+    <div class="w-[200px]">
+                    <label for="category" class="lg:block text-sm font-medium text-gray-700">
+                    </label>
+                    <Multiselect v-model="category_id" :options="categoriesOptions" placeholder="Select Category" class=" rounded-2" />
+                </div>
+
+    <!-- Status -->
+    <div class="w-[200px]">
+        <label for="status" class="lg:block text-sm font-medium text-gray-700">
+        </label>
+        <Multiselect v-model="status" :options="statusOptions" placeholder="Select Status" class="rounded-2" />
+    </div>
+    
+    <!-- New BLog -->
+    <div class="">
+        <div class="bg-white rounded-sm">
+            <div class="">
                 <router-link to="/admin/blog/create">
-                    <BButton @click="resetFormData" class="float-lg-end   border-1 rounded-1 " variant="outline-primary">New Blog</BButton>
+                    <BButton @click="resetFormData" class="border-1 rounded-1" variant="outline-primary">New Blog</BButton>
                 </router-link>
             </div>
         </div>
     </div>
+<!-- </div> -->
 </div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+</div>
+
+         <!-- Table -->
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -121,7 +152,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(blog, index) in filterBlogs" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr v-for="(blog, index) in filterBlogs" :key="index.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
                     {{index + 1}}
                 </td>
@@ -156,7 +187,11 @@
                             <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                         </button>
                     </router-link>
-
+                    <button type="button" class="bg-color">
+                            <router-link  :to='`/blogsee/${blog.id}`'>
+                                <i class="fa-solid fa-eye mt-3 me-2 color-blue" role="button"></i>
+                </router-link>
+                        </button>
                     <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                         </i></button>
                 </td>
@@ -177,8 +212,8 @@
         </div> -->
 
     </table>
-   <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
-        <div class="flex gap-8 md:flex-row flex-col mb-5">
+    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2 item">
+        <div class="flex gap-8 md:flex-row flex-col">
             <div>
                 <PageEvent @onChange="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
             </div>
@@ -200,6 +235,8 @@ import axios from 'axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 import swal from 'sweetalert2';
+import Multiselect from '@vueform/multiselect';
+
 
 import Pagination from 'v-pagination-3';
 import PageEvent from '@/components/PageEvent.vue'
@@ -214,7 +251,8 @@ export default {
         // mainLayout
         Loading,
         Pagination,
-        PageEvent
+        PageEvent,
+        Multiselect
     },
     data() {
         return {
@@ -227,13 +265,54 @@ export default {
             last_page: null,
             perPage: 10,
             records: [],
+            categoriesOptions: [],
+            userOptions: [],
+            statusOptions:[
+            {label:'All',value:0},
+            {label:'Publish',value:1},
+            {label:'UnPublish',value:2},
+            ],
+            status: '',
+            // user: null,
+            // categories: null,
+            category_id:'',
+            user_id:'',
+
+
+            // Blog: {
+            //     status: '',
+            //     category: '',
+            //     user: '',
+
+            // }
 
         }
     },
     mounted() {
         this.getBlogs(this.page, this.perPage);
         this.isLoading = true;
+        this.getCategories();
+        this.getUsers();
+
     },
+    watch: {
+    status(value) {
+    console.log(value);
+    this.getBlogs(this.page);
+    },
+    category_id(value) {
+    console.log(value);
+    this.getBlogs(this.page);
+    },
+    user_id(value) {
+    console.log(value);
+    this.getBlogs(this.page);
+    },
+    search(value) {
+    console.log(value);
+    this.getBlogs(this.page);
+    }
+  },
 
     computed: {
         filterBlogs() {
@@ -266,8 +345,23 @@ export default {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
+            let url = `https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}`;
+            if(this.search){
+                url+= `&search=${this.search}`;
+            }
+            if(this.category_id){
+                url+= `&category_id=${this.category_id}`;
+            }
+            if(this.user_id){
+                url+= `&user_id=${this.user_id}`;
+            }
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}`, {
+            if(this.status){
+                url+= `&status=${this.status}`;
+            }
+
+
+            axios.get(url, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -285,6 +379,66 @@ export default {
         myCallback: function (page) {
             this.getBlogs(page)
         },
+
+        getCategories() {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories/all`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                this.categoriesOptions = res.data.data.map((value) => {
+                    return {
+                        label: value.name,
+                        value: value.id,
+                    }
+                })
+                console.log(this.categories);
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        },
+
+      
+
+        getUsers() {
+            let data = localStorage.getItem('user');
+            data = JSON.parse(data);
+            let token = data.token;
+
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/users/all`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }).then((res) => {
+                this.userOptions = res.data.data.map((value) => {
+                    return {
+                        label: value.name,
+                        value: value.id
+                    }
+                })
+                console.log(res.data.data);
+            })
+        },
+
+    //     selectStatus(value) {
+    //   if (value === 'Publish') {
+    //     this.Blog.status = 1;
+    //   } else if (value === 'UnPublish') {
+    //     this.Blog.status = 2;
+    //   } else {
+    //     this.Blog.status = ''; 
+    //   }
+
+      // You can optionally trigger the filtering logic here
+      // based on the selected status value.
+    //   this.setBlogs();
+    // },
+
         removeItem(id) {
 
             let data = localStorage.getItem('user');
@@ -335,11 +489,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style src="@vueform/multiselect/themes/default.css" ></style><style scoped>
+
 .text {
     text-decoration: none;
 }
-
 .width {
     width: 85%;
     box-shadow: 20px 20px 60px #0000002d, inset -20px -20px 60px #ffffff48;

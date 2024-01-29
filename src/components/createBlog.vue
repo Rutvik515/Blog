@@ -136,7 +136,6 @@
                   </div>
                 </div>
                 <div class="modal-body">
-                  <!-- ... (rest of your code) -->
                 </div>
               </form>
             </div>
@@ -153,17 +152,21 @@
       </div>
       <div class="">
         <hr />
-        <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16 mt-3">
+          <router-link to="/admin/blog">
+
+          <BButton type="button" class="btn btn-secondary" variant="outline-secondary">
             Cancel
-          </button>
-          <button
+          </BButton>
+        </router-link>
+          <BButton
             type="submit"
             class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12"
-            @click="createItem"
+            @click="createItem" variant="outline-primary"
           >
             Submit
-          </button>
+          </BButton>
+          
         </div>
       </div>
     </div>

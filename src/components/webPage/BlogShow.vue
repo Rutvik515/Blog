@@ -4,7 +4,7 @@
     <slide v-for="categoriesShow in categoriesShows" :key="categoriesShow">
         <div class="">
             <div class="">
-                <img class="img-border img-fluid " :src="categoriesShow.image" alt="">
+                <img class="img-border img-fluid object-cover " :src="categoriesShow.image" alt="">
             </div>
             <div>
                 {{ categoriesShow.name }}
@@ -23,7 +23,7 @@
 
             <div class="mt-5 card " style="width:300px">
                 <router-link :to='`/blogShow/${blogShow.id}`'>
-                    <img class="width-img img-fluid hover-effect" :src="blogShow.image" alt="">
+                    <img class="width-img img-fluid hover-effect object-cover" :src="blogShow.image" alt="">
                 </router-link>
             </div>
             <div class=" mt-2 d-flex width-user ml-14 justify-evenly">
@@ -74,8 +74,10 @@
         </div>
     </section>
 
-      
-    <footerComponents/>
+      <div class="mt-16">
+
+          <footerComponents/>
+      </div>
 
     
 </template>
@@ -150,6 +152,8 @@ export default {
             })
 
         },
+          
+
     },
 
 }
