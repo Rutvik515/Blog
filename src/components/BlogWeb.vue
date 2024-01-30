@@ -47,8 +47,8 @@
         </div>
   
         <div class="lg:w-1/2 mt-4 lg:mt-0">
-          <div class="text-color fixed-top float-right absolute">
-            <p class="text-3xl font-semibold">{{ blogWebs.title }}</p>
+          <div class="text-color mb-4">
+            <p class="text-3xl font-semibold ">{{ blogWebs.title }}</p>
           </div>
           <div class="text-justify" v-html="blogWebs.description"></div>
         </div>

@@ -7,8 +7,8 @@
                     <div>
                         <div class="flex items-center"><img class="h-16 w-16 rounded-full sm:hidden"
                                 src="https://ims-api.octalinfotech.com/storage/images/1686053683.jpg" alt="">
-                            <h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">Good
-                                Afternoon, Rutvik Kher</h1>
+                            <h1 class="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">
+                               {{ currentTimeOfDay }} Rutvik Kher</h1>
                         </div>
                     </div>
                 </div>
@@ -16,36 +16,49 @@
         </div>
     </div>
     <div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="flex flex-wrap justify-between  px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500">
+      <router-link to="/admin/blog">
+
+        <div class="flex flex-wrap justify-between  px-8 py-3 bg-green-50 rounded-sm shadow border-b-4 border-green-500 transition duration-1000 ease-in-out hover:scale-110">
             <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-green-600 dark:text-white">
                     Blog</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.blog }}</h1>
         </div>
-        <div class="flex flex-wrap justify-between px-8 py-3 bg-blue-50 rounded-sm shadow border-b-4 border-blue-500">
+      </router-link>
+
+            <router-link to="/admin/tag">
+        <div class="flex flex-wrap justify-between px-8 py-3 bg-blue-50 rounded-sm shadow border-b-4 border-blue-500 transition duration-1000 ease-in-out hover:scale-110">
             <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-blue-600 dark:text-white">
                     Tags</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.tag }}</h1>
         </div>
+              </router-link>
+
+                  <router-link to="/admin/user">
         <div href="#"
-            class="flex flex-wrap justify-between px-8 py-3 bg-pink-50 rounded-sm shadow border-b-4 border-pink-500">
+            class="flex flex-wrap justify-between px-8 py-3 bg-pink-50 rounded-sm shadow border-b-4 border-pink-500 transition duration-1000 ease-in-out hover:scale-110">
             <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-pink-600 dark:text-white">
                     Users</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.user }}</h1>
         </div>
+
+      </router-link>
+
+      <router-link to="/admin/Categories">
         <div href="#"
-            class="flex flex-wrap justify-between px-8 py-3 bg-yellow-50 rounded-sm shadow border-b-4 border-yellow-500">
+            class="flex flex-wrap justify-between px-8 py-3 bg-yellow-50 rounded-sm shadow border-b-4 border-yellow-500 transition duration-1000 ease-in-out hover:scale-110">
             <a href="" class="" style="text-decoration: none;">
                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-yellow-600 dark:text-white">
                     Categories</h5>
             </a>
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.category }}</h1>
         </div>
+              </router-link>
     </div>
     <!-- <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
       <div class="d-flex flex-row mt-4 align-items-md-center text-center" style="margin-left: 200px;">
@@ -143,6 +156,15 @@
   </script>
   
   <style scoped>
- 
+
+
+.transition-dashboard {
+  transition: all 0.5s ease-in-out;
+
+}
+
+/* .transition-dashboard:hover {
+  transform: scale(1.060)} */
+
   </style>
   

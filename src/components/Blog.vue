@@ -187,11 +187,12 @@
                             <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                         </button>
                     </router-link>
+                            <router-link  :to='`/admin/blog/blogShow/${blog.id}`'>
                     <button type="button" class="bg-color">
-                            <router-link  :to='`/blogsee/${blog.id}`'>
                                 <i class="fa-solid fa-eye mt-3 me-2 color-blue" role="button"></i>
-                </router-link>
                         </button>
+
+                </router-link>
                     <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                         </i></button>
                 </td>

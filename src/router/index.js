@@ -18,15 +18,11 @@ const routes = [
   },
   
   {
-    path: "/blogshow/:id",
-    name: "blogShow",  
-    component:() => import("../components/BlogWeb.vue"),
-  },
-  {
     path: "/blogsee/:id",
     name: "blogsee",  
-    component:() => import("../components/BlogSee.vue"),
+    component:() => import("../components/BlogWeb.vue"),
   },
+ 
   {
     path: "/admin",
     name: "admin", 
@@ -70,6 +66,11 @@ const routes = [
         path: "/admin/blog/edit/:id",
         name: "updateBlog",   
         component:() => import("../components/updateBlog.vue"),
+      },
+      {
+        path: "/admin/blog/blogShow/:id",
+        name: "blogShow",   
+        component:() => import("../components/BlogSee.vue"),
       },
       // {
       //   path: "/admin/footer",

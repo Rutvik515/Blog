@@ -59,6 +59,7 @@
                       <label for="user" class="block text-sm font-medium text-gray-700">
                         User<span class="text-danger">*</span>
                       </label>
+                      
                       <Multiselect
                         v-model="createBlog.user"
                         :options="userOptions"
