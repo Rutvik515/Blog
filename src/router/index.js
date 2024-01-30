@@ -13,15 +13,24 @@ const routes = [
   },
   {
     path: "/",
-    name: "WebShow",  
-    component:() => import("../components/webPage/BlogShow.vue"),
+    name: "WebShow",
+    component: () => import("../components/webPage/BlogShow.vue"),
+    children: [
+      {
+        path: "CategoryShow/:id/blog",
+        name: "CategoryShow",
+        component: () => import("../components/CategoryShow.vue"),
+      },
+    ]
   },
-  
+
   {
     path: "/blogsee/:id",
     name: "blogsee",  
     component:() => import("../components/BlogWeb.vue"),
   },
+
+
  
   {
     path: "/admin",
