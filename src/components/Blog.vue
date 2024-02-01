@@ -110,7 +110,6 @@
         <Multiselect v-model="status" :options="statusOptions" placeholder="Select Status" class="rounded-2" />
     </div>
     
-    <!-- New BLog -->
     <div class="">
         <div class="bg-white rounded-sm">
             <div class="">
@@ -213,8 +212,8 @@
         </div> -->
 
     </table>
-    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2 item">
-        <div class="flex gap-8 md:flex-row flex-col">
+    <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
+        <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
                 <PageEvent @onChange="pageChange" class="p-2 border rounded-md focus:outline-none border-gray-500" />
             </div>
@@ -237,14 +236,13 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 import swal from 'sweetalert2';
 import Multiselect from '@vueform/multiselect';
-
-
 import Pagination from 'v-pagination-3';
 import PageEvent from '@/components/PageEvent.vue'
 import {
     useToast
 } from "vue-toastification";
 const toast = useToast();
+
 
 export default {
     name: 'ContactComponent',
@@ -380,6 +378,7 @@ export default {
         myCallback: function (page) {
             this.getBlogs(page)
         },
+     
 
         getCategories() {
             let data = localStorage.getItem('user');

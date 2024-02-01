@@ -15,15 +15,17 @@ const routes = [
     path: "/",
     name: "WebShow",
     component: () => import("../components/webPage/BlogShow.vue"),
-    children: [
-      {
-        path: "CategoryShow/:id/blog",
-        name: "CategoryShow",
-        component: () => import("../components/CategoryShow.vue"),
-      },
-    ]
   },
-
+  {
+    path: "/contact",
+    name: "contact",
+    component: () => import("../components/webPage/ContactsShow.vue"),
+  },
+  {
+    path: "/category/:id/blog",
+    name: "CategoryShow",
+    component: () => import("../components/CategoryShow.vue"),
+  },
   {
     path: "/blogsee/:id",
     name: "blogsee",  
@@ -65,6 +67,11 @@ const routes = [
         path: "/admin/blog",
         name: "Blog",  
         component:() => import("../components/Blog.vue"),
+      },
+      {
+        path: "/admin/contacts",
+        name: "Contacts",   
+        component:() => import("../components/ContactUs.vue"),
       },
       {
         path: "/admin/blog/create",

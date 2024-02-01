@@ -15,9 +15,11 @@
                         </button>
                     </div>
                     <ul class="list-reset py-2 px-2 text-center flex gap-3 display-none">
+                     <router-link to="/">
                         <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300">Home</a>
+                            <a class="block text-white hover:text-gray-300" href="home">Home</a>
                         </li>
+                     </router-link>
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Blog</a>
                         </li>
@@ -25,7 +27,10 @@
                             <a class="block text-white hover:text-gray-300">Categories</a>
                         </li>
                         <li>
+                            <router-link to="/contact">
                             <a class="block text-white hover:text-gray-300">Contact Us</a>
+                    </router-link>
+
                         </li>
                     </ul>
                 </div>
@@ -33,9 +38,11 @@
                 <!-- Responsive Navbar Menu -->
                 <div v-if="isNavVisible" class="lg:hidden fixed top-14 left-0 right-0 bg-black z-50">
                     <ul class="list-reset py-4 px-2  text-justify">
+                     <router-link to="/">
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Home</a>
                         </li>
+                                            </router-link> 
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Blog</a>
                         </li>

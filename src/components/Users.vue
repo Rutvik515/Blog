@@ -335,23 +335,23 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-justify">
                     Id
                 </th>
 
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-justify">
                     Name
 
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-justify">
                     Email
 
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-justify">
                     Avatar
 
                 </th>
-                <th scope="col" class="px-6 py-3 text-center">
+                <th scope="col" class="px-6 py-3 text-justify">
                     Action
                 </th>
             </tr>
@@ -359,19 +359,19 @@
         <tbody>
             <tr v-for="(user , index) in filterUsers" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-justify">
                     {{ index+1 }}
                 </td>
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-justify">
                     {{ user.name }}
                 </td>
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-justify">
                     {{ user.email }}
                 </td>
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-justify">
                     <img class="img-fluid d-inline justify-content-center rounded-5" :src="user.image" alt="">
                 </td>
-                <td class="px-6 py-4 text-center">
+                <td class="px-6 py-4 text-justify">
                     <button type="button" @click="openEdit(user)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
                     </button>

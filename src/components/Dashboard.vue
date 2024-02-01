@@ -59,6 +59,8 @@
             <h1 class="text-2xl font-semibold text-black">{{ showDashboard.category }}</h1>
         </div>
               </router-link>
+
+              
     </div>
     <!-- <div class="bg-body-secondary container-fluid hg-10 wh-10 ">
       <div class="d-flex flex-row mt-4 align-items-md-center text-center" style="margin-left: 200px;">

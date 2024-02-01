@@ -25,7 +25,7 @@
       </div>
   
       <!-- Social Icons -->
-      <div class="flex justify-center mt-4">
+      <!-- <div class="flex justify-center mt-4">
         <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button">
           <i class="fab fa-facebook-f mr-2"></i>Facebook
         </a>
@@ -38,7 +38,7 @@
         <a data-mdb-ripple-init class="btn text-white btn-floating m-1" style="background-color: #333333;" href="#!" role="button">
           <i class="fab fa-github mr-2"></i>Github
         </a>
-      </div>
+      </div> -->
   
       <!-- Blog Content -->
       <div class="flex flex-col lg:flex-row justify-center items-center text-center mt-8 space-y-4 lg:space-y-0 lg:space-x-8 relative">
@@ -84,7 +84,7 @@
             },
           })
           .then((res) => {
-            this.blogWebs = res.data.data;
+            this.blogWebs = res.data.data.blog;
           })
           .catch((err) => {
             console.log(err);

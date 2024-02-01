@@ -84,7 +84,7 @@
             },
           })
           .then((res) => {
-            this.blogWebs = res.data.data;
+            this.blogWebs = res.data.data.blog;
           })
           .catch((err) => {
             console.log(err);

@@ -134,6 +134,14 @@
                     </a>
                 </router-link>
             </li>
+            <li>
+                <router-link to="/admin/contacts" class="router-link text-decoration-none ">
+                    <a href="#" class="text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" :class="{ 'bg-gray-300 dark:bg-gray-700': $route.path === '/admin/contacts' }">
+                        <i class="fa-regular fa-address-book text-gray-500 transition duration-75 text-xl dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Contacts</span>
+                    </a>
+                </router-link>
+            </li>
         </ul>
     </div>
 </aside>
