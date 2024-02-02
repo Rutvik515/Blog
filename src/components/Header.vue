@@ -7,19 +7,19 @@
                     <img src="../assets/octal-logo.png" alt="" class="rounded-pill" style="width: 40px;" />
                     <h2 class="text-white ml-3">Octal Infotech</h2>
                 </div>
-                
-                <div class="">
+
+                <div class="flex gap-3">
                     <div class="float-end">
                         <button type="button" class="lg:hidden navbar-toggler bg-white float-end " @click="toggleNavVisibility">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                     </div>
                     <ul class="list-reset py-2 px-2 text-center flex gap-3 display-none">
-                     <router-link to="/">
-                        <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300" href="home">Home</a>
-                        </li>
-                     </router-link>
+                        <router-link to="/">
+                            <li class="mb-2">
+                                <a class="block text-white hover:text-gray-300" href="home">Home</a>
+                            </li>
+                        </router-link>
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Blog</a>
                         </li>
@@ -28,21 +28,23 @@
                         </li>
                         <li>
                             <router-link to="/contact">
-                            <a class="block text-white hover:text-gray-300">Contact Us</a>
-                    </router-link>
+                                <a class="block text-white hover:text-gray-300">Contact Us</a>
+                            </router-link>
 
                         </li>
+
                     </ul>
+                    <searchvue @search="handleSearch"/>
                 </div>
 
                 <!-- Responsive Navbar Menu -->
                 <div v-if="isNavVisible" class="lg:hidden fixed top-14 left-0 right-0 bg-black z-50">
                     <ul class="list-reset py-4 px-2  text-justify">
-                     <router-link to="/">
-                        <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300">Home</a>
-                        </li>
-                                            </router-link> 
+                        <router-link to="/">
+                            <li class="mb-2">
+                                <a class="block text-white hover:text-gray-300">Home</a>
+                            </li>
+                        </router-link>
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Blog</a>
                         </li>
@@ -52,32 +54,65 @@
                         <li>
                             <a class="block text-white hover:text-gray-300">Contact Us</a>
                         </li>
+
                     </ul>
                 </div>
             </div>
         </nav>
     </div>
+
 </div>
 </template>
 
-  
+    
 <script>
+// import axios from 'axios';
+import searchvue from '../components/SearchBox.vue'
 export default {
     name: 'headerVue',
+    components:{searchvue},
     data() {
         return {
-            isNavVisible: false
+            isNavVisible: false,
+            blogShows: [],
+            search: '',
         };
+    },
+
+    computed: {
+        filterBlogs() {
+            if (!this.blogShows || !Array.isArray(this.blogShows)) {
+                return [];
+            }
+
+            return this.blogShows.filter((item) => {
+                return Object.values(item).some((val) => {
+                    return String(val).toLowerCase().includes(this.search.toLowerCase());
+                });
+            });
+        }
+    },
+    mounted() {
+        // this.getBlogs();
+    },
+    watch: {
+       
     },
     methods: {
         toggleNavVisibility() {
             this.isNavVisible = !this.isNavVisible;
-        }
-    }
+        },
+        handleSearch(value){
+            this.$emit('search',value) ;
+            // console.log(value);
+        },
+       
+    },
+
 }
 </script>
 
-  
+    
 <style scoped>
 .icon-margin {
     margin-left: 5px;

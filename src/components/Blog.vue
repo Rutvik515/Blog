@@ -344,7 +344,7 @@ export default {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
-            let url = `https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}`;
+            let url = `https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}&search=${this.search}`;
             if(this.search){
                 url+= `&search=${this.search}`;
             }

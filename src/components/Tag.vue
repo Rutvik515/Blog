@@ -231,6 +231,11 @@ export default {
 
         };
     },
+    watch:{
+    search() {
+            this.getTages();
+        },
+    },
     mounted() {
         this.isLoading = true;
         this.getTages(this.page, this.perPage);
@@ -300,7 +305,7 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/tages?page=${page}&per_page=${this.perPage}`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/tages?page=${page}&per_page=${this.perPage}&search=${this.search}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

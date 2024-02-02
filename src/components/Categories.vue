@@ -274,6 +274,11 @@ export default {
             });
         }
     },
+    watch: {
+        search() {
+            this.getCategories();
+        },
+    },
     mounted() {
         this.isLoading = true;
         this.getCategories(this.page, this.perPage);
@@ -343,7 +348,7 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&per_page=${this.perPage}`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&per_page=${this.perPage}&search=${this.search}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

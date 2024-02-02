@@ -17,7 +17,7 @@ export default{
         return{
             emit:['onChange'],
             numbers:[
-                10,15,20
+                10,15,20,25
             ]
         }
     },

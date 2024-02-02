@@ -27,9 +27,14 @@ const routes = [
     component: () => import("../components/CategoryShow.vue"),
   },
   {
-    path: "/blogsee/:id",
-    name: "blogsee",  
+    path: "/blogs/:id",
+    name: "blogs",  
     component:() => import("../components/BlogWeb.vue"),
+  },
+  {
+    path: "/blogssee/:id",
+    name: "blogsee",  
+    component:() => import("../components/BlogSee.vue"),
   },
 
 

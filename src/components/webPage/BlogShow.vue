@@ -1,5 +1,5 @@
 <template>
-<headerVue></headerVue>
+<headerVue @search="search" />
 <carousel :items-to-show="10" :wrap-around="true" class="w-full container-fluid mt-24">
     <slide v-for="categoriesShow in categoriesShows" :key="categoriesShow">
         <div @click="currentActive(categoriesShow.id)" class="cursor-pointer">
@@ -22,33 +22,31 @@
 
 <router-view></router-view>
 
-<section class="container mt-4">
-    <div class="row">
-        <div class="col-md-6 col-xl-4" v-for="blogShow in blogShows" :key="blogShow.id">
-
-            <router-link :to='`/blogsee/${blogShow.id}`'>
-            <div class="mt-5 card " style="width:300px">
-                    <img class="width-img img-fluid hover-effect object-cover" :src="blogShow.image" alt="">
-            </div>
-            <div class=" mt-2 d-flex w-full  justify-center">
-                <div>
-
-                    <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
-
+<section class="container mt-10">
+    <div class="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 w-75">
+        <div v-for="blogShow in blogShows" :key="blogShow.id">
+            <router-link :to="`/blogs/${blogShow.id}`">
+                
+                <div class="bg-white shadow-lg rounded-md overflow-hidden">
+                    <img class="w-full h-48 object-cover" :src="blogShow.image" alt="">
+                    <div class="p-4">
+                        <div class="flex items-center justify-around space-x-4">
+                            <img class="w-10 h-10 rounded-full" :src="blogShow.user_image" alt="">
+                         
+                                <div class="text-sm font-semibold">{{ blogShow.user_name }}</div>
+                                <div class="text-xs text-gray-500">{{ blogShow.date }}</div>
+                                
+                     
+                        </div>
+                        <div class="mt-2 text-lg font-semibold">{{ blogShow.title }}</div>
+                        <!-- <div class="mt-2 text-gray-600" v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description"></div> -->
+                    </div>
                 </div>
-                <div class="ml-4 mt-2 ">{{ blogShow.user_name }}</div>
-                <div class="ml-4 mt-2 ">{{ blogShow.date }}</div>
-            </div>
-            <div class=" text-color">{{ blogShow.category_name }}</div>
-
-            <!-- <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div> -->
-            <div class=" mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description">
-            </div>
-        </router-link>
-
+            </router-link>
         </div>
     </div>
 </section>
+
 
 <section>
     <div class="flex justify-center mt-5 hover-effect1">
@@ -168,11 +166,20 @@ export default {
             isActive: null,
         }
     },
+    watch:{
+    
+    },
     mounted() {
         this.getCategories();
         this.getBlogs()
+        // this.search()
     },
     methods: {
+       
+        search(value){
+        //    console.log(value); 
+           this.getBlogs(1,value)
+        },
 
         getCategories() {
             let data = localStorage.getItem('user');
@@ -196,12 +203,12 @@ export default {
             this.isActive = id;
         },
 
-        getBlogs() {
+        getBlogs(page,search = '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get("https://blog-api-dev.octalinfotech.com/api/blogs?page=1&search=", {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&search=${search}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
