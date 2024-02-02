@@ -25,7 +25,7 @@
         <div class="text-3xl text-gray-900">Blog is not found</div>
     </div>
     <div v-else>
-      
+
         <section class="container mt-4">
 
             <div class="row">
@@ -45,9 +45,12 @@
                         <div class="ml-4 mt-2 ">{{ category.user_name }}</div>
                         <div class="ml-4 mt-2 ">{{ category.date }}</div>
                     </div>
-                    <div class=" text-color">{{ category.category_name }}</div>
+                    <div>
+                        <div class=" text-color">{{ category.category_name }}</div>
 
-                    <!-- <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div> -->
+                        <div class="text-color">{{ category.title }}</div>
+                    </div>
+
                     <div class=" mt-2 " v-html="category.description.length > 99 ? category.description.substring(0, 40) + '.....' : category.description">
                     </div>
 
@@ -97,12 +100,12 @@ export default {
 
     },
     methods: {
-        search(value){
-            this.getBlog(1,value)
+        search(value) {
+            this.getBlog(1, value)
             console.log(value);
 
         },
-        getBlog(page,search = '') {
+        getBlog(page, search = '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
