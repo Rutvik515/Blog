@@ -136,7 +136,10 @@
 
 <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
     <div class="flex gap-8 md:flex-row flex-col mb-5">
-        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+        <div>
+            <searchBox @search="search" />
+            <!-- <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"> -->
+        </div>
     </div>
     <div class="px-6 lg:px-2">
         <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
@@ -166,7 +169,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(category , index) in filterCategories" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr v-for="(category , index) in categories" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                 <td class="px-6 py-4 text-justify">
                     {{ index + 1 }}
@@ -209,6 +212,7 @@
 
 <script>
 import axios from 'axios';
+import searchBox from '../components/SearchBox.vue'
 import swal from 'sweetalert2';
 import {
     useToast
@@ -224,12 +228,13 @@ export default {
     components: {
         Loading,
         Pagination,
-        PageEvent
+        PageEvent,
+        searchBox
     },
     data() {
         return {
             categories: [],
-            search: '',
+            // search: '',
             isLoading: false,
             fullPage: true,
             createCategory: {
@@ -250,38 +255,29 @@ export default {
         }
     },
 
-    // computed : {
-    //       filterCategories()
-    //       {
+  
+
+    // computed: {
+    //     filterCategories() {
+    //         if (!this.categories || !Array.isArray(this.categories)) {
+    //             return [];
+    //         }
+
     //         return this.categories.filter((item) => {
     //             return Object.values(item).some((val) => {
     //                 return String(val).toLowerCase().includes(this.search.toLowerCase());
     //             });
     //         });
-    //       }
+    //     }
     // },
-
-    computed: {
-        filterCategories() {
-            if (!this.categories || !Array.isArray(this.categories)) {
-                return [];
-            }
-
-            return this.categories.filter((item) => {
-                return Object.values(item).some((val) => {
-                    return String(val).toLowerCase().includes(this.search.toLowerCase());
-                });
-            });
-        }
-    },
-    watch: {
-        search() {
-            this.getCategories();
-        },
-    },
+    // watch: {
+    //     search() {
+    //         this.getCategories();
+    //     },
+    // },
     mounted() {
         this.isLoading = true;
-        this.getCategories(this.page, this.perPage);
+        this.getCategories(this.page);
     },
 
     methods: {
@@ -295,7 +291,7 @@ export default {
 
         setCategories() {
             this.page = 1;
-            this.getCategories(this.page, this.perPage);
+            this.getCategories(this.page);
         },
 
         resetFormData() {
@@ -343,12 +339,16 @@ export default {
             this.createCategory.image = event.target.files[0];
         },
 
-        getCategories(page) {
+        search(value) {
+            this.getCategories(1,value);
+        },
+
+        getCategories(page, search= '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&per_page=${this.perPage}&search=${this.search}`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/categories?page=${page}&per_page=${this.perPage}&search=${search}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

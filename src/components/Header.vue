@@ -20,21 +20,24 @@
                                 <a class="block text-white hover:text-gray-300" href="home">Home</a>
                             </li>
                         </router-link>
-                        <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300">Blog</a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300">Categories</a>
-                        </li>
+                        <router-link to="/blog">
+                            <li class="mb-2">
+                                <a class="block text-white hover:text-gray-300">Blog</a>
+                            </li>
+                        </router-link>
+                        <router-link to="/category">
+                            <li class="mb-2">
+                                <a class="block text-white hover:text-gray-300">Categories</a>
+                            </li>
+                        </router-link>
                         <li>
                             <router-link to="/contact">
                                 <a class="block text-white hover:text-gray-300">Contact Us</a>
                             </router-link>
-
                         </li>
 
                     </ul>
-                    <searchvue @search="handleSearch"/>
+                    <searchvue @search="handleSearch" />
                 </div>
 
                 <!-- Responsive Navbar Menu -->
@@ -45,15 +48,21 @@
                                 <a class="block text-white hover:text-gray-300">Home</a>
                             </li>
                         </router-link>
-                        <li class="mb-2">
-                            <a class="block text-white hover:text-gray-300">Blog</a>
-                        </li>
+                        <router-link to="/blog">
+                            <li class="mb-2">
+                                <a class="block text-white hover:text-gray-300">Blog</a>
+                            </li>
+                        </router-link>
+                        <router-link to="/category">
                         <li class="mb-2">
                             <a class="block text-white hover:text-gray-300">Categories</a>
                         </li>
-                        <li>
-                            <a class="block text-white hover:text-gray-300">Contact Us</a>
-                        </li>
+                    </router-link>
+                        <router-link to="/contact">
+                            <li>
+                                <a class="block text-white hover:text-gray-300">Contact Us</a>
+                            </li>
+                        </router-link>
 
                     </ul>
                 </div>
@@ -64,13 +73,14 @@
 </div>
 </template>
 
-    
 <script>
 // import axios from 'axios';
 import searchvue from '../components/SearchBox.vue'
 export default {
     name: 'headerVue',
-    components:{searchvue},
+    components: {
+        searchvue
+    },
     data() {
         return {
             isNavVisible: false,
@@ -96,23 +106,22 @@ export default {
         // this.getBlogs();
     },
     watch: {
-       
+
     },
     methods: {
         toggleNavVisibility() {
             this.isNavVisible = !this.isNavVisible;
         },
-        handleSearch(value){
-            this.$emit('search',value) ;
+        handleSearch(value) {
+            this.$emit('search', value);
             // console.log(value);
         },
-       
+
     },
 
 }
 </script>
 
-    
 <style scoped>
 .icon-margin {
     margin-left: 5px;

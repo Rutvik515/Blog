@@ -17,6 +17,16 @@ const routes = [
     component: () => import("../components/webPage/BlogShow.vue"),
   },
   {
+    path: "/blog",
+    name: "blog",
+    component: () => import("../components/webPage/BlogsFont.vue"),
+  },
+  {
+    path: "/category",
+    name: "category",
+    component: () => import("../components/webPage/CategoryFont.vue"),
+  },
+  {
     path: "/contact",
     name: "contact",
     component: () => import("../components/webPage/ContactsShow.vue"),
@@ -59,18 +69,18 @@ const routes = [
         component:() => import("../components/Categories.vue"),
       },
       {
-        path: "/admin/tag",
-        name: "Tag",   
+        path: "/admin/tags",
+        name: "Tags",   
         component:() => import("../components/Tag.vue"),
       },
       {
-        path: "/admin/user",
-        name: "User",   
+        path: "/admin/users",
+        name: "Users",   
         component:() => import("../components/Users.vue"),
       },
       {
-        path: "/admin/blog",
-        name: "Blog",  
+        path: "/admin/blogs",
+        name: "Blogs",  
         component:() => import("../components/Blog.vue"),
       },
       {

@@ -85,7 +85,7 @@
 <div class="flex flex-col xl:flex-row lg:flex-col gap-3 lg:justify-center justify-center  xl:justify-between px-1.5">
     <div class="">
         <div>
-            <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search">
+           <span><searchBox @search="search"/></span> <!-- <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"> -->
         </div>
     </div>
      <!-- User -->
@@ -151,7 +151,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(blog, index) in filterBlogs" :key="index.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr v-for="(blog, index) in blogs" :key="index.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
                     {{index + 1}}
                 </td>
@@ -232,6 +232,7 @@
 <script>
 // import mainLayout from './mainLayout.vue';
 import axios from 'axios';
+import searchBox from '../components/SearchBox.vue';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 import swal from 'sweetalert2';
@@ -251,12 +252,13 @@ export default {
         Loading,
         Pagination,
         PageEvent,
-        Multiselect
+        Multiselect,
+        searchBox
     },
     data() {
         return {
             blogs: [],
-            search: '',
+            // search: '',
             isLoading: false,
             // currentBlog:'',
             page: 1,
@@ -288,7 +290,7 @@ export default {
         }
     },
     mounted() {
-        this.getBlogs(this.page, this.perPage);
+        this.getBlogs(this.page);
         this.isLoading = true;
         this.getCategories();
         this.getUsers();
@@ -307,26 +309,27 @@ export default {
     console.log(value);
     this.getBlogs(this.page);
     },
-    search(value) {
-    console.log(value);
-    this.getBlogs(this.page);
-    }
+   
   },
 
-    computed: {
-        filterBlogs() {
-            if (!this.blogs || !Array.isArray(this.blogs)) {
-                return [];
-            }
+    // computed: {
+    //     filterBlogs() {
+    //         if (!this.blogs || !Array.isArray(this.blogs)) {
+    //             return [];
+    //         }
 
-            return this.blogs.filter((item) => {
-                return Object.values(item).some((val) => {
-                    return String(val).toLowerCase().includes(this.search.toLowerCase());
-                });
-            });
-        }
-    },
+    //         return this.blogs.filter((item) => {
+    //             return Object.values(item).some((val) => {
+    //                 return String(val).toLowerCase().includes(this.search.toLowerCase());
+    //             });
+    //         });
+    //     }
+    // },
     methods: {
+
+        search(value){
+           this.getBlogs(1 ,value,)
+        },
 
         // openEdit(blog) {
         //     this.currentBlog = JSON.parse(JSON.stringify(blog));
@@ -337,17 +340,16 @@ export default {
         },
         setBlogs() {
             this.page = 1;
-            this.getBlogs(this.page, this.perPage);
+            this.getBlogs(this.page);
         },
 
-        getBlogs(page) {
+        getBlogs(page , search = "") {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
-            let url = `https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}&search=${this.search}`;
-            if(this.search){
-                url+= `&search=${this.search}`;
-            }
+            let url = `https://blog-api-dev.octalinfotech.com/api/blogs?page=${page}&per_page=${this.perPage}&search=${search}`;
+          
+
             if(this.category_id){
                 url+= `&category_id=${this.category_id}`;
             }

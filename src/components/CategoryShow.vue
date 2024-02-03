@@ -1,6 +1,7 @@
 <template>
 <HeaderVue @search="search"></HeaderVue>
-<carousel :items-to-show="10" :wrap-around="true" class="w-full container-fluid mt-24">
+<div>
+    <carousel :items-to-show="7" :wrap-around="true" class="w-full container-fluid mt-24">
     <slide v-for="categoriesShow in categoriesShows" :key="categoriesShow">
         <div @click="currentActive(categoriesShow.id)" class="cursor-pointer">
             <router-link :to='`/category/${categoriesShow.id}/blog`'>
@@ -19,6 +20,8 @@
 
     </template>
 </carousel>
+</div>
+
 
 <div class="container mx-auto p-8">
     <div v-if="total === 0">
@@ -26,41 +29,35 @@
     </div>
     <div v-else>
 
-        <section class="container mt-4">
-
-            <div class="row">
-                <div class="col-md-6 col-xl-4" v-for="category in categoryWebs" :key="category">
-                    <router-link :to='`/blogs/${category.id}`'>
-                        <div class="mt-5 card " style="width:300px">
-                            <img class="width-img img-fluid  object-cover" :src="category.image" alt="">
+        <section class="container mt-10">
+    <div class="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 w-75">
+        <div v-for="category in categoryWebs" :key="category.id">
+            <router-link :to="`/blogs/${category.id}`">
+                
+                <div class="bg-white shadow-lg rounded-md overflow-hidden">
+                    <img class="w-full h-48 object-cover" :src="category.image" alt="">
+                    <div class="p-4">
+                        <div class="flex items-center justify-around space-x-4">
+                            <img class="w-10 h-10 rounded-full" :src="category.user_image" alt="">
+                         
+                                <div class="text-sm font-semibold">{{ category.user_name }}</div>
+                                <div class="text-xs text-gray-500">{{ category.date }}</div>
+                                
+                     
                         </div>
-                    </router-link>
-
-                    <div class=" mt-2 d-flex w-full  justify-center">
-                        <div>
-
-                            <img class="width-img img-fluid  rounded-pill pic-rounded " :src="category.user_image" alt="">
-
-                        </div>
-                        <div class="ml-4 mt-2 ">{{ category.user_name }}</div>
-                        <div class="ml-4 mt-2 ">{{ category.date }}</div>
+                        <div class="mt-2 text-lg font-semibold">{{ category.title }}</div>
+                        <!-- <div class="mt-2 text-gray-600" v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description"></div> -->
                     </div>
-                    <div>
-                        <div class=" text-color">{{ category.category_name }}</div>
-
-                        <div class="text-color">{{ category.title }}</div>
-                    </div>
-
-                    <div class=" mt-2 " v-html="category.description.length > 99 ? category.description.substring(0, 40) + '.....' : category.description">
-                    </div>
-
                 </div>
-            </div>
-        </section>
+            </router-link>
+        </div>
+    </div>
+</section>
+
     </div>
 </div>
 
-<div>
+<div @click="currentActive">
     <FooterVue />
 </div>
 </template>
@@ -69,12 +66,12 @@
 import HeaderVue from './Header.vue';
 import FooterVue from './Footer.vue';
 import axios from 'axios';
+import 'vue3-carousel/dist/carousel.css'
 import {
     Carousel,
     Slide,
     Navigation
 } from 'vue3-carousel'
-
 export default {
     name: 'categoryWeb',
     data() {
@@ -119,7 +116,6 @@ export default {
                 .then((res) => {
                     this.total = res.data.data.total;
                     this.categoryWebs = res.data.data.data;
-                    console.log(res, 'dddd');
                 })
                 .catch((err) => {
                     console.log(err);
@@ -130,7 +126,7 @@ export default {
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get("https://blog-api-dev.octalinfotech.com/api/categories?page=1", {
+            axios.get("https://blog-api-dev.octalinfotech.com/api/categories", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -149,8 +145,7 @@ export default {
                 .then((res) => {
                     this.total = res.data.data.total;
                     this.categoryWebs = res.data.data.data;
-                    console.log(res, 'dddd');
-                })
+                    })
                 .catch((err) => {
                     console.log(err);
                 });

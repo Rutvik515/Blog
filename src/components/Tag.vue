@@ -69,7 +69,7 @@
 
 <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
     <div class="flex gap-8 md:flex-row flex-col mb-5">
-        <div><input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search"></div>
+        <div> <!-- <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search">--> <searchBox @search="search"/> </div> 
     </div>
     <div class="px-6 lg:px-2">
         <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
@@ -97,7 +97,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(tag, index) in filterTages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+            <tr v-for="(tag, index) in tages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                 <td class="px-6 py-4 text-justify">
                     {{ index + 1 }}
@@ -192,6 +192,7 @@
 <script>
 import axios from 'axios';
 import swal from 'sweetalert2';
+import searchBox from '../components/SearchBox.vue';
 
 import {
     useToast
@@ -207,13 +208,14 @@ export default {
     components: {
         Loading,
         PageEvent,
-        Pagination
+        Pagination,
+        searchBox
     },
     data() {
         return {
             isLoading: false,
             fullPage: true,
-            search: '',
+            // search: '',
             tages: [],
             createTag: {
                 name: '',
@@ -231,28 +233,28 @@ export default {
 
         };
     },
-    watch:{
-    search() {
-            this.getTages();
-        },
+     watch:{
+    // search() {
+    //         this.getTages();
+    //     },
     },
     mounted() {
         this.isLoading = true;
-        this.getTages(this.page, this.perPage);
+        this.getTages(this.page,);
     },
-    computed: {
-        filterTages() {
-            if (!this.tages || !Array.isArray(this.tages)) {
-                return [];
-            }
+    // computed: {
+    //     filterTages() {
+    //         if (!this.tages || !Array.isArray(this.tages)) {
+    //             return [];
+    //         }
 
-            return this.tages.filter((item) => {
-                return Object.values(item).some((val) => {
-                    return String(val).toLowerCase().includes(this.search.toLowerCase());
-                });
-            });
-        }
-    },
+    //         return this.tages.filter((item) => {
+    //             return Object.values(item).some((val) => {
+    //                 return String(val).toLowerCase().includes(this.search.toLowerCase());
+    //             });
+    //         });
+    //     }
+    // },
     methods: {
 
         openEdit(tag) {
@@ -264,12 +266,13 @@ export default {
         },
         setTages() {
             this.page = 1;
-            this.getTages(this.page, this.perPage);
+            this.getTages(this.page);
         },
 
         resetFormData() {
             this.createTag.name = '';
         },
+
         createItem() {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
@@ -300,12 +303,17 @@ export default {
 
         },
 
-        getTages(page) {
+        search(value){
+           console.log(value); 
+           this.getTages(1,value)
+        },
+
+        getTages(page , search = '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
 
-            axios.get(`https://blog-api-dev.octalinfotech.com/api/tages?page=${page}&per_page=${this.perPage}&search=${this.search}`, {
+            axios.get(`https://blog-api-dev.octalinfotech.com/api/tages?page=${page}&search=${search}&per_page=${this.perPage}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

@@ -1,17 +1,19 @@
 <template>
-<div class="container mx-auto p-8">
+<headerVue />
+<div class="container mx-auto p-8" style="margin-top: 100px;">
 
     <!-- Navigation -->
     <div class="text-start mt-8">
-        <router-link to="/" class="flex items-center text-gray-600">
-            <i class="fa-solid fa-house"></i>
-            <span class="ml-3">&gt;</span>
-            <span class="ml-3 font-semibold">{{ blogWebs.category_name }}</span>
+        <router-link to="/" class="flex justify-end text-gray-600">
+            <span class="bg-black text-white p-2">Back</span>
+            <!-- <i class="fa-solid fa-house"></i> -->
+            <!-- <span class="ml-3">&gt;</span> -->
+            <!-- <span class="ml-3 font-semibold">{{ blogWebs.category_name }}</span> -->
         </router-link>
     </div>
 
     <!-- Category Name -->
-    <div class="font-size mt-4 text-start">
+    <div class="font-size mt-4 text-start font-semibold text-xl">
         <span>{{ blogWebs.category_name }}</span>
     </div>
 
@@ -55,40 +57,65 @@
     </div>
 
     
+    <!-- <section class="container mt-4">
+        <div class="row">
+            <div class="col-md-6 col-xl-4" v-for="blogShow in blogShows" :key="blogShow.id">
+
+                <div @click="changeCategory(blogShow.id)">
+                    <router-link :to='`/blogs/${blogShow.id}`'>
+                        <div class="mt-5 card " style="width:300px">
+                            <img class="width-img img-fluid hover-effect object-cover" :src="blogShow.image" alt="">
+                        </div>
+                        <div class=" mt-2 d-flex w-full  justify-center gap-4">
+                            <div>
+
+                                <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
+
+                            </div>
+                            <div class="ml-4 mt-2 ">{{ blogShow.user_name }}</div>
+                            <div class="ml-4 mt-2 ">{{ blogShow.date }}</div>
+                        </div>
+                        <div class=" text-color">{{ blogShow.category_name }}</div>
+
+                        <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div>
+                        <div class=" mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description">
+                        </div>
+                    </router-link>
+                </div>
+
+            </div>
+        </div>
+    </section> -->
+
     <section class="container mt-4">
-      <div class="mt-10">
+        <div class="mt-10">
         <hr>
         <div>
-            <h1 class="uppercasefont-semibold text-start mt-3 text-2xl">Related Posts</h1>
+            <h1 class="uppercase semibold text-start mt-3 text-2xl">Related Posts</h1>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6 col-xl-4" v-for="blogShow in blogShows" :key="blogShow.id">
-
-          <div @click="changeCategory(blogShow.id)">
-                    <router-link :to='`/blogs/${blogShow.id}`'>
-            <div class="mt-5 card " style="width:300px">
-                    <img class="width-img img-fluid hover-effect object-cover" :src="blogShow.image" alt="">
-            </div>
-            <div class=" mt-2 d-flex w-full  justify-center gap-4">
-                <div>
-
-                    <img class="width-img img-fluid  rounded-pill pic-rounded " :src="blogShow.user_image" alt="">
-
+    <div class="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 w-75 mt-3">
+        <div v-for="blogShow in blogShows" :key="blogShow.id">
+            <div @click="changeCategory(blogShow.id)">
+            <router-link :to="`/blogs/${blogShow.id}`">
+                
+                <div class="bg-white shadow-lg rounded-md overflow-hidden">
+                    <img class="w-full h-48 object-cover" :src="blogShow.image" alt="">
+                    <div class="p-4">
+                        <div class="flex items-center justify-around space-x-4">
+                            <img class="w-10 h-10 rounded-full" :src="blogShow.user_image" alt="">
+                         
+                                <div class="text-sm font-semibold">{{ blogShow.user_name }}</div>
+                                <div class="text-xs text-gray-500">{{ blogShow.date }}</div>
+                                
+                     
+                        </div>
+                        <div class="mt-2 text-lg font-semibold">{{ blogShow.title }}</div>
+                        <!-- <div class="mt-2 text-gray-600" v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description"></div> -->
+                    </div>
                 </div>
-                <div class="ml-4 mt-2 ">{{ blogShow.user_name }}</div>
-                <div class="ml-4 mt-2 ">{{ blogShow.date }}</div>
-            </div>
-            <div class=" text-color">{{ blogShow.category_name }}</div>
-
-
-            <!-- <div class="mr-28 mt-2 text-color">{{ blogShow.title }}</div> -->
-            <div class=" mt-2 " v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description">
-            </div>
-        </router-link>
-</div>
-        
-
+            </router-link>
+        </div>
         </div>
     </div>
 </section>
@@ -122,13 +149,22 @@
         </div>
     </section> -->
 </div>
+<div class="" style="margin-top: 50px;">
+    <footerVue />
+</div>
 </template>
 
 <script>
 import axios from 'axios';
+import headerVue from '../components/Header.vue';
+import footerVue from '../components/Footer.vue'
 
 export default {
     name: 'blogWeb',
+    components: {
+        headerVue,
+        footerVue
+    },
     data() {
         return {
             blogWebs: {},

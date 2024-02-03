@@ -103,26 +103,26 @@
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/blog" class="router-link text-decoration-none ">
+                <router-link to="/admin/blogs" class="router-link text-decoration-none ">
                     <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" :class="{ 'bg-gray-300 dark:bg-gray-700': $route.path === '/admin/blog' }">
                         <i class="fa-solid fa-blog fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3 font-serif text-gray-700 text-xl">Blog</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Blogs</span>
                     </a>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/tag" class="router-link text-decoration-none ">
+                <router-link to="/admin/tags" class="router-link text-decoration-none ">
                     <a href="#" class=" text-decoration-none flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" :class="{ 'bg-gray-300 dark:bg-gray-700': $route.path === '/admin/tag' }">
                         <i class="fa-solid fa-tag fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3 font-serif text-gray-700 text-xl">Tag</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Tags</span>
                     </a>
                 </router-link>
             </li>
             <li>
-                <router-link to="/admin/user" class="router-link text-decoration-none ">
+                <router-link to="/admin/users" class="router-link text-decoration-none ">
                     <a href="#" class="text-decoration-none  flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group" :class="{ 'bg-gray-300 dark:bg-gray-700': $route.path === '/admin/user' }">
                         <i class="fa-solid fa-user fa-lg text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"></i>
-                        <span class="ms-3 font-serif text-gray-700 text-xl">User</span>
+                        <span class="ms-3 font-serif text-gray-700 text-xl">Users</span>
                     </a>
                 </router-link>
             </li>
