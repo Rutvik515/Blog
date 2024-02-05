@@ -12,7 +12,7 @@
             <div class="modal-content" style="width: auto;">
               <div class="modal-header">
                 <h5 class="modal-title">New Blog</h5>
-                <router-link to="/admin/blog">
+                <router-link to="/admin/blogs">
                   <button
                     type="button"
                     class="bg-dark text-white rounded-2 p-2 mr-5 mt-3"
@@ -154,7 +154,7 @@
       <div class="">
         <hr />
         <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16 mt-3">
-          <router-link to="/admin/blog">
+          <router-link to="/admin/blogs">
 
           <BButton type="button" class="btn btn-secondary" variant="outline-secondary">
             Cancel

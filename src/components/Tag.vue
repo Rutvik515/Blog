@@ -69,7 +69,10 @@
 
 <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
     <div class="flex gap-8 md:flex-row flex-col mb-5">
-        <div> <!-- <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search">--> <searchBox @search="search"/> </div> 
+        <div>
+            <!-- <input type="text" v-model="search" class="p-2 border rounded-md focus:outline-none border-gray-500" placeholder="Search">-->
+            <searchBox @search="search" />
+        </div>
     </div>
     <div class="px-6 lg:px-2">
         <div class="xl:flex-row xl:justify-between lg:flex-row lg:justify-between flex flex-col lg:gap-0 gap-2 items-center bg-white md:p-4 p-3 mb-3 rounded-sm">
@@ -79,45 +82,50 @@
         </div>
     </div>
 </div>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
-    <table class="w-full text-sm  text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr class="">
-                <th scope="col" class="px-6 py-3 text-justify">
-                    Id
-                </th>
 
-                <th scope="col" class="px-6 py-3 text-justify">
-                    Tag Name
-                </th>
-                <th scope="col" class="px-6 py-3 text-justify">
-                    Action
-                </th>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
+        <table class="w-full text-sm  text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr class="">
+                    <th scope="col" class="px-6 py-3 text-justify">
+                        Id
+                    </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(tag, index) in tages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <th scope="col" class="px-6 py-3 text-justify">
+                        Tag Name
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-justify">
+                        Action
+                    </th>
 
-                <td class="px-6 py-4 text-justify">
-                    {{ index + 1 }}
-                </td>
-                <td class="px-6 py-4 text-justify">
-                    {{ tag.name }}
-                </td>
+                </tr>
+            </thead>
+            <tbody>
+                <template v-if="tages?.length > 0">
+                    <tr v-for="(tag, index) in tages" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-                <td class="px-6 py-4 text-justify">
-                    <button type="button" @click="openEdit(tag)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                    </button>
+                        <td class="px-6 py-4 text-justify">
+                            {{ index + 1 }}
+                        </td>
+                        <td class="px-6 py-4 text-justify">
+                            {{ tag.name }}
+                        </td>
 
-                    <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
-                </td>
+                        <td class="px-6 py-4 text-justify">
+                            <button type="button" @click="openEdit(tag)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                            </button>
 
-            </tr>
+                            <button class="bg-color" @click="removeItem(tag.id)" href=""><i class="fa-solid fa-trash color-red" role="button"></i></button>
+                        </td>
 
-        </tbody>
-    </table>
+                    </tr>
+                </template >
+                    <tr v-else>
+                        <span class="px-6 py-4 flex float-end font-semibold text-2xl text-center"> {{ message }}</span>
+                    </tr>
+            </tbody>
+        </table>
     <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
         <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
@@ -179,7 +187,7 @@
             </div>
 
             <div class="modal-footer">
-                <BButton  class=" border-1 rounded-1 " data-bs-dismiss="modal"  variant="outline-secondary">Cancle</BButton>
+                <BButton class=" border-1 rounded-1 " data-bs-dismiss="modal" variant="outline-secondary">Cancle</BButton>
 
                 <BButton @click="createItem" class="float-lg-end   border-1 rounded-1 " variant="outline-primary" data-bs-dismiss="modal">Submit</BButton>
 
@@ -225,6 +233,7 @@ export default {
                 name: '',
 
             }],
+            message:"No Tages found.",
             page: 1,
             total: 0,
             last_page: null,
@@ -233,14 +242,14 @@ export default {
 
         };
     },
-     watch:{
-    // search() {
-    //         this.getTages();
-    //     },
+    watch: {
+        // search() {
+        //         this.getTages();
+        //     },
     },
     mounted() {
         this.isLoading = true;
-        this.getTages(this.page,);
+        this.getTages(this.page, );
     },
     // computed: {
     //     filterTages() {
@@ -303,12 +312,12 @@ export default {
 
         },
 
-        search(value){
-           console.log(value); 
-           this.getTages(1,value)
+        search(value) {
+            console.log(value);
+            this.getTages(1, value)
         },
 
-        getTages(page , search = '') {
+        getTages(page, search = '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;

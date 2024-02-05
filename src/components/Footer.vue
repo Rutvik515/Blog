@@ -28,7 +28,8 @@
                         <router-link :to='`/category/${category.id}/blog`'>
                             <li>
                             </li>
-                            <a href="#" class="text-white transition hover:opacity-75 " :class="category.id === isActive ? 'active' : ''"> {{category.name}} <span>({{ category.blog_count }})</span></a>
+                            <a href="#" class="text-white  transition hover:opacity-75 p-2" :class="category.id === isActive ? 'router-link-active' : ''">
+                                 {{category.name}} <span>({{ category.blog_count }})</span></a>
                         </router-link>
                     </div>
                 </ul>
@@ -235,10 +236,7 @@ export default {
     animation: animate 4s linear infinite !important;
 }
 
-.active {
-    border-bottom: black solid 2px;
-    color: red
-}
+
 
 .wave#wave3 {
     z-index: 1000;
@@ -247,6 +245,10 @@ export default {
     animation: animateWaves 3s linear infinite;
 }
 
+.router-link-active{
+    background: gray !important;
+    color: rgba(0, 0, 0, 0) !important;;
+}
 .wave#wave4 {
     z-index: 999;
     opacity: 0.7;

@@ -4,6 +4,9 @@
     <section class="container mt-28">
         <div class="container grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-16 w-75">
             <div v-for="category in categories" :key="category.id">
+        <!-- <div @click="currentActive(category.id)" class="cursor-pointer"> -->
+            <router-link :to='`/category/${category.id}/blog`'>
+
                 <div class="bg-white shadow-lg rounded-md overflow-hidden">
                     <img class="w-full h-48 object-cover" :src="category.image" alt="">
                     <div class="p-4">
@@ -18,6 +21,8 @@
                         <!-- <div class="mt-2 text-gray-600" v-html="blogShow.description.length > 99 ? blogShow.description.substring(0, 40) + '.....' : blogShow.description"></div> -->
                     </div>
                 </div>
+            </router-link>
+                <!-- </div> -->
             </div>
         </div>
     </section>

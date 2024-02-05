@@ -151,6 +151,9 @@
             </tr>
         </thead>
         <tbody>
+                        <template v-if="blogs?.length > 0">
+           
+
             <tr v-for="(blog, index) in blogs" :key="index.id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <td class="px-6 py-4">
                     {{index + 1}}
@@ -195,7 +198,10 @@
                     <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
                         </i></button>
                 </td>
-
+            </tr>
+            </template>
+            <tr v-else >
+               <span class="px-6 py-4 flex float-end font-semibold text-2xl text-center"> {{ message }}</span>
             </tr>
 
         </tbody>
@@ -258,6 +264,8 @@ export default {
     data() {
         return {
             blogs: [],
+        message : "No blogs found.",
+
             // search: '',
             isLoading: false,
             // currentBlog:'',

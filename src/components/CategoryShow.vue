@@ -9,7 +9,7 @@
 
                     <img class="rounded-pill h-[50px] w-[50px]" :src="categoriesShow.image" alt="">
                 </div>
-                <div class="mt-3" :class="categoriesShow.id === isActive ? 'active' : ''">
+                <div class="mt-3" :class="categoriesShow.id == isActive ? 'active' : ''">
                     {{ categoriesShow.name }}
                 </div>
             </router-link>
@@ -79,7 +79,7 @@ export default {
             categoryWebs: [],
             total: 0,
             categoriesShows: [],
-            isActive: null,
+            isActive: '',
 
         };
     },
@@ -116,6 +116,8 @@ export default {
                 .then((res) => {
                     this.total = res.data.data.total;
                     this.categoryWebs = res.data.data.data;
+                this.categoriesShows = res.data.data.data;
+                    this.isActive = this.$route.params.id;
                 })
                 .catch((err) => {
                     console.log(err);
@@ -132,19 +134,22 @@ export default {
                 }
             }).then((res) => {
                 this.categoriesShows = res.data.data.data;
+                
                 this.isLoading = false;
             }).catch((err) => {
                 console.log(err);
             })
 
         },
-        currentActive(id) {
-            this.isActive = id;
+        currentActive() {
             axios
-                .get(`https://blog-api-dev.octalinfotech.com/api/categories/${this.$route.params.id}/blogs`, {})
+            .get(`https://blog-api-dev.octalinfotech.com/api/categories/${this.$route.params.id}/blogs`)
                 .then((res) => {
                     this.total = res.data.data.total;
                     this.categoryWebs = res.data.data.data;
+                    this.categoryWebs = res.data.data.data;
+                    this.isActive = this.$route.params.id;
+                    console.log(this.$route.params.id);
                     })
                 .catch((err) => {
                     console.log(err);
@@ -176,7 +181,8 @@ export default {
 }
 
 .active {
-    border-bottom: black solid 2px;
+    border-bottom: black solid 4px;
     color: red
 }
+
 </style>

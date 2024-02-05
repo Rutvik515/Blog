@@ -334,6 +334,7 @@
         </div>
     </div>
 </div>
+
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -360,6 +361,8 @@
             </tr>
         </thead>
         <tbody>
+            <template v-if="users?.length > 0">
+
             <tr v-for="(user , index) in users" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                 <td class="px-6 py-4 text-justify">
@@ -384,9 +387,13 @@
                 </td>
 
             </tr>
-
+        </template>
+        <tr v-else>
+                        <span class="px-6 py-4 flex float-end font-semibold text-2xl text-center"> {{ message }}</span>
+                    </tr>
         </tbody>
     </table>
+
     <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
         <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
@@ -437,6 +444,7 @@ export default {
     data() {
         return {
             // openModel: false,
+            message:'No Tages found.',
             users: [],
             // search: '',
             isLoading: false,

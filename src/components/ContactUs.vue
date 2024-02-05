@@ -15,6 +15,7 @@
        
     </div>
 </div>
+
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg justify-center">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -36,6 +37,8 @@
             </tr>
         </thead>
         <tbody>
+            <template v-if="contacts?.length > 0">
+
             <tr v-for="(contact, index) in contacts" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
                 <td class="px-6 py-4 text-justify">
@@ -53,7 +56,10 @@
                 </td>
 
             </tr>
-
+        </template>
+        <tr v-else >
+               <span class="px-6 py-4 flex float-end font-semibold text-2xl text-center"> {{ message }}</span>
+            </tr>
         </tbody>
     </table>
     <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
@@ -97,6 +103,7 @@ export default {
             fullPage: true,
             // search: '',
             contacts: [],
+            message: 'No Categories found.',
            
             page: 1,
             total: 0,

@@ -105,7 +105,7 @@
                     <div class="modal-content" style="width: auto;">
                         <div class="modal-header">
                             <h5 class="modal-title">Update Blog</h5>
-                            <router-link to="/admin/blog">
+                            <router-link to="/admin/blogs">
                                 <button type="button" class="bg-dark text-white rounded-2 p-2 mr-5 mt-3">
                                     Back
                                 </button>
@@ -200,11 +200,12 @@
         <div class="">
             <hr />
             <div class="modal-footer sm:mr-2 md:mr-4 lg:mr-8 xl:mr-12 2xl:mr-16 mt-3">
-                <router-link to="/admin/blog">
+                <router-link to="/admin/blogs">
                 <BButton type="button" class="btn btn-secondary" variant="outline-secondary">
                     Cancel
                 </BButton>
             </router-link>
+            
                 <BButton type="submit" class="btn btn-primary ms-2 sm:ms-4 md:ms-6 lg:ms-8 xl:ms-10 2xl:ms-12" @click="updateItem(currentBlog.id)" variant="outline-primary">
                     Submit
                 </BButton>
@@ -280,7 +281,7 @@ export default {
         this.getTages();
         this.getCategories();
         this.getBlogs(useRoute().params.id);
-
+         
     },
 
     methods: {
@@ -295,12 +296,11 @@ export default {
                     Authorization: `Bearer ${token}`
                 }
             }).then((res) => {
-                this.currentBlog = res.data.data;
+                this.currentBlog = res.data.data.blog;
 
                 console.error(res.data.data);
 
-                this.currentBlog.tag = this.currentBlog.tag
-                    .map((item) => {
+                this.currentBlog.tag = this.currentBlog.tag.map((item) => {
                         return item.id;
                     });
                 this.currentBlog.user_id = this.currentBlog.user_id
@@ -415,7 +415,7 @@ export default {
                     timeout: 2000
                 });
 
-                this.$router.push("/admin/blog");
+                this.$router.push("/admin/blogs");
 
             }).catch((err) => {
                 console.log(err);

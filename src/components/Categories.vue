@@ -12,7 +12,7 @@
             <BButton @click="resetFormData" class="float-lg-end border-1 rounded-1 mr-5 mt-3 p-2 " data-bs-toggle="modal" variant="outline-primary" data-bs-target="#exampleModal1">New Categories</BButton>
         </div>
         </div>
-     
+
         <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
         <div class="mt-6 table-responsive-sm">
 
@@ -28,7 +28,7 @@
                             <th scope="col">Categories Name</th>
                             <th scope="col">Avatar</th>
                             <th scope="col">Action</th>
-                           
+
                         </tr>
                     </thead>
                     <tbody>
@@ -52,76 +52,76 @@
             </div>
         </div> -->
 
-        <!-- edit modal -->
+<!-- edit modal -->
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update tag</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
-                        <div class="text-start">
+                <div class="text-start">
 
-                            <label for="">Category image <span class="text-danger">*</span></label>
-                            <div class=" border-2 p-1 text-center rounded-2 w-full">
-                                <input type="file" class="custom-file-input" @change="uploadImage">
-
-                            </div>
-                        </div>
-                        <div class="mt-2 text-start">
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentCategory.name"></div>
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                 <BButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" variant="outline-secondary" >Cancle</BButton>
-
-                        <BButton @click="updateItem(currentCategory.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal" variant="outline-primary">Submit</BButton>
+                    <label for="">Category image <span class="text-danger">*</span></label>
+                    <div class=" border-2 p-1 text-center rounded-2 w-full">
+                        <input type="file" class="custom-file-input" @change="uploadImage">
 
                     </div>
                 </div>
-            </div>
-        </div>
+                <div class="mt-2 text-start">
+                    <label for="">Name<span class="text-danger">*</span></label>
+                    <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="" v-model="currentCategory.name"></div>
 
-        <!-- Create Modal-->
-        <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">New Categories</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="mt-2 text-start">
-                            <label for="">Name<span class="text-danger">*</span></label>
-                            <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createCategory.name"></div>
-
-                        </div>
-                    </div>
-
-                    <div class="text-start p-0">
-
-                        <label class="container">Category image <span class="text-danger">*</span></label>
-                        <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
-                            <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <BButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" variant="outline-secondary">Cancle</BButton>
-
-                        <BButton type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal" variant="outline-primary">Submit</BButton>
-
-                    </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <BButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" variant="outline-secondary">Cancle</BButton>
+
+                <BButton @click="updateItem(currentCategory.id)" type="button" class="btn btn-primary" data-bs-dismiss="modal" variant="outline-primary">Submit</BButton>
+
+            </div>
         </div>
-    <!-- </div> -->
-    <!-- <div class="d-flex justify-content-between ">
+    </div>
+</div>
+
+<!-- Create Modal-->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Categories</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="mt-2 text-start">
+                    <label for="">Name<span class="text-danger">*</span></label>
+                    <div><input class="border-2 p-2 w-full rounded-2" type="text" placeholder="Enter your categories name" v-model="createCategory.name"></div>
+
+                </div>
+            </div>
+
+            <div class="text-start p-0">
+
+                <label class="container">Category image <span class="text-danger">*</span></label>
+                <div id="fileupload" class="container border-2 pl-1 text-start rounded-2 w-full " style="width: 466px;height: 44px;">
+                    <input ref="fileupload" type="file" class="custom-file-input mt-1" style="cursor: pointer;" @input="uploadImage1">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <BButton type="button" class="btn btn-secondary" data-bs-dismiss="modal" variant="outline-secondary">Cancle</BButton>
+
+                <BButton type="button" @click="createItem" class="btn btn-primary" data-bs-dismiss="modal" variant="outline-primary">Submit</BButton>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- </div> -->
+<!-- <div class="d-flex justify-content-between ">
         <PageEvent @onChnage="pageChange" />
         <div v-if="last_page > 1">
 
@@ -130,7 +130,6 @@
     </div> -->
 
 <!-- </div> -->
-
 
 <loading v-model:active="isLoading" :can-cancel="true" :is-full-page="fullPage" />
 
@@ -154,45 +153,54 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3 text-justify">
-                   Sr No
+                    Sr No
                 </th>
 
                 <th scope="col" class="px-6 py-3 text-justify">
                     Categories Name
-                </th> <th scope="col" class="px-6 py-3 text-justify">
+                </th>
+                <th scope="col" class="px-6 py-3 text-justify">
                     Avatar
                 </th>
                 <th scope="col" class="px-6 py-3 text-justify">
                     Action
                 </th>
-
+ 
             </tr>
         </thead>
         <tbody>
-            <tr v-for="(category , index) in categories" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+       
+            <template v-if="categories?.length > 0">
+                <tr v-for="(category , index) in categories" :key="index" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
 
-                <td class="px-6 py-4 text-justify">
-                    {{ index + 1 }}
-                </td>
-                <td class="px-6 py-4 text-justify">
-                    {{ category.name }}
-                </td>  <td class="px-6 py-4 text-justify">
-                    <img class="img-fluid d-inline justify-content-center rounded-5" :src="category.image" alt="">
-                </td>
+                    <td class="px-6 py-4 text-justify">
+                        {{ index + 1 }}
+                    </td>
+                    <td class="px-6 py-4 text-justify">
+                        {{ category.name }}
+                    </td>
+                    <td class="px-6 py-4 text-justify">
+                        <img class="img-fluid d-inline justify-content-center rounded-5" :src="category.image" alt="">
+                    </td>
 
-                <td class="px-6 py-4 text-justify">
-                    <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
-                                </button>
+                    <td class="px-6 py-4 text-justify">
+                        <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                        </button>
 
-                                <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
-                                    </i></button>
-                </td>
+                        <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                            </i></button>
+                    </td>
+                </tr>
 
+            </template>
+            <tr v-else >
+               <span class="px-6 py-4 flex float-end font-semibold text-2xl text-center"> {{ message }}</span>
             </tr>
 
         </tbody>
     </table>
+
     <div class="items-center md:flex-row flex-col flex justify-between px-1.5 mb-2">
         <div class="flex gap-8 md:flex-row flex-col mb-5">
             <div>
@@ -234,6 +242,7 @@ export default {
     data() {
         return {
             categories: [],
+            message: 'No Categories found.',
             // search: '',
             isLoading: false,
             fullPage: true,
@@ -254,8 +263,6 @@ export default {
 
         }
     },
-
-  
 
     // computed: {
     //     filterCategories() {
@@ -340,10 +347,10 @@ export default {
         },
 
         search(value) {
-            this.getCategories(1,value);
+            this.getCategories(1, value);
         },
 
-        getCategories(page, search= '') {
+        getCategories(page, search = '') {
             let data = localStorage.getItem('user');
             data = JSON.parse(data);
             let token = data.token;
@@ -546,21 +553,18 @@ th {
     background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
 }
 
-
 .icon-margin {
     margin-left: -125px;
     margin-top: 16px;
     z-index: 1;
     padding: 12px;
-  
+
 }
 
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
     .width {
         width: 90rem;
         margin-right: 40px;
     }
 }
-
-
 </style>
