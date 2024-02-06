@@ -2,6 +2,7 @@
 // import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
 export default{
     name:'sera-ve',
+    
     methods:{
         handleSearch (event){
             this.$emit('search',event.target.value) 

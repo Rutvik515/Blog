@@ -3,10 +3,12 @@
     <div class="header">
         <nav class="navbar navbar-expand-lg bg-gray-400 fixed-top">
             <div class="container flex items-center justify-between">
+                <router-link to="/">
                 <div class="flex items-center">
                     <img src="../assets/octal-logo.png" alt="" class="rounded-pill" style="width: 40px;" />
                     <h2 class="text-white ml-3">Octal Infotech</h2>
                 </div>
+            </router-link>
 
                 <div class="flex gap-3">
                     <div class="float-end">
@@ -65,6 +67,8 @@
                         </router-link>
 
                     </ul>
+                    <searchvue @search="handleSearch" />
+
                 </div>
             </div>
         </nav>
