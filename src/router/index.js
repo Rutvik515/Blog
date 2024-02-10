@@ -85,22 +85,22 @@ const routes = [
       },
       {
         path: "/admin/contacts",
-        name: "Contacts",   
+        name: "Contact Us",   
         component:() => import("../components/ContactUs.vue"),
       },
       {
-        path: "/admin/blog/create",
-        name: "createBlog",   
+        path: "/admin/blogs/create",
+        name: "New Blog",   
         component:() => import("../components/createBlog.vue"),
       },
       {
-        path: "/admin/blog/edit/:id",
-        name: "updateBlog",   
+        path: "/admin/blogs/edit/:id",
+        name: "Update Blog",   
         component:() => import("../components/updateBlog.vue"),
       },
       {
-        path: "/admin/blog/blogShow/:id",
-        name: "blogShow",   
+        path: "/admin/blogs/blogShow/:id",
+        name: "Show Blog",    
         component:() => import("../components/BlogSee.vue"),
       },
       // {

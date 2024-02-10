@@ -113,7 +113,7 @@
     <div class="">
         <div class="bg-white rounded-sm">
             <div class="">
-                <router-link to="/admin/blog/create">
+                <router-link to="/admin/blogs/create">
                     <BButton @click="resetFormData" class="border-1 rounded-1" variant="outline-primary">New Blog</BButton>
                 </router-link>
             </div>
@@ -183,19 +183,19 @@
                     <span class="" style="color: black;"><span class="badge rounded-pill" style="font-size: 14px;" :class="blog.status === 1 ? 'green' : 'red'">{{ blog.status === 1
                                     ? 'Published' : 'UnPublished' }}</span></span>
                 </td>
-                <td class="px-6 py-4">
-                    <router-link :to='`/admin/blog/edit/${blog.id}`'>
+                <td class="px-6 py-4 ">
+                    <router-link :to='`/admin/blogs/edit/${blog.id}`'>
                         <button type="button" class="bg-color">
-                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue text-xl" role="button"></i>
                         </button>
                     </router-link>
-                            <router-link  :to='`/admin/blog/blogShow/${blog.id}`'>
-                    <button type="button" class="bg-color">
-                                <i class="fa-solid fa-eye mt-3 me-2 color-blue" role="button"></i>
+                            <router-link  :to='`/admin/blogs/blogShow/${blog.id}`'>
+                    <button type="button" class="bg-color ">
+                                <i class="fa-solid fa-eye mt-3 me-2 color-blue text-xl" role="button"></i>
                         </button>
 
                 </router-link>
-                    <button class="bg-color" @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                    <button class="bg-color " @click="removeItem(blog.id)" href=""><i class="fa-solid fa-trash color-red text-xl" role="button">
                         </i></button>
                 </td>
             </tr>

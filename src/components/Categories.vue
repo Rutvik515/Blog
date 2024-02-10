@@ -185,10 +185,10 @@
 
                     <td class="px-6 py-4 text-justify">
                         <button type="button" @click="openEdit(category)" class="bg-color" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue" role="button"></i>
+                            <i class="fa-regular fa-pen-to-square mt-3 me-2 color-blue  text-xl" role="button"></i>
                         </button>
 
-                        <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red" role="button">
+                        <button class="bg-color" @click="removeItem(category.id)" href=""><i class="fa-solid fa-trash color-red  text-xl" role="button">
                             </i></button>
                     </td>
                 </tr>

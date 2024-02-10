@@ -3,10 +3,12 @@
   
       <!-- Navigation -->
       <div class="text-start mt-8">
-        <router-link to="/admin/blog" class="flex items-center text-gray-600">
-          <i class="fa-solid fa-house"></i>
+        <router-link to="/admin/blogs" class="flex justify-end text-gray-600">
+          <span class="bg-black text-white p-2">Back</span>
+
+          <!-- <i class="fa-solid fa-house"></i>
           <span class="ml-3">&gt;</span>
-          <span class="ml-3 font-semibold">{{ blogWebs.category_name }}</span>
+          <span class="ml-3 font-semibold">{{ blogWebs.category_name }}</span> -->
         </router-link>
       </div>
   
