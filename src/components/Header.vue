@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="header">
-        <nav class="navbar navbar-expand-lg bg-gray-400 fixed-top">
+    <nav class="navbar navbar-expand-lg bg-gray-400 fixed-top">
             <div class="container flex items-center justify-between">
                 <router-link to="/">
                 <div class="flex items-center">

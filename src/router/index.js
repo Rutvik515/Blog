@@ -47,7 +47,11 @@ const routes = [
     component:() => import("../components/BlogSee.vue"),
   },
 
-
+  {
+    path: "/navbar",
+    name: "navbar",  
+    component:() => import("../components/navbar.vue"),
+  },
  
   {
     path: "/admin",

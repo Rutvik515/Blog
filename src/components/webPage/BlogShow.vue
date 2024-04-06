@@ -9,7 +9,7 @@
                 <img class="rounded-pill h-[50px] w-[50px]" :src="categoriesShow.image" alt="">
             </div>
             <div class="mt-3" :class="categoriesShow.id === isActive ? 'active' : ''">
-                {{ categoriesShow.name }}
+                {{ categoriesShow.name }}   
             </div>
         </router-link>
         </div>
@@ -67,8 +67,8 @@
     
 
                   <!-- carousel -->
-<section class="mt-16">
-    <div id="default-carousel" class="relative w-75 container" data-carousel="slide">
+                  <section class="mt-16">
+                  <div id="default-carousel" class="relative w-75 container" data-carousel="slide">
     <!-- Carousel wrapper -->
     <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
          <!-- Item 1 -->
